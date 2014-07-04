@@ -2,3 +2,24 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // bower:scss
 @import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
+
+p {
+  font-size: 1.5em;
+  line-height: 1.5em;
+}
+
+.list-item {
+  list-style-type: none;
+  width: 100%;
+  text-align: center;
+  @extend p;
+}
+
+.menu {
+
+  padding: 0px;
+
+  li {
+    @extend .list-item;
+  }
+}
