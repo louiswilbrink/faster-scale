@@ -8,5 +8,9 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('MainCtrl', function () {
+  .controller('MainCtrl', function ($scope, $location) {
+
+    $scope.navigateTo = function (path) {
+      $location.path(path);
+    };
   });

@@ -1,0 +1,47 @@
+'use strict';
+
+/**
+ * @ngdoc service
+ * @name fasterScaleApp.fasterScale
+ * @description
+ * # fasterScale
+ * Service in the fasterScaleApp.
+ */
+angular.module('fasterScaleApp')
+  .service('FasterScale', function FasterScale(SCALE) {
+
+    var fasterScale = SCALE,
+        currentStage = 0,
+        currentScale = [];
+
+    return {
+
+      selectStage: function (index) {
+
+        currentStage = index;
+      }, 
+
+      selectBehavior: function (id) {
+
+        console.log($.inArray(id, currentScale));
+        if ($.inArray(id, currentScale)) {
+          console.log(currentScale);
+          return;
+        }
+        else {
+          currentScale.push(id);
+          console.log(currentScale);
+        }
+      }, 
+      
+      getBehaviors: function () {
+
+        return fasterScale[currentStage].behaviors;
+      },
+
+      getScale: function () {
+
+        return fasterScale;
+      }
+    };
+  });

@@ -23,9 +23,13 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+      .when('/select-stage', {
+        templateUrl: 'views/select-stage.html',
+        controller: 'MainCtrl'
+      })
+      .when('/select-behaviors', {
+        templateUrl: 'views/select-behaviors.html',
+        controller: 'MainCtrl'
       })
       .otherwise({
         redirectTo: '/'

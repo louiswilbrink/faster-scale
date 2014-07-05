@@ -1,0 +1,8 @@
+<div ng-controller="BehaviorsCtrl">
+  <div class="instruction text-center">
+    <h1>Select behaviors</h1>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="behavior in behaviorsCtrl.behaviors" ng-click="behaviorsCtrl.toggleBehavior(behavior.id)" ng-class="{ 'active' : behaviorsCtrl.minorBehaviors.indexOf(behavior.id) !== -1 }">{{ behavior.description }}</li>
+  </ul>
+</div>
