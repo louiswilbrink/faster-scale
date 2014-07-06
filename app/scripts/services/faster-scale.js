@@ -15,7 +15,6 @@ angular.module('fasterScaleApp')
         minorBehaviors = [],
         majorBehaviors = [];
 
-
     return {
 
       selectStage: function (index) {
@@ -35,11 +34,6 @@ angular.module('fasterScaleApp')
         $rootScope.$broadcast('MinorBehaviorsUpdated');
       }, 
 
-      deselectBehavior: function (id) {
-
-        console.log('deselectBehavior');
-      },
-      
       getBehaviors: function () {
 
         return fasterScale[currentStage].behaviors;

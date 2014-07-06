@@ -13,4 +13,9 @@ angular.module('fasterScaleApp')
     $scope.navigateTo = function (path) {
       $location.path(path);
     };
+
+    // Event handlers.
+    $scope.$on('userLoggedOut', function () {
+      $location.path('/');
+    });
   });

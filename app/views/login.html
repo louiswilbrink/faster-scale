@@ -1,0 +1,13 @@
+<div ng-controller="LoginCtrl">
+  <h1>FASTER</h1>
+  <form class="form-horizontal" role="form">
+    <p>{{ loginCtrl.status }}</p>
+    <div class="centered">
+      <input type="email" class="form-control" ng-model="loginCtrl.email" placeholder="Email">
+      <input type="password" class="form-control" ng-model="loginCtrl.password" placeholder="Password">
+      <button type="submit" class="btn btn-primary" ng-click="loginCtrl.signIn()">Sign in</button>
+      <a ng-click="loginCtrl.onForgetPasswordClicked()">Forgot Password?</a>
+      <a ng-click="navigateTo('/create-user')">Not a member? Sign up today.</a>
+    </div>
+  </form>
+</div>
