@@ -23,8 +23,8 @@ angular
         templateUrl: 'views/login.html',
         controller: 'MainCtrl'
       })
-      .when('/main', {
-        templateUrl: 'views/main.html',
+      .when('/home', {
+        templateUrl: 'views/home.html',
         controller: 'MainCtrl'
       })
       .when('/select-stage', {

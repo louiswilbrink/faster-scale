@@ -8,14 +8,27 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('MainCtrl', function ($scope, $location) {
+  .controller('MainCtrl', ['$scope', '$location', '$log', 'Login', function ($scope, $location, $log, Login) {
 
     $scope.navigateTo = function (path) {
+
       $location.path(path);
     };
 
+    $scope.logout = Login.logout;
+
     // Event handlers.
     $scope.$on('userLoggedOut', function () {
+
+      $log.log('logging out.');
       $location.path('/');
     });
-  });
+
+    $scope.$on('loginSucceeded', function () {
+
+      $scope.$apply(function () {
+        $log.log('logging in.');
+        $location.path('/home');
+      });
+    });
+  }]);

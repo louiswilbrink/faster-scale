@@ -14,17 +14,17 @@ angular.module('fasterScaleApp')
         ref = new Firebase(baseUrl),
         user;
 
-    var auth = new FirebaseSimpleLogin(ref, function(error, user) {
+    var auth = new FirebaseSimpleLogin(ref, function(error, authenticatedUser) {
       if (error) {
         // An error occurred while attempting login.
 
         $log.error(error);
         $rootScope.$broadcast('loginFailed', error);
       } 
-      else if (user) {
+      else if (authenticatedUser) {
         // User authenticated with Firebase.
 
-        user = user;
+        user = authenticatedUser;
 
         $log.info('User logged in:', user);
         $rootScope.$broadcast('loginSucceeded');
@@ -33,8 +33,14 @@ angular.module('fasterScaleApp')
         // User has logged out.  
         // Clear user data and return to login screen.
 
+        // App initializing and no user has logged in yet.
+        if (!user) { return; }
+
         user = undefined;
-        $rootScope.$broadcast('userLoggedOut');
+
+        $rootScope.$apply(function () {
+          $rootScope.$broadcast('userLoggedOut');
+        });
       }
     });
 
@@ -55,7 +61,7 @@ angular.module('fasterScaleApp')
         auth.login('password', {
           email: credentials.email,
           password: credentials.password,
-          rememberMe: false
+          rememberMe: credentials.rememberMe
         });
       },
       
