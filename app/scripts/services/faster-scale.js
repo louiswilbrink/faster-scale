@@ -8,14 +8,21 @@
  * Service in the fasterScaleApp.
  */
 angular.module('fasterScaleApp')
-  .service('FasterScale', function FasterScale($rootScope, SCALE) {
+  .service('FasterScale', function FasterScale($rootScope, FasterScaleDefinition) {
 
-    var fasterScale = SCALE,
+    var fasterScale = FasterScaleDefinition,
+        currentScale,
+        previousScales = [],
         currentStage = 0,
         minorBehaviors = [],
         majorBehaviors = [];
 
     return {
+
+      testMethod: function () {
+
+        return 'Isabella';
+      },
 
       selectStage: function (index) {
 

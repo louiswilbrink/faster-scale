@@ -25,7 +25,12 @@ angular
       })
       .when('/home', {
         templateUrl: 'views/home.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        resolve: {
+          login: function (FasterScale) {
+            console.log(FasterScale.testMethod());
+          }
+        }
       })
       .when('/select-stage', {
         templateUrl: 'views/select-stage.html',
