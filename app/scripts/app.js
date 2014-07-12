@@ -29,7 +29,7 @@ angular
         controller: 'MainCtrl',
         resolve: {
           login: function (FasterScale) {
-            console.log(FasterScale.init());
+            FasterScale.init();
           }
         }
       })

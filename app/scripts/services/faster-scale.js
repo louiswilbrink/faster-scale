@@ -8,11 +8,10 @@
  * Service in the fasterScaleApp.
  */
 angular.module('fasterScaleApp')
-  .service('FasterScale', function FasterScale($rootScope, FasterScaleDefinition, $firebase) {
+  .service('FasterScale', function FasterScale($rootScope, $timeout, $firebase, FasterScaleDefinition, Login) {
 
     var fasterScale = FasterScaleDefinition,
         currentScale,
-        user,
         previousScales = [],
         currentStage = 0,
         minorBehaviors = [],
@@ -22,7 +21,7 @@ angular.module('fasterScaleApp')
 
       init: function () {
 
-        return 'Izzy';
+        // Set up promise for user.
       },
 
       selectStage: function (index) {

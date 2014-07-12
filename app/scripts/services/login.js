@@ -26,7 +26,7 @@ angular.module('fasterScaleApp')
 
         user = authenticatedUser;
 
-        $log.info('User logged in:', user);
+        $log.log('User logged in:', user);
         $rootScope.$broadcast('loginSucceeded');
       } 
       else {
