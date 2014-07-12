@@ -17,21 +17,21 @@ angular.module('fasterScaleApp')
       email: '',
       password: '',
       rememberMe: false,
-      status: '',
+      status: ''
+    };
 
       // Methods.
       
-      signIn: function () {
-        Login.login({
-          email: this.email,
-          password: this.password,
-          rememberMe: false
-        });
-      },
+    $scope.loginCtrl.signIn = function () {
+      Login.login({
+        email: $scope.loginCtrl.email,
+        password: $scope.loginCtrl.password,
+        rememberMe: false
+      });
+    };
 
-      onForgetPasswordClicked: function () {
-        $location.path('/forget-password');
-      }
+    $scope.loginCtrl.onForgetPasswordClicked = function () {
+      $location.path('/forget-password');
     };
 
     // Event Handlers

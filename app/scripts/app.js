@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'firebase'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -28,7 +29,7 @@ angular
         controller: 'MainCtrl',
         resolve: {
           login: function (FasterScale) {
-            console.log(FasterScale.testMethod());
+            console.log(FasterScale.init());
           }
         }
       })

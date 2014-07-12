@@ -14,11 +14,15 @@
     "angular-touch": "1.2.16",
     "angular-route": "1.2.16",
     "firebase": "~1.0.17",
-    "firebase-simple-login": "~1.6.1"
+    "firebase-simple-login": "~1.6.1",
+    "angularfire": "~0.7.1"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",
     "angular-scenario": "1.2.16"
   },
-  "appPath": "app"
+  "appPath": "app",
+  "resolutions": {
+    "firebase-simple-login": "~1.6.1"
+  }
 }
