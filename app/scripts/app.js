@@ -40,7 +40,7 @@ angular
                 console.log('Authentication not yet complete, loading page');
               }
               else {
-                console.log('User date loaded', Authentication.user().email);
+                console.log('User data loaded', Authentication.user().email);
               }
             }, 1000);
           }

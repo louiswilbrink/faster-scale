@@ -23,11 +23,17 @@ angular.module('fasterScaleApp')
       } 
       else if (authenticatedUser) {
         // User authenticated with Firebase.
-
+        
         user = authenticatedUser;
 
-        $log.log('User logged in', user.email);
-        $rootScope.$broadcast('loginSucceeded');
+        // Also retrieve user key from simpleLogin table.
+        
+        $firebase(new Firebase(baseUrl + '/simpleLogin/' + user.id)).$on('loaded', function (value) {
+          user.key = value;
+
+          $log.log('loginSucceeded', user.email, user.key);
+          $rootScope.$broadcast('loginSucceeded');
+        });
       } 
       else {
         // User has logged out.  
@@ -111,7 +117,24 @@ angular.module('fasterScaleApp')
             var users = $firebase(new Firebase(baseUrl + '/users'));
 
             // Add user to database and log them in.
-            users.$add(newUser).then(function (ref) {
+            users.$add({
+              email: newUser.email,
+              id: newUser.id,
+              uid: newUser.uid
+            }).then(function (ref) {
+
+              // Add simpleLoginUserId/firebaseUserKey to simpleLoginRef.
+              var key = ref.name();
+
+              var simpleLoginRef = $firebase(new Firebase(baseUrl + '/simpleLogin'));
+
+              var simpleLoginLink = {};
+
+              simpleLoginLink[newUser.id] = key;
+              
+              simpleLoginRef.$update(simpleLoginLink);
+
+              // Log in newly created user.
               _this.login({
                 email: email,
                 password: password,
@@ -119,10 +142,7 @@ angular.module('fasterScaleApp')
               });
             });
 
-            // Set user in app.
-            user = newUser;
-
-            $log.log('User created', user.email);
+            $log.log('User created', newUser.email);
           }
           else {
             $log.error(error);
