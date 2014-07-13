@@ -24,12 +24,25 @@ angular
         templateUrl: 'views/login.html',
         controller: 'MainCtrl'
       })
+      .when('/create-user', {
+        templateUrl: 'views/create-user.html',
+        controller: 'MainCtrl'
+      })
       .when('/home', {
         templateUrl: 'views/home.html',
         controller: 'MainCtrl',
         resolve: {
-          login: function (FasterScale) {
-            FasterScale.init();
+          waitForUserData: function ($timeout, Authentication) {
+
+            // Allow firebase to log in the user and load their data.
+            return $timeout(function () {
+              if (!Authentication.user()) {
+                console.log('Authentication not yet complete, loading page');
+              }
+              else {
+                console.log('User date loaded', Authentication.user().email);
+              }
+            }, 1000);
           }
         }
       })

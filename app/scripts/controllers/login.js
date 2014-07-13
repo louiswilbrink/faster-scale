@@ -8,7 +8,7 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('LoginCtrl', ['$scope', '$location', 'Login', function ($scope, $location, Login) {
+  .controller('LoginCtrl', ['$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
 
     $scope.loginCtrl = {
 
@@ -23,7 +23,7 @@ angular.module('fasterScaleApp')
       // Methods.
       
     $scope.loginCtrl.signIn = function () {
-      Login.login({
+      Authentication.login({
         email: $scope.loginCtrl.email,
         password: $scope.loginCtrl.password,
         rememberMe: false

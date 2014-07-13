@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name fasterScaleApp.login
+ * @name fasterScaleApp.authentication
  * @description
- * # login
+ * # authentication
  * Service in the fasterScaleApp.
  */
 angular.module('fasterScaleApp')
-  .service('Login', ['$rootScope', '$log', function Login($rootScope, $log) {
+  .service('Authentication', ['$rootScope', '$log', '$firebase', '$q', '$timeout', function Authentication($rootScope, $log, $firebase, $q, $timeout) {
 
     var baseUrl = 'https://fasterscale.firebaseio.com/',
         ref = new Firebase(baseUrl),
@@ -26,7 +26,7 @@ angular.module('fasterScaleApp')
 
         user = authenticatedUser;
 
-        $log.log('User logged in:', user);
+        $log.log('User logged in', user.email);
         $rootScope.$broadcast('loginSucceeded');
       } 
       else {
@@ -48,8 +48,6 @@ angular.module('fasterScaleApp')
 
       ref: function () { return ref; },
 
-      auth: function () { return auth; },
-
       user: function () { return user; },
 
       logout: function () { auth.logout(); },
@@ -66,7 +64,7 @@ angular.module('fasterScaleApp')
       resetPassword: function (email) {
         auth.sendPasswordResetEmail(email, function(error, success) {
           if (!error) {
-            $log.info('Password reset successfully:', success);
+            $log.log('Password reset successfully:', success);
             $rootScope.$broadcast('passwordReset');
           }
         });
@@ -75,7 +73,7 @@ angular.module('fasterScaleApp')
       changePassword: function (oldPassword, newPassword) {
         auth.changePassword(user.email, oldPassword, newPassword, function(error, success) {
           if (!error) {
-            $log.info('Password changed successfully:', success);
+            $log.log('Password changed successfully:', success);
             $rootScope.$broadcast('passwordChanged');
           }
         });
@@ -87,7 +85,7 @@ angular.module('fasterScaleApp')
 
         auth.removeUser(email, password, function(error, success) {
           if (!error) {
-            $log.info('User removed successfully:', success);
+            $log.log('User removed successfully:', success);
           }
           else {
             $log.error(error);
@@ -107,32 +105,24 @@ angular.module('fasterScaleApp')
 
         var _this = this;
 
-        auth.createUser(email, password, function(error, user) {
+        auth.createUser(email, password, function(error, newUser) {
           if (!error) {
 
-            var usersRef = new Firebase(baseUrl + '/users');
+            var users = $firebase(new Firebase(baseUrl + '/users'));
 
-            // Create a new user object using the SimpleLogin id as the key.
-            var newUser = {};
-
-            newUser[user.id] = {
-              email: user.email,
-              isActive: true
-            };
-           
-            // Use $update in order to set the correct key (user.id).
-            // $add will just push the object with a random key.
-            // We don't want that since we'd like the id between the firebase and SimpleLogin to match.
-            usersRef.update(newUser);
-
-            // Log in.
-            _this.login({
-              email: email,
-              password: password,
-              rememberMe: false
+            // Add user to database and log them in.
+            users.$add(newUser).then(function (ref) {
+              _this.login({
+                email: email,
+                password: password,
+                rememberMe: false
+              });
             });
 
-            $log.info('User created:', user);
+            // Set user in app.
+            user = newUser;
+
+            $log.log('User created', user.email);
           }
           else {
             $log.error(error);
