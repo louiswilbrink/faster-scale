@@ -32,17 +32,9 @@ angular
         templateUrl: 'views/home.html',
         controller: 'MainCtrl',
         resolve: {
-          waitForUserData: function ($timeout, Authentication) {
+          fasterScaleInit: function (FasterScale) {
 
-            // Allow firebase to log in the user and load their data.
-            return $timeout(function () {
-              if (!Authentication.user()) {
-                console.log('Authentication not yet complete, loading page');
-              }
-              else {
-                console.log('User data loaded', Authentication.user().email);
-              }
-            }, 1000);
+            FasterScale.init();
           }
         }
       })

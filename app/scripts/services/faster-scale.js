@@ -12,12 +12,31 @@ angular.module('fasterScaleApp')
 
     var fasterScale = FasterScaleDefinition,
         currentScale,
+        baseUrl = 'fasterscale.firebase.io',
         previousScales = [],
         currentStage = 0,
         minorBehaviors = [],
         majorBehaviors = [];
 
     return {
+
+      init: function () {
+
+        // Poll Authentication service until user is known.
+        (function pollAuthenticationForUser () {
+          $timeout(function () {
+            if (Authentication.user().key) {
+              // Save references to faster scales for this user.
+              console.log('FasterScale initiated', Authentication.user());
+              return;
+            }
+            else {
+              // Continue polling.
+              pollAuthenticationForUser();
+            }
+          }, 500);
+        })();
+      },
 
       selectStage: function (index) {
 

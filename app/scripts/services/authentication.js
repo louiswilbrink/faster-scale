@@ -12,7 +12,7 @@ angular.module('fasterScaleApp')
 
     var baseUrl = 'https://fasterscale.firebaseio.com/',
         ref = new Firebase(baseUrl),
-        user;
+        user = {};
 
     var auth = new FirebaseSimpleLogin(ref, function(error, authenticatedUser) {
       if (error) {
@@ -22,18 +22,36 @@ angular.module('fasterScaleApp')
         $rootScope.$broadcast('loginFailed', error);
       } 
       else if (authenticatedUser) {
-        // User authenticated with Firebase.
-        
-        user = authenticatedUser;
-
+        // User authenticated with FirebaseSimpleLogin.
+        // Get user data from firebase.
         // Also retrieve user key from simpleLogin table.
-        
-        $firebase(new Firebase(baseUrl + '/simpleLogin/' + user.id)).$on('loaded', function (value) {
-          user.key = value;
 
-          $log.log('loginSucceeded', user.email, user.key);
-          $rootScope.$broadcast('loginSucceeded');
-        });
+        // If user key is already defined, then this user was just created.
+        if (user.key) {
+        
+          $firebase(new Firebase(baseUrl + '/users/' + user.key)).$on('loaded', function (userData) {
+
+            user = userData;
+
+            $log.log('loginSucceeded', user.email, user.key);
+            $rootScope.$broadcast('loginSucceeded');
+          });
+        }
+        else {
+
+          // Retrieve user key from simpleLogin table.
+          $firebase(new Firebase(baseUrl + '/simpleLogin/' + authenticatedUser.id)).$on('loaded', function (key) {
+
+            $firebase(new Firebase(baseUrl + '/users/' + key)).$on('loaded', function (userData) {
+
+              user = userData;
+              user.key = key;
+
+              $log.log('loginSucceeded', user.email, user.key);
+              $rootScope.$broadcast('loginSucceeded');
+            });
+          });
+        }
       } 
       else {
         // User has logged out.  
@@ -42,7 +60,7 @@ angular.module('fasterScaleApp')
         // App initializing and no user has logged in yet.
         if (!user) { return; }
 
-        user = undefined;
+        user = {};
 
         $rootScope.$apply(function () {
           $rootScope.$broadcast('userLoggedOut');
@@ -120,7 +138,14 @@ angular.module('fasterScaleApp')
             users.$add({
               email: newUser.email,
               id: newUser.id,
-              uid: newUser.uid
+              uid: newUser.uid,
+              scales: [{
+                startDate: Date.now(),
+                endDate: Date.now(),
+                isCurrent: true,
+                minorBehaviors: ['minorBehaviorIds'],
+                majorBehaviors: ['majorBehaviorIds']
+              }]
             }).then(function (ref) {
 
               // Add simpleLoginUserId/firebaseUserKey to simpleLoginRef.
@@ -132,13 +157,15 @@ angular.module('fasterScaleApp')
 
               simpleLoginLink[newUser.id] = key;
               
-              simpleLoginRef.$update(simpleLoginLink);
+              user.key = key;
 
-              // Log in newly created user.
-              _this.login({
-                email: email,
-                password: password,
-                rememberMe: false
+              simpleLoginRef.$update(simpleLoginLink).then(function () {
+                // Log in newly created user.
+                _this.login({
+                  email: email,
+                  password: password,
+                  rememberMe: false
+                });
               });
             });
 
