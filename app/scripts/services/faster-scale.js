@@ -11,12 +11,12 @@ angular.module('fasterScaleApp')
   .service('FasterScale', function FasterScale($rootScope, $timeout, $firebase, FasterScaleDefinition, Authentication) {
 
     var fasterScale = FasterScaleDefinition,
-        currentScale,
-        baseUrl = 'fasterscale.firebase.io',
-        previousScales = [],
+        scalesRef,
+        currentScaleRef,
+        baseUrl = 'fasterscale.firebaseio.com',
         currentStage = 0,
-        minorBehaviors = [],
-        majorBehaviors = [];
+        minorBehaviorsRef,
+        majorBehaviorsRef;
 
     return {
 
@@ -26,8 +26,31 @@ angular.module('fasterScaleApp')
         (function pollAuthenticationForUser () {
           $timeout(function () {
             if (Authentication.user().key) {
-              // Save references to faster scales for this user.
-              console.log('FasterScale initiated', Authentication.user());
+              // Once user is defined in authentication service, save reference to the user's faster scales.
+              scalesRef = $firebase(new Firebase(baseUrl + '/users/' + Authentication.user().key + '/scales/'));
+
+              scalesRef.$on('loaded', function (snapshot) {
+                console.log('faster scales loaded:', snapshot);
+              });
+
+              currentScaleRef = scalesRef.$child('0');
+
+              currentScaleRef.$on('loaded', function (snapshot) {
+                console.log('current scale loaded:', snapshot);
+              });
+
+              minorBehaviorsRef = currentScaleRef.$child('minorBehaviors');
+
+              minorBehaviorsRef.$on('loaded', function (snapshot) {
+                console.log('minor behaviors loaded:', snapshot);
+              });
+
+              majorBehaviorsRef = currentScaleRef.$child('majorBehaviors');
+
+              majorBehaviorsRef.$on('loaded', function (snapshot) {
+                console.log('major behaviors loaded:', snapshot);
+              });
+
               return;
             }
             else {
