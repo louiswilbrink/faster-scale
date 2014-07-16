@@ -84,17 +84,6 @@ angular.module('fasterScaleApp')
           minorBehaviorsRef.$add(id);
         }
 
-        console.log(minorBehaviorsRef);
-
-        return;
-
-        if (minorBehaviors.indexOf(id) !== -1) {
-          minorBehaviors.splice(minorBehaviors.indexOf(id), 1);
-        }
-        else {
-          minorBehaviors.push(id);
-        }
-
         $rootScope.$broadcast('MinorBehaviorsUpdated');
       }, 
 
@@ -104,6 +93,16 @@ angular.module('fasterScaleApp')
       },
 
       getMinorBehaviors: function () {
+
+        var minorBehaviors = [];
+
+        // Search minorBehaviorsRef for stored behaviors.
+        angular.forEach(minorBehaviorsRef, function (value, key) {
+          // Skip firebase function calls ($).
+          if (key.indexOf('$') === -1) {
+            minorBehaviors.push(value);
+          }
+        });
 
         return minorBehaviors;
       },
