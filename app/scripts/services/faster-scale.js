@@ -68,6 +68,26 @@ angular.module('fasterScaleApp')
 
       toggleBehavior: function (id) {
 
+        var minorBehaviorKey;
+
+        // Search minorBehaviors list for toggled behavior and save key if found.
+        angular.forEach(minorBehaviorsRef, function (value, key) {
+          if (value === id) {
+            minorBehaviorKey = key;
+          }
+        });
+
+        if (minorBehaviorKey) {
+          minorBehaviorsRef.$remove(minorBehaviorKey);
+        }
+        else {
+          minorBehaviorsRef.$add(id);
+        }
+
+        console.log(minorBehaviorsRef);
+
+        return;
+
         if (minorBehaviors.indexOf(id) !== -1) {
           minorBehaviors.splice(minorBehaviors.indexOf(id), 1);
         }
