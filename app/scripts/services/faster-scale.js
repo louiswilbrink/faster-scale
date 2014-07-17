@@ -39,6 +39,10 @@ angular.module('fasterScaleApp')
                 console.log('current scale loaded:', snapshot);
               });
 
+              currentScaleRef.$on('change', function (snapshot) {
+                console.log('current scale changed:', snapshot);
+              });
+
               minorBehaviorsRef = currentScaleRef.$child('minorBehaviors');
 
               minorBehaviorsRef.$on('loaded', function (snapshot) {
