@@ -39,10 +39,6 @@ angular.module('fasterScaleApp')
                 console.log('current scale loaded:', snapshot);
               });
 
-              currentScaleRef.$on('change', function (snapshot) {
-                console.log('current scale changed:', snapshot);
-              });
-
               minorBehaviorsRef = currentScaleRef.$child('minorBehaviors');
 
               minorBehaviorsRef.$on('loaded', function (snapshot) {
@@ -72,20 +68,19 @@ angular.module('fasterScaleApp')
 
       toggleBehavior: function (id) {
 
-        var minorBehaviorKey;
-
-        // Search minorBehaviors list for toggled behavior and save key if found.
-        angular.forEach(minorBehaviorsRef, function (value, key) {
-          if (value === id) {
-            minorBehaviorKey = key;
-          }
-        });
-
-        if (minorBehaviorKey) {
-          minorBehaviorsRef.$remove(minorBehaviorKey);
+        if (minorBehaviorsRef[id]) {
+          minorBehaviorsRef.$remove(id);
+          console.log('removing minorBehavior', id);
         }
         else {
-          minorBehaviorsRef.$add(id);
+          minorBehaviorsRef[id] = {
+            date: Date.now()
+          };
+
+          minorBehaviorsRef.$save();
+
+          console.log('adding minorBehavior', id);
+
         }
 
         $rootScope.$broadcast('MinorBehaviorsUpdated');
@@ -98,17 +93,7 @@ angular.module('fasterScaleApp')
 
       getMinorBehaviors: function () {
 
-        var minorBehaviors = [];
-
-        // Search minorBehaviorsRef for stored behaviors.
-        angular.forEach(minorBehaviorsRef, function (value, key) {
-          // Skip firebase function calls ($).
-          if (key.indexOf('$') === -1) {
-            minorBehaviors.push(value);
-          }
-        });
-
-        return minorBehaviors;
+        return minorBehaviorsRef;
       },
 
       getScale: function () {

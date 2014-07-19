@@ -14,7 +14,7 @@ angular.module('fasterScaleApp')
 
       behaviors: FasterScale.getBehaviors(),
 
-      minorBehaviors: [],
+      minorBehaviors: FasterScale.getMinorBehaviors(),
       
       // Methods.
 
@@ -28,5 +28,6 @@ angular.module('fasterScaleApp')
     
     $scope.$on('MinorBehaviorsUpdated', function () {
       $scope.behaviorsCtrl.minorBehaviors = FasterScale.getMinorBehaviors();
+      console.log($scope.behaviorsCtrl.minorBehaviors);
     });
   });

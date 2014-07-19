@@ -143,8 +143,16 @@ angular.module('fasterScaleApp')
                 startDate: Date.now(),
                 endDate: Date.now(),
                 isCurrent: true,
-                minorBehaviors: ['minorBehaviorIds'],
-                majorBehaviors: ['majorBehaviorIds']
+                minorBehaviors: {
+                  'minorBehaviorId': {
+                    date: Date.now()
+                  }
+                },
+                majorBehaviors: {
+                  'majorBehaviorIds': {
+                    date: Date.now()
+                  }
+                }
               }]
             }).then(function (ref) {
 
