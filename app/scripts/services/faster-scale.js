@@ -37,12 +37,24 @@ angular.module('fasterScaleApp')
         indicies[key] = value.slice(0, -3);
       });
       
+      // Check for each idPrefix in behavior indicies.
       angular.forEach(idPrefixes, function (idPrefix) {
-        // Check if this idPrefix is found in the behaviors list.
+
         if (indicies.indexOf(idPrefix) !== -1) {
-          console.log('You have reached this stage:', idPrefix);
+          // Check if this idPrefix is found in the behaviors list.
+          // If so, include its stage in stagesRef.
+          
+          stagesRef[idPrefix] = Date.now();
+        }
+        else if (stagesRef[idPrefix]) {
+          // If idPrefix was not found in the behaviors list,
+          // check to see if stagesRef contains the idPrefix and remove it.
+          
+          stagesRef.$remove(idPrefix);
         }
       });
+
+      stagesRef.$save();
     };
 
     // API
