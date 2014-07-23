@@ -3,6 +3,6 @@
     <h1>Select a stage</h1>
   </div>
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="stage in stagesCtrl.stages" ng-click="stagesCtrl.selectStage($index); navigateTo('/select-behaviors');">{{ stage.name }}</li>
+    <li class="list-group-item" ng-repeat="stage in stagesCtrl.stages" ng-click="stagesCtrl.selectStage($index); navigateTo('/select-behaviors');" ng-class="{ 'active': stagesCtrl.stagesRef[stage.id] }">{{ stage.name }}</li>
   </ul>
 </div>

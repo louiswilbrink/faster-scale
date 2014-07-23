@@ -11,11 +11,23 @@ angular.module('fasterScaleApp')
   .controller('StagesCtrl', function ($scope, FasterScale) {
 
     $scope.stagesCtrl = {
+
+      // Model.
+
       stages: FasterScale.getScale(),     
 
+      stagesRef: FasterScale.getStagesRef(),
+
       // Methods.
+      
       selectStage : function (index) {
         FasterScale.selectStage(index);
       }
     };
+
+    // Event-handlers.
+
+    $scope.$on('stagesRefUpdated', function () {
+      $scope.stagesCtrl.stagesRef = FasterScale.getStagesRef();
+    });
   });

@@ -55,6 +55,8 @@ angular.module('fasterScaleApp')
       });
 
       stagesRef.$save();
+
+      $rootScope.$broadcast('stagesRefUpdated');
     };
 
     // API
@@ -131,6 +133,12 @@ angular.module('fasterScaleApp')
       getScale: function () {
 
         return fasterScale;
-      }
+      },
+
+      getStagesRef: function () {
+
+        return stagesRef;
+      },
+
     };
   });

@@ -11,6 +11,7 @@ angular.module('fasterScaleApp')
   .constant('FasterScaleDefinition', [
     {
       name: 'Restoration',
+      id: 'REST', 
       behaviors: [
         {
           id: 'REST001',
@@ -28,6 +29,7 @@ angular.module('fasterScaleApp')
     },
     {
       name: 'Forgetting Priorities',
+      id: 'F', 
       behaviors: [
         {
           id: 'F001',
@@ -45,6 +47,7 @@ angular.module('fasterScaleApp')
     },
     {
       name: 'Anxiety',
+      id: 'A', 
       behaviors: [
         {
           id: 'A001',
@@ -54,6 +57,7 @@ angular.module('fasterScaleApp')
     },
     {
       name: 'Speeding Up',
+      id: 'S', 
       behaviors: [
         {
           id: 'S001',
@@ -63,6 +67,7 @@ angular.module('fasterScaleApp')
     },
     {
       name: 'Ticked Off',
+      id: 'T', 
       behaviors: [
         {
           id: 'T001',
@@ -72,6 +77,7 @@ angular.module('fasterScaleApp')
     },
     {
       name: 'Exhausted',
+      id: 'E', 
       behaviors: [
         {
           id: 'E001',
@@ -81,6 +87,7 @@ angular.module('fasterScaleApp')
     },
     {
       name: 'Relapse/Moral Failure',
+      id: 'RMF', 
       behaviors: [
         {
           id: 'RMF001',
