@@ -28,6 +28,5 @@ angular.module('fasterScaleApp')
     
     $scope.$on('MinorBehaviorsUpdated', function () {
       $scope.behaviorsCtrl.behaviorsRef = FasterScale.getBehaviorsRef();
-      console.log($scope.behaviorsCtrl.behaviorsRef);
     });
   });

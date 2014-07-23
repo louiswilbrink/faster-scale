@@ -5,4 +5,7 @@
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="behavior in behaviorsCtrl.behaviors" ng-click="behaviorsCtrl.toggleBehavior(behavior.id)" ng-class="{ 'active' : behaviorsCtrl.behaviorsRef[behavior.id] }">{{ behavior.description }}</li>
   </ul>
+  <ul>
+    <li ng-click="navigateTo('/select-stage')">Back to stages</li>
+  </ul>
 </div>

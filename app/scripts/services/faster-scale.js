@@ -27,6 +27,8 @@ angular.module('fasterScaleApp')
       });
     };
 
+    // Examines all behaviors and identifies all parent stages.
+    // Stages saved to stagesRef.
     var calculateStage = function () {
 
       var idPrefixes = ['REST', 'F', 'A', 'S', 'T', 'E', 'R', 'RMF'],
