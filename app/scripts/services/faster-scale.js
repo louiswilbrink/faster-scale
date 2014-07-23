@@ -15,8 +15,37 @@ angular.module('fasterScaleApp')
         currentScaleRef,
         baseUrl = 'fasterscale.firebaseio.com',
         currentStage = 0,
-        minorBehaviorsRef,
-        majorBehaviorsRef;
+        stagesRef,
+        behaviorsRef;
+
+    // Methods.
+    
+    var logOnLoad = function (refName, ref) {
+
+      ref.$on('loaded', function (snapshot) {
+        console.log(refName, snapshot);
+      });
+    };
+
+    var calculateStage = function () {
+
+      var idPrefixes = ['REST', 'F', 'A', 'S', 'T', 'E', 'R', 'RMF'],
+          indicies = behaviorsRef.$getIndex();
+
+      // Get the prefix ids of all behaviors.
+      indicies.forEach(function (value, key) {
+        indicies[key] = value.slice(0, -3);
+      });
+      
+      angular.forEach(idPrefixes, function (idPrefix) {
+        // Check if this idPrefix is found in the behaviors list.
+        if (indicies.indexOf(idPrefix) !== -1) {
+          console.log('You have reached this stage:', idPrefix);
+        }
+      });
+    };
+
+    // API
 
     return {
 
@@ -29,27 +58,18 @@ angular.module('fasterScaleApp')
               // Once user is defined in authentication service, save reference to the user's faster scales.
               scalesRef = $firebase(new Firebase(baseUrl + '/users/' + Authentication.user().key + '/scales/'));
 
-              scalesRef.$on('loaded', function (snapshot) {
-                console.log('faster scales loaded:', snapshot);
-              });
-
               currentScaleRef = scalesRef.$child('0');
 
-              currentScaleRef.$on('loaded', function (snapshot) {
-                console.log('current scale loaded:', snapshot);
-              });
+              behaviorsRef = currentScaleRef.$child('behaviors');
 
-              minorBehaviorsRef = currentScaleRef.$child('minorBehaviors');
+              stagesRef = currentScaleRef.$child('stages');
 
-              minorBehaviorsRef.$on('loaded', function (snapshot) {
-                console.log('minor behaviors loaded:', snapshot);
-              });
+              // When behaviors are added or removed, recalculate stages.
+              behaviorsRef.$on('change', calculateStage);
 
-              majorBehaviorsRef = currentScaleRef.$child('majorBehaviors');
-
-              majorBehaviorsRef.$on('loaded', function (snapshot) {
-                console.log('major behaviors loaded:', snapshot);
-              });
+              logOnLoad('current scale', currentScaleRef);
+              logOnLoad('scales', scalesRef);
+              logOnLoad('behaviors', behaviorsRef);
 
               return;
             }
@@ -68,16 +88,16 @@ angular.module('fasterScaleApp')
 
       toggleBehavior: function (id) {
 
-        if (minorBehaviorsRef[id]) {
-          minorBehaviorsRef.$remove(id);
+        if (behaviorsRef[id]) {
+          behaviorsRef.$remove(id);
           console.log('removing minorBehavior', id);
         }
         else {
-          minorBehaviorsRef[id] = {
+          behaviorsRef[id] = {
             date: Date.now()
           };
 
-          minorBehaviorsRef.$save();
+          behaviorsRef.$save();
 
           console.log('adding minorBehavior', id);
 
@@ -91,9 +111,9 @@ angular.module('fasterScaleApp')
         return fasterScale[currentStage].behaviors;
       },
 
-      getMinorBehaviors: function () {
+      getBehaviorsRef: function () {
 
-        return minorBehaviorsRef;
+        return behaviorsRef;
       },
 
       getScale: function () {
