@@ -46,6 +46,10 @@ angular
         templateUrl: 'views/select-behaviors.html',
         controller: 'MainCtrl'
       })
+      .when('/forgot-password', {
+        templateUrl: 'views/forgot-password.html',
+        controller: 'MainCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

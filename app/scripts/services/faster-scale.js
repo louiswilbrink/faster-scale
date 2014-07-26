@@ -46,7 +46,9 @@ angular.module('fasterScaleApp')
           // Check if this idPrefix is found in the behaviors list.
           // If so, include its stage in stagesRef.
           
-          stagesRef[idPrefix] = Date.now();
+          stagesRef[idPrefix] = {
+            date: Date.now()
+          };
         }
         else if (stagesRef[idPrefix]) {
           // If idPrefix was not found in the behaviors list,
@@ -73,6 +75,8 @@ angular.module('fasterScaleApp')
             if (Authentication.user().key) {
               // Once user is defined in authentication service, save reference to the user's faster scales.
               scalesRef = $firebase(new Firebase(baseUrl + '/users/' + Authentication.user().key + '/scales/'));
+
+              console.log(scalesRef);
 
               currentScaleRef = scalesRef.$child('0');
 

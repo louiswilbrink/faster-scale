@@ -18,7 +18,7 @@ angular.module('fasterScaleApp')
       if (error) {
         // An error occurred while attempting login.
 
-        $log.error(error);
+        console.log(error);
         $rootScope.$broadcast('loginFailed', error);
       } 
       else if (authenticatedUser) {
@@ -40,12 +40,13 @@ angular.module('fasterScaleApp')
         else {
 
           // Retrieve user key from simpleLogin table.
-          $firebase(new Firebase(baseUrl + '/simpleLogin/' + authenticatedUser.id)).$on('loaded', function (key) {
+          $firebase(new Firebase(baseUrl + '/simpleLogin/' + authenticatedUser.id)).$on('loaded', function (userKey) {
 
-            $firebase(new Firebase(baseUrl + '/users/' + key)).$on('loaded', function (userData) {
+            console.log('simpleLoginKey', userKey);
+            $firebase(new Firebase(baseUrl + '/users/' + userKey)).$on('loaded', function (userData) {
 
               user = userData;
-              user.key = key;
+              user.key = userKey;
 
               $log.log('loginSucceeded', user.email, user.key);
               $rootScope.$broadcast('loginSucceeded');
@@ -86,10 +87,15 @@ angular.module('fasterScaleApp')
       },
       
       resetPassword: function (email) {
-        auth.sendPasswordResetEmail(email, function(error, success) {
+
+        auth.sendPasswordResetEmail(email, function(error) {
           if (!error) {
-            $log.log('Password reset successfully:', success);
+            console.log('Password reset successfully:');
             $rootScope.$broadcast('passwordReset');
+          }
+          else {
+            console.log(error);
+            $rootScope.$broadcast('resetPasswordError');
           }
         });
       },
