@@ -29,7 +29,7 @@ angular.module('fasterScaleApp')
         // If user key is already defined, then this user was just created.
         if (user.key) {
         
-          $firebase(new Firebase(baseUrl + '/users/' + user.key)).$on('loaded', function (userData) {
+          $firebase(new Firebase(baseUrl + '/users/' + user.key)).$asObject().$loaded().then(function (userData) {
 
             user = userData;
 
@@ -40,13 +40,14 @@ angular.module('fasterScaleApp')
         else {
 
           // Retrieve user key from simpleLogin table.
-          $firebase(new Firebase(baseUrl + '/simpleLogin/' + authenticatedUser.id)).$on('loaded', function (userKey) {
+          $firebase(new Firebase(baseUrl + '/simpleLogin/' + authenticatedUser.id)).$asObject().$loaded().then(function (userKey) {
 
-            console.log('simpleLoginKey', userKey);
-            $firebase(new Firebase(baseUrl + '/users/' + userKey)).$on('loaded', function (userData) {
+            console.log('simpleLoginKey', userKey.$value);
+
+            $firebase(new Firebase(baseUrl + '/users/' + userKey.$value)).$asObject().$loaded().then(function (userData) {
 
               user = userData;
-              user.key = userKey;
+              user.key = userKey.$value;
 
               $log.log('loginSucceeded', user.email, user.key);
               $rootScope.$broadcast('loginSucceeded');
