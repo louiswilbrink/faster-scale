@@ -91,6 +91,7 @@ angular.module('fasterScaleApp')
               stages = $firebase(new Firebase(baseUrl + '/users/' + Authentication.user().key + '/scales/0/stages')).$asObject();
               stages.$loaded();
 
+              // When changes on the database occur, recalculate the stages after behaviors are synchronized.
               behaviors.$watch(calculateStage);
 
               logOnLoad('scales', scales);
@@ -123,7 +124,7 @@ angular.module('fasterScaleApp')
           console.log('adding minorBehavior', id);
         }
 
-        behaviors.$save();
+        behaviors.$save().then(calculateStage);
 
         $rootScope.$broadcast('MinorBehaviorsUpdated');
       }, 
