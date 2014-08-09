@@ -91,7 +91,6 @@ angular.module('fasterScaleApp')
               stages = $firebase(new Firebase(baseUrl + '/users/' + Authentication.user().key + '/scales/0/stages')).$asObject();
               stages.$loaded();
 
-              // When behaviors are added or removed, recalculate stages.
               behaviors.$watch(calculateStage);
 
               logOnLoad('scales', scales);
