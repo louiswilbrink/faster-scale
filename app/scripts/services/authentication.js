@@ -139,7 +139,7 @@ angular.module('fasterScaleApp')
         auth.createUser(email, password, function(error, newUser) {
           if (!error) {
 
-            var users = $firebase(new Firebase(baseUrl + '/users'));
+            var users = $firebase(new Firebase(baseUrl + '/users')).$asArray();
 
             // Add user to database and log them in.
             users.$add({
@@ -166,22 +166,26 @@ angular.module('fasterScaleApp')
               // Add simpleLoginUserId/firebaseUserKey to simpleLoginRef.
               var key = ref.name();
 
-              var simpleLoginRef = $firebase(new Firebase(baseUrl + '/simpleLogin'));
+              // Load simpleLogin table.  Add the new simpleLoginId and userId link.
+              var simpleLogin = $firebase(new Firebase(baseUrl + '/simpleLogin')).$asObject();
+              simpleLogin.$loaded().then(function () {
 
-              var simpleLoginLink = {};
-
-              simpleLoginLink[newUser.id] = key;
-              
-              user.key = key;
-
-              simpleLoginRef.$update(simpleLoginLink).then(function () {
-                // Log in newly created user.
-                _this.login({
-                  email: email,
-                  password: password,
-                  rememberMe: false
+                // Add the new simpleLoginId and userId link.
+                simpleLogin[newUser.id] = ref.name();
+                
+                // Save, then log in.
+                simpleLogin.$save().then(function () {
+                  // Log in newly created user.
+                  _this.login({
+                    email: email,
+                    password: password,
+                    rememberMe: false
+                  });
                 });
               });
+
+              // Save this key in the user object.
+              user.key = key;
             });
 
             $log.log('User created', newUser.email);

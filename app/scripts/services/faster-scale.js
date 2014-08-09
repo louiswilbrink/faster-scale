@@ -46,8 +46,6 @@ angular.module('fasterScaleApp')
         indicies[key] = value.slice(0, -3);
       });
 
-      console.log(indicies);
-      
       // Check for each idPrefix in behavior indicies.
       angular.forEach(idPrefixes, function (idPrefix) {
 
