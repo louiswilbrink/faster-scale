@@ -26,7 +26,13 @@ angular.module('fasterScaleApp')
 
     $scope.$on('loginSucceeded', function () {
 
-      $log.log('navigating to home page.');
+      console.log('navigating to home page.');
+      $location.path('/home');
+    });
+
+    $scope.$on('newUserLoggedIn', function () {
+
+      console.log('navigating to home page.');
       $location.path('/home');
     });
   }]);

@@ -26,20 +26,20 @@ angular.module('fasterScaleApp')
         // Get user data from firebase.
         // Also retrieve user key from simpleLogin table.
 
-        // If user key is already defined, then this user was just created.
-        if (user.key) {
+        // If user $id is already defined, then this user was just created.
+        if (user.$id) {
         
-          $firebase(new Firebase(baseUrl + '/users/' + user.key)).$asObject().$loaded().then(function (userData) {
+          $firebase(new Firebase(baseUrl + '/users/' + user.$id)).$asObject().$loaded().then(function (userData) {
 
             user = userData;
 
-            $log.log('loginSucceeded', user.email, user.key);
-            $rootScope.$broadcast('loginSucceeded');
+            $rootScope.$broadcast('newUserLoggedIn');
+            console.log('newUserLoggedIn', user.email, user.$id);
           });
         }
         else {
 
-          // Retrieve user key from simpleLogin table.
+          // User $id needs to be looked up in simpleLogin table.
           $firebase(new Firebase(baseUrl + '/simpleLogin/' + authenticatedUser.id)).$asObject().$loaded().then(function (userKey) {
 
             console.log('simpleLoginKey', userKey.$value);
@@ -47,9 +47,8 @@ angular.module('fasterScaleApp')
             $firebase(new Firebase(baseUrl + '/users/' + userKey.$value)).$asObject().$loaded().then(function (userData) {
 
               user = userData;
-              user.key = userKey.$value;
 
-              $log.log('loginSucceeded', user.email, user.key);
+              console.log('loginSucceeded', user.email, user.$id);
               $rootScope.$broadcast('loginSucceeded');
             });
           });
@@ -145,26 +144,11 @@ angular.module('fasterScaleApp')
             users.$add({
               email: newUser.email,
               id: newUser.id,
-              uid: newUser.uid,
-              scales: [{
-                startDate: Date.now(),
-                endDate: Date.now(),
-                isCurrent: true,
-                minorBehaviors: {
-                  'minorBehaviorId': {
-                    date: Date.now()
-                  }
-                },
-                majorBehaviors: {
-                  'majorBehaviorIds': {
-                    date: Date.now()
-                  }
-                }
-              }]
+              uid: newUser.uid
             }).then(function (ref) {
 
               // Add simpleLoginUserId/firebaseUserKey to simpleLoginRef.
-              var key = ref.name();
+              var id = ref.name();
 
               // Load simpleLogin table.  Add the new simpleLoginId and userId link.
               var simpleLogin = $firebase(new Firebase(baseUrl + '/simpleLogin')).$asObject();
@@ -185,13 +169,35 @@ angular.module('fasterScaleApp')
               });
 
               // Save this key in the user object.
-              user.key = key;
+              user.$id = id;
+
+              // Add first scale.
+              var scales = $firebase(new Firebase(baseUrl + '/users/' + user.$id + '/scales')).$asArray();
+
+              scales.$loaded().then(function () {
+              
+                scales.$add({
+                  startDate: Date.now(),
+                  endDate: Date.now(),
+                  isCurrent: true,
+                  behaviors: {
+                    'behaviorId': {
+                      date: Date.now()
+                    }
+                  },
+                  stages: {
+                    'stageId': {
+                      date: Date.now()
+                    }
+                  }
+                });
+              });
             });
 
-            $log.log('User created', newUser.email);
+            console.log('New user created', newUser.email);
           }
           else {
-            $log.error(error);
+            console.error(error);
           }
         });
       }

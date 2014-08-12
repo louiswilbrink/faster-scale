@@ -76,25 +76,43 @@ angular.module('fasterScaleApp')
         // Poll Authentication service until user is known.
         (function pollAuthenticationForUser () {
           $timeout(function () {
-            if (Authentication.user().key) {
+
+            if (Authentication.user().$id) {
               // Once user is defined in authentication service, save reference to the user's faster scales.
-              scales = $firebase(new Firebase(baseUrl + '/users/' + Authentication.user().key + '/scales/')).$asObject();
-              scales.$loaded();
+              scales = $firebase(new Firebase(baseUrl + 
+                '/users/' + Authentication.user().$id + 
+                '/scales/')).$asArray();
+
+              scales.$loaded().then(function () {
+
+                // Get most recent scale id and load behaviors and stages for that scale.
+                var currentScaleId = scales[scales.length - 1].$id;
+
+                behaviors = $firebase(new Firebase(baseUrl + 
+                  '/users/' + Authentication.user().$id + 
+                  '/scales/' + currentScaleId + 
+                  '/behaviors')).$asObject();
+
+                behaviors.$loaded();
+
+                // When changes on the database occur, recalculate the stages after behaviors are synchronized.
+                behaviors.$watch(calculateStage);
+
+                logOnLoad('behaviors', behaviors);
+
+                stages = $firebase(new Firebase(baseUrl + 
+                  '/users/' + Authentication.user().$id + 
+                  '/scales/' + currentScaleId + 
+                  '/stages')).$asObject();
+
+                stages.$loaded();
+
+                logOnLoad('stages', stages);
+              });
               
-              //behaviorsRef = currentScaleRef.$child('behaviors');
-              behaviors = $firebase(new Firebase(baseUrl + '/users/' + Authentication.user().key + '/scales/0/behaviors')).$asObject();
-              behaviors.$loaded();
-
-              //stagesRef = currentScaleRef.$child('stages');
-              stages = $firebase(new Firebase(baseUrl + '/users/' + Authentication.user().key + '/scales/0/stages')).$asObject();
-              stages.$loaded();
-
-              // When changes on the database occur, recalculate the stages after behaviors are synchronized.
-              behaviors.$watch(calculateStage);
-
               logOnLoad('scales', scales);
-              logOnLoad('behaviors', behaviors);
 
+              // End polling.
               return;
             }
             else {
