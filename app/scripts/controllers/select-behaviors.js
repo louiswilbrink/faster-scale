@@ -12,9 +12,9 @@ angular.module('fasterScaleApp')
 
     $scope.behaviorsCtrl = {
 
-      behaviors: FasterScale.getBehaviors(),
+      behaviorDefinitions: FasterScale.getFullBehaviorList(),
 
-      behaviorsRef: FasterScale.getBehaviorsRef(),
+      behaviors: FasterScale.getBehaviors(),
       
       // Methods.
 
@@ -26,7 +26,7 @@ angular.module('fasterScaleApp')
 
     // Event-handlers.
     
-    $scope.$on('MinorBehaviorsUpdated', function () {
-      $scope.behaviorsCtrl.behaviorsRef = FasterScale.getBehaviorsRef();
+    $scope.$on('BehaviorsUpdated', function () {
+      $scope.behaviorsCtrl.behaviorsRef = FasterScale.getBehaviors();
     });
   });

@@ -11,7 +11,6 @@ angular.module('fasterScaleApp')
   .service('FasterScale', function FasterScale($rootScope, $timeout, $firebase, FasterScaleDefinition, Authentication) {
 
     var fasterScale = FasterScaleDefinition,
-        currentScaleRef,
         baseUrl = 'fasterscale.firebaseio.com',
         currentStage = 0,
         scales,
@@ -132,25 +131,25 @@ angular.module('fasterScaleApp')
 
         if (behaviors[id]) {
           delete behaviors[id];
-          console.log('removing minorBehavior', id);
+          console.log('removing behavior', id);
         }
         else {
           behaviors[id] = { date: Date.now() };
 
-          console.log('adding minorBehavior', id);
+          console.log('adding behavior', id);
         }
 
         behaviors.$save().then(calculateStage);
 
-        $rootScope.$broadcast('MinorBehaviorsUpdated');
+        $rootScope.$broadcast('BehaviorsUpdated');
       }, 
 
-      getBehaviors: function () {
+      getFullBehaviorList: function () {
 
         return fasterScale[currentStage].behaviors;
       },
 
-      getBehaviorsRef: function () {
+      getBehaviors: function () {
 
         return behaviors;
       },

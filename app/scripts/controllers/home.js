@@ -8,6 +8,13 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('HomeCtrl', function () {
+  .controller('HomeCtrl', function ($scope) {
 
+    $scope.homeCtrl = {
+
+      addScale: function () {
+
+        console.log('Adding new scale');
+      }
+    };
   });
