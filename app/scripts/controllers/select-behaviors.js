@@ -8,11 +8,11 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('BehaviorsCtrl', function ($scope, FasterScale) {
+  .controller('BehaviorsCtrl', function ($scope, FasterScale, FasterScaleDefinition) {
 
     $scope.behaviorsCtrl = {
 
-      behaviorDefinitions: FasterScale.getFullBehaviorList(),
+      behaviorDefinitions: FasterScaleDefinition[FasterScale.getSelectedStage()].behaviors,
 
       behaviors: FasterScale.getBehaviors(),
       

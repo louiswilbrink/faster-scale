@@ -12,7 +12,7 @@ angular.module('fasterScaleApp')
 
     var fasterScale = FasterScaleDefinition,
         baseUrl = 'fasterscale.firebaseio.com',
-        currentStage = 0,
+        selectedStage = 0,
         scales,
         stages,
         behaviors;
@@ -124,8 +124,13 @@ angular.module('fasterScaleApp')
 
       selectStage: function (index) {
 
-        currentStage = index;
+        selectedStage = index;
       }, 
+
+      getSelectedStage: function () {
+
+        return selectedStage;
+      },
 
       toggleBehavior: function (id) {
 
@@ -143,11 +148,6 @@ angular.module('fasterScaleApp')
 
         $rootScope.$broadcast('BehaviorsUpdated');
       }, 
-
-      getFullBehaviorList: function () {
-
-        return fasterScale[currentStage].behaviors;
-      },
 
       getBehaviors: function () {
 
