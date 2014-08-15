@@ -24,6 +24,26 @@ angular.module('fasterScaleApp')
         {
           id: 'REST003',
           description: 'Working to resolve problems'
+        },
+        {
+          id: 'REST004',
+          description: 'identifying fears and feelings'
+        },
+        {
+          id: 'REST005',
+          description: 'keeping commitments to meetings, prayer, family, church, people, goals, and self'
+        },
+        {
+          id: 'REST006',
+          description: 'being open and honest'
+        },
+        {
+          id: 'REST007',
+          description: 'increasing in relationships with God and others'
+        },
+        {
+          id: 'REST008',
+          description: 'true accountability'
         }
       ]
     },
