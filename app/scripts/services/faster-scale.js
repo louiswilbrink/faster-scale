@@ -18,12 +18,62 @@ angular.module('fasterScaleApp')
         behaviors;
 
     // Methods.
-    
+
     var logOnLoad = function (refName, ref) {
 
       ref.$loaded().then(function (snapshot) {
         console.log(refName, snapshot);
       });
+    };
+
+    var setBehaviorsAndStages = function (currentScaleId) {
+
+      behaviors = $firebase(new Firebase(baseUrl + 
+        '/users/' + Authentication.user().$id + 
+        '/scales/' + currentScaleId + 
+        '/behaviors')).$asObject();
+
+      behaviors.$loaded();
+
+      // When changes on the database occur, recalculate the stages after behaviors are synchronized.
+      behaviors.$watch(calculateStage);
+
+      logOnLoad('behaviors', behaviors);
+
+      stages = $firebase(new Firebase(baseUrl + 
+        '/users/' + Authentication.user().$id + 
+        '/scales/' + currentScaleId + 
+        '/stages')).$asObject();
+
+      stages.$loaded();
+
+      logOnLoad('stages', stages);
+
+      $rootScope.$broadcast('stagesUpdated');
+    };
+
+    var getCurrentScaleId = function () {
+
+      var currentScaleId;
+
+      if (!scales) {
+        console.log('no scales found.');
+      }
+
+      // Find the current scale.
+      angular.forEach(scales, function (scale) {
+        if (scale.isCurrent === true) {
+          currentScaleId = scale.$id;
+        }
+      });
+
+      // if for whatever reason there is no scale with an 'isCurrent' designation, set the last scale as the current scale and save it's $id.
+      if (!currentScaleId) {
+        scales[scales.length - 1].isCurrent = true;
+        currentScaleId = scales[scales.length - 1].$id;
+      }
+
+      return currentScaleId;
     };
 
     // Examines all behaviors and identifies all parent stages.
@@ -63,7 +113,7 @@ angular.module('fasterScaleApp')
 
       stages.$save();
 
-      $rootScope.$broadcast('stagesRefUpdated');
+      $rootScope.$broadcast('stagesUpdated');
     };
 
     // API
@@ -84,31 +134,7 @@ angular.module('fasterScaleApp')
 
               scales.$loaded().then(function () {
 
-                // Get most recent scale id and load behaviors and stages for that scale.
-                var currentScaleId = scales[scales.length - 1].$id;
-
-                behaviors = $firebase(new Firebase(baseUrl + 
-                  '/users/' + Authentication.user().$id + 
-                  '/scales/' + currentScaleId + 
-                  '/behaviors')).$asObject();
-
-                behaviors.$loaded();
-
-                // When changes on the database occur, recalculate the stages after behaviors are synchronized.
-                behaviors.$watch(calculateStage);
-
-                logOnLoad('behaviors', behaviors);
-
-                stages = $firebase(new Firebase(baseUrl + 
-                  '/users/' + Authentication.user().$id + 
-                  '/scales/' + currentScaleId + 
-                  '/stages')).$asObject();
-
-                stages.$loaded();
-
-                logOnLoad('stages', stages);
-
-                $rootScope.$broadcast('stagesRefUpdated');
+                setBehaviorsAndStages(getCurrentScaleId());
               });
               
               logOnLoad('scales', scales);
@@ -177,30 +203,7 @@ angular.module('fasterScaleApp')
             }
           }
         }).then(function (newScaleRef) {
-          console.log(newScaleRef.name());
-
-          var currentScaleId = newScaleRef.name();
-
-          behaviors = $firebase(new Firebase(baseUrl + 
-            '/users/' + Authentication.user().$id + 
-            '/scales/' + currentScaleId + 
-            '/behaviors')).$asObject();
-
-          behaviors.$loaded();
-
-          // When changes on the database occur, recalculate the stages after behaviors are synchronized.
-          behaviors.$watch(calculateStage);
-
-          $rootScope.$broadcast('BehaviorsUpdated');
-
-          logOnLoad('behaviors', behaviors);
-
-          stages = $firebase(new Firebase(baseUrl + 
-            '/users/' + Authentication.user().$id + 
-            '/scales/' + currentScaleId + 
-            '/stages')).$asObject();
-
-          stages.$loaded();
+          setBehaviorsAndStages(newScaleRef.name());
         });
       },
 

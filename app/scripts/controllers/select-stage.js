@@ -27,7 +27,7 @@ angular.module('fasterScaleApp')
 
     // Event-handlers.
 
-    $scope.$on('stagesRefUpdated', function () {
+    $scope.$on('stagesUpdated', function () {
       $scope.stagesCtrl.stagesRef = FasterScale.getStagesRef();
     });
   });
