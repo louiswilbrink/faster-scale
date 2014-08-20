@@ -107,6 +107,8 @@ angular.module('fasterScaleApp')
                 stages.$loaded();
 
                 logOnLoad('stages', stages);
+
+                $rootScope.$broadcast('stagesRefUpdated');
               });
               
               logOnLoad('scales', scales);
@@ -148,6 +150,59 @@ angular.module('fasterScaleApp')
 
         $rootScope.$broadcast('BehaviorsUpdated');
       }, 
+
+      addScale: function () {
+
+        console.log('Adding scale');
+
+        // Remove 'isCurrent' designation from all existing scales.
+        angular.forEach(scales, function (scale, key) {
+          scale.isCurrent = false;
+          scales.$save(key);
+        });
+
+        scales.$add({
+          startDate: Date.now(),
+          endDate: Date.now(),
+          // Add 'isCurrent' designation to new scale.
+          isCurrent: true,
+          behaviors: {
+            'behaviorId': {
+              date: Date.now()
+            }
+          },
+          stages: {
+            'stageId': {
+              date: Date.now()
+            }
+          }
+        }).then(function (newScaleRef) {
+          console.log(newScaleRef.name());
+
+          var currentScaleId = newScaleRef.name();
+
+          behaviors = $firebase(new Firebase(baseUrl + 
+            '/users/' + Authentication.user().$id + 
+            '/scales/' + currentScaleId + 
+            '/behaviors')).$asObject();
+
+          behaviors.$loaded();
+
+          // When changes on the database occur, recalculate the stages after behaviors are synchronized.
+          behaviors.$watch(calculateStage);
+
+          $rootScope.$broadcast('BehaviorsUpdated');
+
+          logOnLoad('behaviors', behaviors);
+
+          stages = $firebase(new Firebase(baseUrl + 
+            '/users/' + Authentication.user().$id + 
+            '/scales/' + currentScaleId + 
+            '/stages')).$asObject();
+
+          stages.$loaded();
+        });
+      },
 
       getBehaviors: function () {
 
