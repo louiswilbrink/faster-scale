@@ -8,77 +8,25 @@
  * Service in the fasterScaleApp.
  */
 angular.module('fasterScaleApp')
-  .service('FasterScale', function FasterScale($rootScope, $timeout, $firebase, FasterScaleDefinition, Authentication) {
+  .service('FasterScale', ['$rootScope', '$timeout', '$firebase', 'FasterScaleDefinition', 'Authentication', 'User', 'Constant', function FasterScale($rootScope, $timeout, $firebase, FasterScaleDefinition, Authentication, User, Constant) {
 
     var fasterScale = FasterScaleDefinition,
         baseUrl = 'fasterscale.firebaseio.com',
         selectedStage = 0,
         scales,
         stages,
-        behaviors;
+        behaviors,
+        
+    
+        // New stuff.
+        scale,
+        id,
+        startDate,
+        endDate;
 
     // Methods.
-
-    var logOnLoad = function (refName, ref) {
-
-      ref.$loaded().then(function (snapshot) {
-        console.log(refName, snapshot);
-      });
-    };
-
-    var setBehaviorsAndStages = function (currentScaleId) {
-
-      behaviors = $firebase(new Firebase(baseUrl + 
-        '/users/' + Authentication.user().$id + 
-        '/scales/' + currentScaleId + 
-        '/behaviors')).$asObject();
-
-      behaviors.$loaded();
-
-      // When changes on the database occur, recalculate the stages after behaviors are synchronized.
-      behaviors.$watch(calculateStage);
-
-      logOnLoad('behaviors', behaviors);
-
-      stages = $firebase(new Firebase(baseUrl + 
-        '/users/' + Authentication.user().$id + 
-        '/scales/' + currentScaleId + 
-        '/stages')).$asObject();
-
-      stages.$loaded();
-
-      logOnLoad('stages', stages);
-
-      $rootScope.$broadcast('stagesUpdated');
-    };
-
-    var getCurrentScaleId = function () {
-
-      var currentScaleId;
-
-      if (!scales) {
-        console.log('no scales found.');
-      }
-
-      // Find the current scale.
-      angular.forEach(scales, function (scale) {
-        if (scale.isCurrent === true) {
-          currentScaleId = scale.$id;
-        }
-      });
-
-      // if for whatever reason there is no scale with an 'isCurrent' designation, set the last scale as the current scale and save it's $id.
-      if (!currentScaleId) {
-        scales[scales.length - 1].isCurrent = true;
-        currentScaleId = scales[scales.length - 1].$id;
-      }
-
-      return currentScaleId;
-    };
-
-    // Examines all behaviors and identifies all parent stages.
-    // Stages saved to stages.
-    var calculateStage = function () {
+    
+    function calculateStage () {
 
       var idPrefixes = ['REST', 'F', 'A', 'S', 'T', 'E', 'R'],
           indicies = [];
@@ -116,39 +64,60 @@ angular.module('fasterScaleApp')
       $rootScope.$broadcast('stagesUpdated');
     };
 
+    function loadScale (scaleId) {
+
+        scale = $firebase(new Firebase(Constant.baseUrl + 
+            '/users/' + User.getId() + 
+            '/scales/' + scaleId)).$asObject();
+
+        scale.$loaded().then(function () {
+            console.log('scale loaded', scale);
+        });
+    }
+  
+    function loadStages (scaleId) {
+
+        stages = $firebase(new Firebase(Constant.baseUrl + 
+            '/users/' + User.getId() + 
+            '/scales/' + scaleId + 
+            '/stages')).$asObject();
+
+        stages.$loaded().then(function () {
+            console.log('stages loaded', stages);
+        });
+    }
+    
+    function loadBehaviors (scaleId) {
+
+        behaviors = $firebase(new Firebase(Constant.baseUrl + 
+            '/users/' + User.getId() + 
+            '/scales/' + scaleId + 
+            '/behaviors')).$asObject();
+
+        behaviors.$loaded().then(function () {
+            console.log('behaviors loaded', behaviors);
+        });
+
+        behaviors.$watch(calculateStage);
+    }
+
+    // Event handlers.
+    
+    $rootScope.$on('scaleAdded', function (event, scaleId) {
+        loadScale(scaleId);
+        loadStages(scaleId);
+        loadBehaviors(scaleId);
+    });
+
+    $rootScope.$on('currentScaleIdChanged', function (event, scaleId) {
+        loadScale(scaleId);
+        loadStages(scaleId);
+        loadBehaviors(scaleId);
+    });
+
     // API
 
     return {
-
-      init: function () {
-
-        // Poll Authentication service until user is known.
-        (function pollAuthenticationForUser () {
-          $timeout(function () {
-
-            if (Authentication.user().$id) {
-              // Once user is defined in authentication service, save reference to the user's faster scales.
-              scales = $firebase(new Firebase(baseUrl + 
-                '/users/' + Authentication.user().$id + 
-                '/scales/')).$asArray();
-
-              scales.$loaded().then(function () {
-
-                setBehaviorsAndStages(getCurrentScaleId());
-              });
-              
-              logOnLoad('scales', scales);
-
-              // End polling.
-              return;
-            }
-            else {
-              // Continue polling.
-              pollAuthenticationForUser();
-            }
-          }, 500);
-        })();
-      },
 
       selectStage: function (index) {
 
@@ -177,44 +146,24 @@ angular.module('fasterScaleApp')
         $rootScope.$broadcast('BehaviorsUpdated');
       }, 
 
-      addScale: function () {
-
-        console.log('Adding scale');
-
-        // Remove 'isCurrent' designation from all existing scales.
-        angular.forEach(scales, function (scale, key) {
-          scale.isCurrent = false;
-          scales.$save(key);
-        });
-
-        scales.$add({
-          startDate: Date.now(),
-          endDate: Date.now(),
-          // Add 'isCurrent' designation to new scale.
-          isCurrent: true,
-          behaviors: {
-            'behaviorId': {
-              date: Date.now()
-            }
-          },
-          stages: {
-            'stageId': {
-              date: Date.now()
-            }
-          }
-        }).then(function (newScaleRef) {
-          setBehaviorsAndStages(newScaleRef.name());
-        });
-      },
-
       getBehaviors: function () {
 
         return behaviors;
       },
 
-      getScale: function () {
+      getScale: function (id) {
 
-        return fasterScale;
+        return id;
+      },
+
+      getDefinition: function () {
+
+        return FasterScaleDefinition;
+      },
+
+      getScales: function () {
+
+        return scales;
       },
 
       getStagesRef: function () {
@@ -223,4 +172,4 @@ angular.module('fasterScaleApp')
       },
 
     };
-  });
+  }]);

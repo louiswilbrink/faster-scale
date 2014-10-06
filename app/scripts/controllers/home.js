@@ -8,10 +8,15 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('HomeCtrl', function ($scope, FasterScale) {
+  .controller('HomeCtrl', ['$scope', 'FasterScale', 'User', function ($scope, FasterScale, User) {
 
-    $scope.homeCtrl = {
+      $scope.homeCtrl = {
 
-      addScale: FasterScale.addScale
-    };
-  });
+          addScale: User.addScale,
+
+          viewPreviousScales: function () {
+
+              console.log('viewPreviousScales');
+          }
+      };
+  }]);

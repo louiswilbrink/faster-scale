@@ -8,20 +8,20 @@
  * Service in the fasterScaleApp.
  */
 angular.module('fasterScaleApp')
-  .service('Authentication', ['$rootScope', '$log', '$firebase', '$q', '$timeout', function Authentication($rootScope, $log, $firebase, $q, $timeout) {
+  .service('Authentication', ['$rootScope', 'Constant', '$log', '$firebase', '$q', '$timeout', function Authentication($rootScope, Constant, $log, $firebase, $q, $timeout) {
 
-    var baseUrl = 'https://fasterscale.firebaseio.com/',
-        ref = new Firebase(baseUrl),
+    var ref = new Firebase(Constant.baseUrl),
         user = {};
 
-    var auth = new FirebaseSimpleLogin(ref, function(error, authenticatedUser) {
+    var auth = new FirebaseSimpleLogin(ref, function(error, simpleLoginUser) {
       if (error) {
         // An error occurred while attempting login.
 
         console.log(error);
+
         $rootScope.$broadcast('loginFailed', error);
       } 
-      else if (authenticatedUser) {
+      else if (simpleLoginUser) {
         // User authenticated with FirebaseSimpleLogin.
         // Get user data from firebase.
         // Also retrieve user key from simpleLogin table.
@@ -29,27 +29,31 @@ angular.module('fasterScaleApp')
         // If user $id is already defined, then this user was just created.
         if (user.$id) {
         
-          $firebase(new Firebase(baseUrl + '/users/' + user.$id)).$asObject().$loaded().then(function (userData) {
+            $firebase(new Firebase(Constant.baseUrl + '/users/' + user.$id)).$asObject().$loaded().then(function (userData) {
 
             user = userData;
 
             $rootScope.$broadcast('newUserLoggedIn');
+
             console.log('newUserLoggedIn', user.email, user.$id);
           });
         }
         else {
 
+          $rootScope.$broadcast('xloginSucceeded', simpleLoginUser);
+
           // User $id needs to be looked up in simpleLogin table.
-          $firebase(new Firebase(baseUrl + '/simpleLogin/' + authenticatedUser.id)).$asObject().$loaded().then(function (userKey) {
+          $firebase(new Firebase(Constant.baseUrl + '/simpleLogin/' + simpleLoginUser.id)).$asObject().$loaded().then(function (userKey) {
 
             console.log('simpleLoginKey', userKey.$value);
 
-            $firebase(new Firebase(baseUrl + '/users/' + userKey.$value)).$asObject().$loaded().then(function (userData) {
+            $firebase(new Firebase(Constant.baseUrl + '/users/' + userKey.$value)).$asObject().$loaded().then(function (userData) {
 
               user = userData;
 
               console.log('loginSucceeded', user.email, user.$id);
-              $rootScope.$broadcast('loginSucceeded');
+
+              $rootScope.$broadcast('loginSucceeded', { id: user.$id });
             });
           });
         }
@@ -123,7 +127,7 @@ angular.module('fasterScaleApp')
         })
         .then(function () {
 
-          var userRef = new Firebase(baseUrl + '/users' + user.id);
+          var userRef = new Firebase(Constant.baseUrl + '/users' + user.id);
 
           userRef.update({ isActive : false });
 
@@ -138,7 +142,7 @@ angular.module('fasterScaleApp')
         auth.createUser(email, password, function(error, newUser) {
           if (!error) {
 
-            var users = $firebase(new Firebase(baseUrl + '/users')).$asArray();
+            var users = $firebase(new Firebase(Constant.baseUrl + '/users')).$asArray();
 
             // Add user to database and log them in.
             users.$add({
@@ -151,7 +155,7 @@ angular.module('fasterScaleApp')
               var id = ref.name();
 
               // Load simpleLogin table.  Add the new simpleLoginId and userId link.
-              var simpleLogin = $firebase(new Firebase(baseUrl + '/simpleLogin')).$asObject();
+              var simpleLogin = $firebase(new Firebase(Constant.baseUrl + '/simpleLogin')).$asObject();
               simpleLogin.$loaded().then(function () {
 
                 // Add the new simpleLoginId and userId link.
@@ -172,7 +176,7 @@ angular.module('fasterScaleApp')
               user.$id = id;
 
               // Add first scale.
-              var scales = $firebase(new Firebase(baseUrl + '/users/' + user.$id + '/scales')).$asArray();
+              var scales = $firebase(new Firebase(Constant.baseUrl + '/users/' + user.$id + '/scales')).$asArray();
 
               scales.$loaded().then(function () {
               

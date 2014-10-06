@@ -8,7 +8,7 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('MainCtrl', ['$scope', '$location', '$log', 'Authentication', '$timeout', function ($scope, $location, $log, Authentication, $timeout) {
+  .controller('MainCtrl', ['$scope', '$location', '$log', 'Authentication', '$timeout', 'User', function ($scope, $location, $log, Authentication, $timeout, User) {
 
     $scope.navigateTo = function (path) {
 

@@ -30,13 +30,11 @@ angular
       })
       .when('/home', {
         templateUrl: 'views/home.html',
-        controller: 'MainCtrl',
-        resolve: {
-          fasterScaleInit: function (FasterScale) {
-
-            FasterScale.init();
-          }
-        }
+        controller: 'MainCtrl'
+      })
+      .when('/previous-scales', {
+        templateUrl: 'views/previous-scales.html',
+        controller: 'MainCtrl'
       })
       .when('/select-stage', {
         templateUrl: 'views/select-stage.html',
@@ -44,6 +42,10 @@ angular
       })
       .when('/select-behaviors', {
         templateUrl: 'views/select-behaviors.html',
+        controller: 'MainCtrl'
+      })
+      .when('/display-scale', {
+        templateUrl: 'views/display-scale.html',
         controller: 'MainCtrl'
       })
       .when('/forgot-password', {

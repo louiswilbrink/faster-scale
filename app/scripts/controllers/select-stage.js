@@ -14,7 +14,7 @@ angular.module('fasterScaleApp')
 
       // Model.
 
-      stages: FasterScale.getScale(),     
+      stages: FasterScale.getDefinition(),
 
       stagesRef: FasterScale.getStagesRef(),
 

@@ -61,7 +61,63 @@ angular.module('fasterScaleApp')
         },
         {
           id: 'F003',
-          description: 'less time/energy for God, meetings, church'
+          description: 'Less time/energy for God, meetings, church'
+        },
+        {
+          id: 'F004',
+          description: 'Avoiding support and accountability people'
+        },
+        {
+          id: 'F005',
+          description: 'superficial conversations'
+        },
+        {
+          id: 'F006',
+          description: 'sarcasm'
+        },
+        {
+          id: 'F007',
+          description: 'isolating'
+        },
+        {
+          id: 'F008',
+          description: 'changes in goals'
+        },
+        {
+          id: 'F009',
+          description: 'obsessed with relationship'
+        },
+        {
+          id: 'F010',
+          description: 'breaking promises and commitments'
+        },
+        {
+          id: 'F011',
+          description: 'neglecting family'
+        },
+        {
+          id: 'F012',
+          description: 'preoccupation with material things, TV, computers, entertainment'
+        },
+        {
+          id: 'F013',
+          description: 'procrastination'
+        },
+        {
+          id: 'F014',
+          description: 'lying'
+        },
+        {
+          id: 'F015',
+          description: 'over-confidence'
+        },
+        {
+          id: 'F016',
+          description: 'bored'
+        },
+        {
+          id: 'F017',
+          description: 'hiding money'
         }
       ]
     },
@@ -71,8 +127,76 @@ angular.module('fasterScaleApp')
       behaviors: [
         {
           id: 'A001',
-          description: 'A growing background noise of undefined fear; getting energy from emotions'
-        }
+          description: 'a growing background noise of undefined fear; getting energy from emotions'
+        },
+        {
+          id: 'A002',
+          description: 'worry'
+        },
+        {
+          id: 'A003',
+          description: 'using profanity'
+        },
+        {
+          id: 'A004',
+          description: 'being fearful'
+        },
+        {
+          id: 'A005',
+          description: 'being resentful'
+        },
+        {
+          id: 'A006',
+          description: 'replaying old, negative thoughts'
+        },
+        {
+          id: 'A007',
+          description: 'perfectionism'
+        },
+        {
+          id: 'A008',
+          description: 'judging other\'s motives'
+        },
+        {
+          id: 'A009',
+          description: 'making goals and lists that you can\'t complete'
+        },
+        {
+          id: 'A010',
+          description: 'mind reading'
+        },
+        {
+          id: 'A011',
+          description: 'fantasy'
+        },
+        {
+          id: 'A012',
+          description: 'co-dependent rescuing'
+        },
+        {
+          id: 'A013',
+          description: 'sleep problems'
+        },
+        {
+          id: 'A014',
+          description: 'trouble concentrating'
+        },
+        {
+          id: 'A015',
+          description: 'seeking/creating drama'
+        },
+        {
+          id: 'A016',
+          description: 'gossip'
+        },
+        {
+          id: 'A017',
+          description: 'using over the counter medications for pain, sleep or weight control'
+        },
+        {
+          id: 'A018',
+          description: 'flirting'
+        },
       ]
     },
     {

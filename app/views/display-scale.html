@@ -1,0 +1,14 @@
+<div ng-controller="DisplayScaleCtrl">
+    <h1>Display Scale</h1>
+    <p>Date Range:</p>
+    <ul class="list-group" ng-repeat="stage in scale">
+        <li class="list-group-item">
+            <p>{{ stage.id }}</p>
+            <div>
+                <ul class="list-group" ng-repeat="behavior in stage.behaviors">
+                    <li>{{ behavior.id }}</li>  
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
