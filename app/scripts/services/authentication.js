@@ -40,22 +40,7 @@ angular.module('fasterScaleApp')
         }
         else {
 
-          $rootScope.$broadcast('xloginSucceeded', simpleLoginUser);
-
-          // User $id needs to be looked up in simpleLogin table.
-          $firebase(new Firebase(Constant.baseUrl + '/simpleLogin/' + simpleLoginUser.id)).$asObject().$loaded().then(function (userKey) {
-
-            console.log('simpleLoginKey', userKey.$value);
-
-            $firebase(new Firebase(Constant.baseUrl + '/users/' + userKey.$value)).$asObject().$loaded().then(function (userData) {
-
-              user = userData;
-
-              console.log('loginSucceeded', user.email, user.$id);
-
-              $rootScope.$broadcast('loginSucceeded', { id: user.$id });
-            });
-          });
+          $rootScope.$broadcast('loginSucceeded', simpleLoginUser);
         }
       } 
       else {
@@ -83,7 +68,7 @@ angular.module('fasterScaleApp')
 
       login: function (credentials) {
 
-        auth.login('password', {
+        return auth.login('password', {
           email: credentials.email,
           password: credentials.password,
           rememberMe: credentials.rememberMe

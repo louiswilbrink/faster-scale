@@ -161,11 +161,6 @@ angular.module('fasterScaleApp')
         return FasterScaleDefinition;
       },
 
-      getScales: function () {
-
-        return scales;
-      },
-
       getStagesRef: function () {
 
         return stages;

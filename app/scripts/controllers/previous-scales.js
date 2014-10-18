@@ -8,11 +8,12 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('PreviousScalesCtrl', function ($scope, FasterScale) {
+  .controller('PreviousScalesCtrl', function ($scope, FasterScale, User) {
 
       $scope.previousScalesCtrl = {
 
-          scales : FasterScale.getScales()
+          scales : User.getScales(),
 
+          setDisplayScale: User.setDisplayScale
       };
   });

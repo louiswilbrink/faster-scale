@@ -14,6 +14,7 @@ angular.module('fasterScaleApp')
         email, 
         id,
         scales,
+        displayScale, 
         currentScaleId = 'louis';
 
     function simpleLoginLookup (simpleLoginUser) {
@@ -50,6 +51,19 @@ angular.module('fasterScaleApp')
         }
     }
 
+    function setDisplayScale (scaleId) {
+
+        displayScale = $firebase(new Firebase(Constant.baseUrl
+            + '/users/'
+            + id 
+            + '/scales/'
+            + scaleId)).$asObject();
+        
+        displayScale.$loaded().then(function () {
+            console.log('displayScale loaded', displayScale);
+        });
+    }
+
     function loadUser (simpleLoginUser) {
 
         // Look up userId in simpleLogin lookup table.
@@ -67,16 +81,16 @@ angular.module('fasterScaleApp')
                 setCurrentScaleId();
             });
 
-            console.log('xloginSucceeded', id, email, scales);
+            console.log('loginSucceeded', id, email, scales);
           });
         });
 
         return {};
     }
 
-    function getScales() {
-        return scales;
-    }
+    function getScales() { return scales; }
+
+    function getDisplayScale() { return displayScale; }
 
     function  addScale () {
 
@@ -124,7 +138,7 @@ angular.module('fasterScaleApp')
         return id;
     }
 
-    $rootScope.$on('xloginSucceeded', function (event, simpleLoginUser) {
+    $rootScope.$on('loginSucceeded', function (event, simpleLoginUser) {
 
         loadUser(simpleLoginUser);
     });
@@ -132,6 +146,8 @@ angular.module('fasterScaleApp')
     User = {
         getId: getId,
         getScales: getScales,
+        getDisplayScale: getDisplayScale,
+        setDisplayScale: setDisplayScale,
         addScale: addScale,
         resetPassword: resetPassword,
         changePassword: changePassword,

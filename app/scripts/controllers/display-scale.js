@@ -7,9 +7,13 @@
  * # DisplayScaleCtrl
  * Controller of the fasterScaleApp
  */
-angular.module('fasterScaleApp').controller('DisplayScaleCtrl', ['$scope', 'FasterScale', function ($scope, FasterScale) {
+angular.module('fasterScaleApp').controller('DisplayScaleCtrl', ['$scope', 'FasterScale', 'User', function ($scope, FasterScale, User) {
 
-    $scope.scale = FasterScale.getDefinition();
+    $scope.displayScaleCtrl = {
+      
+      scale: User.getDisplayScale()
 
-    console.log($scope.scale);
+    };
+
+    console.log('displayScale:', $scope.displayScaleCtrl.scale);
 }]);

@@ -24,9 +24,11 @@ angular.module('fasterScaleApp')
       
     $scope.loginCtrl.signIn = function () {
       Authentication.login({
-        email: $scope.loginCtrl.email,
-        password: $scope.loginCtrl.password,
-        rememberMe: false
+          email: $scope.loginCtrl.email,
+          password: $scope.loginCtrl.password,
+          rememberMe: false
+      }).then(function () {
+          $scope.navigateTo('/home');
       });
     };
 
