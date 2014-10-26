@@ -12,7 +12,18 @@ angular.module('fasterScaleApp')
 
     $scope.navigateTo = function (path) {
 
-      $location.path(path);
+        $location.path(path);
+    };
+
+    $scope.buildPath = function (pathArray) {
+
+        var path = '';
+
+        angular.forEach(pathArray, function (value) {
+            path += '/' + value;
+        });
+
+        return path;
     };
 
     $scope.logout = Authentication.logout;

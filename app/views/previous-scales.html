@@ -1,7 +1,10 @@
 <div ng-controller="PreviousScalesCtrl">
     <h1>Previous Scales</h1>
     <ul class="list-group">
-      <li class="list-group-item" ng-repeat="scale in previousScalesCtrl.scales" ng-click="navigateTo('/display-scale'); previousScalesCtrl.setDisplayScale(scale.$id)">
+      <li class="list-group-item" 
+          ng-repeat="scale in previousScalesCtrl.scales" 
+          ng-click="navigateTo(buildPath(['display-scale', scale.$id])); 
+              previousScalesCtrl.setDisplayScale(scale.$id);">
           <p>{{ scale.$id }}</p>
           <p>{{ scale.startDate | date: shortDate }}</p>
           <p>{{ scale.endDate | date: shortDate }}</p>

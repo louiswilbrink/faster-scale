@@ -7,19 +7,33 @@
  * # DisplayScaleCtrl
  * Controller of the fasterScaleApp
  */
-angular.module('fasterScaleApp').controller('DisplayScaleCtrl', ['$scope', 'FasterScale', 'User', 'FasterScaleDefinition', function ($scope, FasterScale, User, FasterScaleDefinition) {
+angular.module('fasterScaleApp')
+    .controller('DisplayScaleCtrl', [
+        '$scope', 
+        '$routeParams',
+        'FasterScale', 
+        'User', 
+        'FasterScaleDefinition', 
+    function (
+        $scope, 
+        $routeParams,
+        FasterScale, 
+        User, 
+        FasterScaleDefinition) {
 
-    $scope.displayScaleCtrl = {
-      
-      scale: null,
+        $scope.displayScaleCtrl = {
+          
+          scale: null,
 
-      fasterScaleDefinition: FasterScaleDefinition
-    };
+          scaleId: $routeParams.scaleId,
 
-    console.log($scope.displayScaleCtrl.fasterScaleDefinition);
+          fasterScaleDefinition: FasterScaleDefinition
+        };
 
-    $scope.$on('displayScaleLoaded', function () {
+        console.log($scope.displayScaleCtrl.scaleId);
 
-        $scope.displayScaleCtrl.scale = User.getDisplayScale();
-    });
-}]);
+        $scope.$on('displayScaleLoaded', function () {
+
+            $scope.displayScaleCtrl.scale = User.getDisplayScale();
+        });
+    }]);
