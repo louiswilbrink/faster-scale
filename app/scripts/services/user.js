@@ -15,7 +15,7 @@ angular.module('fasterScaleApp')
         id,
         scales,
         displayScale, 
-        currentScaleId = 'louis';
+        currentScaleId;
 
     function simpleLoginLookup (simpleLoginUser) {
 
@@ -60,6 +60,7 @@ angular.module('fasterScaleApp')
             + scaleId)).$asObject();
         
         displayScale.$loaded().then(function () {
+            $rootScope.$broadcast('displayScaleLoaded');
             console.log('displayScale loaded', displayScale);
         });
     }
@@ -79,6 +80,7 @@ angular.module('fasterScaleApp')
 
             scales.$loaded().then(function () {
                 setCurrentScaleId();
+                $rootScope.$broadcast('scalesLoaded');
             });
 
             console.log('loginSucceeded', id, email, scales);

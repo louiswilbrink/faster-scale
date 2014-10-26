@@ -71,7 +71,7 @@ angular.module('fasterScaleApp')
             '/scales/' + scaleId)).$asObject();
 
         scale.$loaded().then(function () {
-            console.log('scale loaded', scale);
+            //console.log('scale loaded', scale);
         });
     }
   
@@ -83,7 +83,7 @@ angular.module('fasterScaleApp')
             '/stages')).$asObject();
 
         stages.$loaded().then(function () {
-            console.log('stages loaded', stages);
+            //console.log('stages loaded', stages);
         });
     }
     
@@ -95,7 +95,7 @@ angular.module('fasterScaleApp')
             '/behaviors')).$asObject();
 
         behaviors.$loaded().then(function () {
-            console.log('behaviors loaded', behaviors);
+            //console.log('behaviors loaded', behaviors);
         });
 
         behaviors.$watch(calculateStage);

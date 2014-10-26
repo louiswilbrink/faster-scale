@@ -16,4 +16,8 @@ angular.module('fasterScaleApp')
 
           setDisplayScale: User.setDisplayScale
       };
+
+      $scope.$on('scalesLoaded', function () {
+          $scope.previousScalesCtrl.scales = User.getScales();
+      });
   });
