@@ -30,10 +30,16 @@ angular.module('fasterScaleApp')
           fasterScaleDefinition: FasterScaleDefinition
         };
 
-        console.log($scope.displayScaleCtrl.scaleId);
-
         $scope.$on('displayScaleLoaded', function () {
 
             $scope.displayScaleCtrl.scale = User.getDisplayScale();
+        });
+
+        $scope.$on('userLoaded', function () {
+
+            if (!$scope.displayScaleCtrl.scale && $scope.displayScaleCtrl.scaleId) {
+
+                User.setDisplayScale($scope.displayScaleCtrl.scaleId);
+            }
         });
     }]);
