@@ -35,6 +35,11 @@ angular.module('fasterScaleApp')
             $scope.displayScaleCtrl.scale = User.getDisplayScale();
         });
 
+        /*
+         * When this page is reloaded,
+         * wait for re-authentication and user data to be loaded,
+         * then set the display scale.
+         */
         $scope.$on('userLoaded', function () {
 
             if (!$scope.displayScaleCtrl.scale && $scope.displayScaleCtrl.scaleId) {

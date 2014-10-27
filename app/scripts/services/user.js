@@ -61,7 +61,6 @@ angular.module('fasterScaleApp')
         
         displayScale.$loaded().then(function () {
             $rootScope.$broadcast('displayScaleLoaded');
-            console.log('displayScale loaded', displayScale);
         });
     }
 
