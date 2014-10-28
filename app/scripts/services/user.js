@@ -108,6 +108,10 @@ angular.module('fasterScaleApp')
           endDate: Date.now(),
           // Add 'isCurrent' designation to new scale.
           isCurrent: true,
+          /*
+           * Is this necessary??  
+           * So far, so good, but leaving it in until further testing is done.
+           *
           behaviors: {
             'behaviorId': {
               date: Date.now()
@@ -118,6 +122,7 @@ angular.module('fasterScaleApp')
               date: Date.now()
             }
           }
+          */
         }).then(function (ref) {
             $rootScope.$broadcast('scaleAdded', ref.name());
         });

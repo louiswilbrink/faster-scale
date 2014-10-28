@@ -9,8 +9,11 @@
  * Filter in the fasterScaleApp.
  */
 angular.module('fasterScaleApp')
-  .filter('fullStage', function () {
-    return function (input) {
-      return 'fullStage filter: ' + input;
-    };
-  });
+    .filter('fullStage', [
+        'StageMap', 
+    function (StageMap) {
+
+        return function (stageId) {
+            return StageMap[stageId];
+        };
+    }]);

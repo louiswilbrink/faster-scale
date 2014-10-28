@@ -33,6 +33,8 @@ angular.module('fasterScaleApp')
         $scope.$on('displayScaleLoaded', function () {
 
             $scope.displayScaleCtrl.scale = User.getDisplayScale();
+
+            console.log($scope.displayScaleCtrl.scale);
         });
 
         /*
