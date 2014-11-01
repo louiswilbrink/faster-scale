@@ -23,16 +23,29 @@ angular.module('fasterScaleApp')
 
         $scope.displayScaleCtrl = {
           
-          scale: null,
+            scale: [
+                {
+                    stageId: 'REST',
+                    behaviorIds: ['R001', 'R002']
+                },
+                {
+                    stageId: 'F',
+                    behaviorIds: ['F003', 'F007']
+                },
+                {
+                    stageId: 'A',
+                    behaviorIds: ['A005', 'A015']
+                }
+            ],
 
-          scaleId: $routeParams.scaleId,
+            scaleId: $routeParams.scaleId,
 
-          fasterScaleDefinition: FasterScaleDefinition
+            fasterScaleDefinition: FasterScaleDefinition
         };
 
         $scope.$on('displayScaleLoaded', function () {
 
-            $scope.displayScaleCtrl.scale = User.getDisplayScale();
+            // $scope.displayScaleCtrl.scale = User.getDisplayScale();
 
             console.log($scope.displayScaleCtrl.scale);
         });

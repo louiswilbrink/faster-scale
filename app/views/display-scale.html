@@ -1,14 +1,18 @@
 <div ng-controller="DisplayScaleCtrl">
     <h1>Display Scale</h1>
     <p>Date Range:</p>
-    <ul class="list-group" ng-repeat="(stageId, stage) in displayScaleCtrl.scale.stages">
+    <ul class="list-group" ng-repeat="stage in displayScaleCtrl.scale">
         <li class="list-group-item">
-            <p>{{ stageId | fullStage }}</p>
+            <p>{{ stage.stageId }} : {{ stage.stageId | fullStage }}</p>
             <div>
-                <ul class="list-group" ng-repeat="(behaviorId, behavior) in displayScaleCtrl.scale.behaviors">
-                    <li>{{ behaviorId | fullBehavior }}</li>  
+                <ul class="list-group" ng-repeat="behaviorId in stage.behaviorIds">
+                    <li>{{ behaviorId }} : {{ behaviorId | fullBehavior }}</li>  
                 </ul>
             </div>
         </li>
+    </ul>
+    <ul>
+      <li ng-click="navigateTo('/previous-scales')">Back</li>
+      <li ng-click="navigateTo('/home')">Home</li>
     </ul>
 </div>
