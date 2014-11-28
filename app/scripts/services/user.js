@@ -83,6 +83,8 @@ angular.module('fasterScaleApp')
             });
 
             $rootScope.$broadcast('userLoaded');
+
+            console.log('userLoaded', id, email, scales);
           });
         });
 

@@ -23,31 +23,46 @@ angular.module('fasterScaleApp')
 
         $scope.displayScaleCtrl = {
           
-            scale: [
-                {
-                    stageId: 'REST',
-                    behaviorIds: ['R001', 'R002']
-                },
-                {
-                    stageId: 'F',
-                    behaviorIds: ['F003', 'F007']
-                },
-                {
-                    stageId: 'A',
-                    behaviorIds: ['A005', 'A015']
-                }
-            ],
+            scale: null,
 
             scaleId: $routeParams.scaleId,
 
             fasterScaleDefinition: FasterScaleDefinition
         };
 
+        function setDisplayScale (stageIds, behaviorIds) {
+            $scope.displayScaleCtrl.scale = [];
+
+            if (stageIds) {
+                angular.forEach(FasterScaleDefinition, function (stage) {
+                    
+                    if (stage.id in stageIds) {
+
+                        $scope.displayScaleCtrl.scale.push({
+                            stageId: stage.id,
+                            behaviorIds: []
+                        });
+
+                        if (behaviorIds) {
+                            angular.forEach(stage.behaviors, function (behavior) {
+                                if (behavior.id in behaviorIds) {
+                                    $scope.displayScaleCtrl.scale[$scope.displayScaleCtrl.scale.length - 1].behaviorIds.push(behavior.id);
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        };
+
         $scope.$on('displayScaleLoaded', function () {
 
-            // $scope.displayScaleCtrl.scale = User.getDisplayScale();
+            var displayScale = User.getDisplayScale();
 
-            console.log($scope.displayScaleCtrl.scale);
+            var stageIds = displayScale.stages;
+            var behaviorIds = displayScale.behaviors;
+
+            setDisplayScale(stageIds, behaviorIds);
         });
 
         /*
