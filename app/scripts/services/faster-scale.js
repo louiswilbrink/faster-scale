@@ -26,6 +26,22 @@ angular.module('fasterScaleApp')
 
     // Methods.
     
+    function revertScaleEndDate () {
+
+        var latestDate = 0;
+
+        // Find the latest date that a behavior was added..
+        angular.forEach(behaviors, function (behavior, key) {
+            if (behavior.date > latestDate) {
+                latestDate = behavior.date;
+                console.log('new latest date:', latestDate);
+            }
+        });
+
+        // ..then save it.
+        scale.endDate = latestDate;
+    };
+
     function calculateStage () {
 
       var idPrefixes = ['REST', 'F', 'A', 'S', 'T', 'E', 'R'],
@@ -59,9 +75,9 @@ angular.module('fasterScaleApp')
         }
       });
 
-      stages.$save();
-
       $rootScope.$broadcast('stagesUpdated');
+
+      return stages.$save();
     };
 
     function loadScale (scaleId) {
@@ -132,16 +148,38 @@ angular.module('fasterScaleApp')
       toggleBehavior: function (id) {
 
         if (behaviors[id]) {
+          // Toggle behavior OFF.
+          // Delete from behaviors and save.
           delete behaviors[id];
+
+          revertScaleEndDate();
+
+          // Save the scale with it's new endDate.
+          // Then save the removed behavior
+          // and recalculate stages.
+          scale.$save().then(behaviors.$save.bind(behaviors)).then(calculateStage);
+
           console.log('removing behavior', id);
         }
         else {
-          behaviors[id] = { date: Date.now() };
+          // Toggle behavior ON.
+          var now = Date.now();
 
-          console.log('adding behavior', id);
+          // Extend this scale's end date.
+          scale.endDate = now;
+
+          // First save the endDate change, then save the child nodes (behavior).
+          // Saving at the same time can undo the intended behavior.
+          scale.$save().then(function () {
+
+              // Add behavior to this scale.
+              behaviors[id] = { date: now };
+
+              behaviors.$save().then(calculateStage);
+
+              console.log('adding behavior', id);
+          });
         }
-
-        behaviors.$save().then(calculateStage);
 
         $rootScope.$broadcast('BehaviorsUpdated');
       }, 
