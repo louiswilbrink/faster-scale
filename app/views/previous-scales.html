@@ -3,11 +3,10 @@
     <ul class="list-group">
       <li class="list-group-item" 
           ng-repeat="scale in previousScalesCtrl.scales" 
-          ng-click="navigateTo(buildPath(['display-scale', scale.$id])); 
-              previousScalesCtrl.setDisplayScale(scale.$id);">
+          ng-click="navigateTo(buildPath(['display-scale', scale.$id])); previousScalesCtrl.setDisplayScale(scale.$id);">
           <p>{{ scale.$id }}</p>
-          <p>{{ scale.startDate | date: shortDate }}</p>
-          <p>{{ scale.endDate | date: shortDate }}</p>
+          <p>{{ scale.startDate | date : 'medium' }}</p>
+          <p>{{ scale.endDate | date : 'medium' }}</p>
       </li>
     </ul>
     <ul>

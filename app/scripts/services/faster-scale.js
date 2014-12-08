@@ -26,6 +26,10 @@ angular.module('fasterScaleApp')
 
     // Methods.
     
+    /*
+    * Find the most recent date of all behaviors
+    * and save it to the scale.endDate property
+    */
     function revertScaleEndDate () {
 
         var latestDate = 0;
