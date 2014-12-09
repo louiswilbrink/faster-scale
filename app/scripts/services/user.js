@@ -110,23 +110,14 @@ angular.module('fasterScaleApp')
           endDate: Date.now(),
           // Add 'isCurrent' designation to new scale.
           isCurrent: true,
-          /*
-           * Is this necessary??  
-           * So far, so good, but leaving it in until further testing is done.
-           *
-          behaviors: {
-            'behaviorId': {
-              date: Date.now()
-            }
-          },
-          stages: {
-            'stageId': {
-              date: Date.now()
-            }
-          }
-          */
         }).then(function (ref) {
             $rootScope.$broadcast('scaleAdded', ref.name());
+        });
+    }
+
+    function deleteScale (scaleIndex) {
+        scales.$remove(scaleIndex).then(function () {
+            console.log('scale removed', scales);
         });
     }
 
@@ -157,6 +148,7 @@ angular.module('fasterScaleApp')
         getDisplayScale: getDisplayScale,
         setDisplayScale: setDisplayScale,
         addScale: addScale,
+        deleteScale: deleteScale,
         resetPassword: resetPassword,
         changePassword: changePassword,
         deleteUser: deleteUser

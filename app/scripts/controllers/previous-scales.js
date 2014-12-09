@@ -14,7 +14,12 @@ angular.module('fasterScaleApp')
 
           scales : User.getScales(),
 
-          setDisplayScale: User.setDisplayScale
+          setDisplayScale: User.setDisplayScale,
+
+          deleteScale: function (event, scaleIndex) { 
+            event.stopPropagation();
+            User.deleteScale(scaleIndex);
+          }
       };
 
       $scope.$on('scalesLoaded', function () {
