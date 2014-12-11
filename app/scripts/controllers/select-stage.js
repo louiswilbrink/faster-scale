@@ -18,7 +18,7 @@ angular.module('fasterScaleApp')
             console.log('clearing timer');
             clearTimeout($timeout.cancel(timer));
             timer = $timeout(function() {
-                FasterScale.saveProblem();
+                FasterScale.saveCommitment();
             }, DELAY)
         };
     })();
@@ -30,9 +30,9 @@ angular.module('fasterScaleApp')
       stages: FasterScale.getDefinition(),
 
       stagesRef: FasterScale.getStagesRef(),
-     
-      problem: 'mo money',
 
+      commitment: FasterScale.getCommitment(),
+     
       // Methods.
       
       onProblemKeypress: saveAfterDelay,
@@ -45,6 +45,12 @@ angular.module('fasterScaleApp')
     // Event-handlers.
 
     $scope.$on('stagesUpdated', function () {
-      $scope.stagesCtrl.stagesRef = FasterScale.getStagesRef();
+        $scope.stagesCtrl.stagesRef = FasterScale.getStagesRef();
+    });
+
+    $scope.$on('scaleLoaded', function () {
+        $scope.stagesCtrl.stages = FasterScale.getDefinition();
+        $scope.stagesCtrl.stagesRef = FasterScale.getStagesRef();
+        $scope.stagesCtrl.commitment = FasterScale.getCommitment();
     });
   });

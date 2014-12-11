@@ -101,15 +101,27 @@ angular.module('fasterScaleApp')
 
         // Remove 'isCurrent' designation from all existing scales.
         angular.forEach(scales, function (scale, key) {
-          scale.isCurrent = false;
-          scales.$save(key);
+            scale.isCurrent = false;
+            scales.$save(key);
         });
 
         scales.$add({
-          startDate: Date.now(),
-          endDate: Date.now(),
-          // Add 'isCurrent' designation to new scale.
-          isCurrent: true,
+            startDate: Date.now(),
+            endDate: Date.now(),
+            // Add 'isCurrent' designation to new scale.
+            isCurrent: true,
+            commitment: {
+                problem: '',
+                choice: {
+                    costToChange: '',
+                    costToPreserve: ''
+                },
+                confrontation: {
+                    faithfulChoice: '',
+                    rightChoice: ''
+                },
+                plan: ''
+            }
         }).then(function (ref) {
             $rootScope.$broadcast('scaleAdded', ref.name());
         });

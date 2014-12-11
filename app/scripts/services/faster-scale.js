@@ -16,9 +16,7 @@ angular.module('fasterScaleApp')
         scales,
         stages,
         behaviors,
-        
-    
-        // New stuff.
+        commitment,
         scale,
         id,
         startDate,
@@ -120,18 +118,35 @@ angular.module('fasterScaleApp')
         behaviors.$watch(calculateStage);
     }
 
+    function loadCommitment (scaleId) {
+        commitment = $firebase(new Firebase(Constant.baseUrl +
+            '/users/' + User.getId() +
+            '/scales/' + scaleId +
+            '/commitment')).$asObject();
+
+        commitment.$loaded().then(function () {
+            //console.log('commitment loaded', commitment);
+        });
+    }
+
     // Event handlers.
     
     $rootScope.$on('scaleAdded', function (event, scaleId) {
         loadScale(scaleId);
         loadStages(scaleId);
         loadBehaviors(scaleId);
+        loadCommitment(scaleId);
+
+        $rootScope.$broadcast('scaleLoaded');
     });
 
     $rootScope.$on('currentScaleIdChanged', function (event, scaleId) {
         loadScale(scaleId);
         loadStages(scaleId);
         loadBehaviors(scaleId);
+        loadCommitment(scaleId);
+
+        $rootScope.$broadcast('scaleLoaded');
     });
 
     // API
@@ -207,8 +222,12 @@ angular.module('fasterScaleApp')
           return stages;
       },
 
-      saveProblem: function () {
-         console.log('saving problem..');
+      getCommitment: function () {
+          return commitment;
+      },
+
+      saveCommitment: function () {
+         console.log('saving commitment..');
       }
     };
   }]);
