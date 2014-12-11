@@ -1,6 +1,5 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 // bower:scss
-@import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
 p {
@@ -22,4 +21,8 @@ p {
   li {
     @extend .list-item;
   }
+}
+
+.blue {
+  color: blue;
 }

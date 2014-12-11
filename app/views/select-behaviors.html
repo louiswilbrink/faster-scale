@@ -3,7 +3,7 @@
     <h1>Select behaviors</h1>
   </div>
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions" ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" ng-class="{ 'active' : behaviorsCtrl.behaviors[behaviorDefinition.id] }">{{ behaviorDefinition.description }}</li>
+    <li class="list-group-item" ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions" ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" ng-class="{ 'blue' : behaviorsCtrl.behaviors[behaviorDefinition.id] }">{{ behaviorDefinition.description }}</li>
   </ul>
   <ul>
     <li ng-click="navigateTo('/select-stage')">Back to stages</li>

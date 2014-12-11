@@ -84,6 +84,9 @@ angular.module('fasterScaleApp')
             }
         });
 
+        /*
+         * Wait for the scale properties to be loaded, then populate.
+         */
         $scope.$on('scaleLoaded', function () {
             $scope.displayScaleCtrl.commitment = FasterScale.getCommitment();
             console.log($scope.displayScaleCtrl.commitment);

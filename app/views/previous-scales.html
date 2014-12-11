@@ -1,8 +1,7 @@
 <div ng-controller="PreviousScalesCtrl">
     <h1>Previous Scales</h1>
-    <ul class="list-group">
-      <li class="list-group-item" 
-          ng-repeat="(index, scale) in previousScalesCtrl.scales" 
+    <ul>
+      <li ng-repeat="(index, scale) in previousScalesCtrl.scales" 
           ng-click="navigateTo(buildPath(['display-scale', scale.$id])); previousScalesCtrl.setDisplayScale(scale.$id);">
           <span ng-click='previousScalesCtrl.deleteScale($event, index)'>delete</span>
           <p>{{ scale.$id }}</p>

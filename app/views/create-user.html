@@ -1,12 +1,12 @@
 <div ng-controller="CreateUserCtrl">
   <div>
     <h1>Create New Account</h1>
-    <p class="form-status">{{ createUserCtrl.status.text }}</p>
-    <form class="form-horizontal" role="form">
-      <div class="centered">
-        <input type="email" class="form-control" ng-model="createUserCtrl.email" placeholder="Email" auto-fill-clear>
-        <input type="password" class="form-control" ng-model="createUserCtrl.password" placeholder="Password" auto-fill-clear>
-        <button type="submit" class="btn btn-primary" ng-click="createUserCtrl.signUp()">Sign me up!</button>
+    <p>{{ createUserCtrl.status.text }}</p>
+    <form>
+      <div>
+        <input type="email" ng-model="createUserCtrl.email" placeholder="Email" auto-fill-clear>
+        <input type="password" ng-model="createUserCtrl.password" placeholder="Password" auto-fill-clear>
+        <button type="submit" ng-click="createUserCtrl.signUp()">Sign me up!</button>
         <a ng-click="navigateTo('/')">No Thanks, take me back</a>
       </div>
     </form>

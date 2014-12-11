@@ -1,11 +1,11 @@
 <div ng-controller="LoginCtrl">
   <h1>FASTER</h1>
-  <form class="form-horizontal" role="form">
+  <form role="form">
     <p>{{ loginCtrl.status }}</p>
-    <div class="centered">
-      <input type="email" class="form-control" ng-model="loginCtrl.email" auto-fill-sync placeholder="Email">
-      <input type="password" class="form-control" ng-model="loginCtrl.password" auto-fill-sync placeholder="Password">
-      <button type="submit" class="btn btn-primary" ng-click="loginCtrl.signIn()">Sign in</button>
+    <div>
+      <input type="email" ng-model="loginCtrl.email" auto-fill-sync placeholder="Email">
+      <input type="password" ng-model="loginCtrl.password" auto-fill-sync placeholder="Password">
+      <button type="submit" ng-click="loginCtrl.signIn()">Sign in</button>
       <a ng-click="navigateTo('/forgot-password')">Forgot Password?</a>
       <a ng-click="navigateTo('/create-user')">Not a member? Sign up today.</a>
     </div>

@@ -26,7 +26,12 @@ angular.module('fasterScaleApp')
 
     // Event-handlers.
     
+    // Update when behavior has been toggled on the database.
     $scope.$on('BehaviorsUpdated', function () {
-      $scope.behaviorsCtrl.behaviorsRef = FasterScale.getBehaviors();
+        $scope.behaviorsCtrl.behaviors = FasterScale.getBehaviors();
+    });
+
+    $scope.$on('scaleLoaded', function () {
+        $scope.behaviorsCtrl.behaviors = FasterScale.getBehaviors();
     });
   });
