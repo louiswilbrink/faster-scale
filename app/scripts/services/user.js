@@ -120,7 +120,8 @@ angular.module('fasterScaleApp')
                     faithfulChoice: '',
                     rightChoice: ''
                 },
-                plan: ''
+                plan: '',
+                accountabilityPartners: ''
             }
         }).then(function (ref) {
             $rootScope.$broadcast('scaleAdded', ref.name());

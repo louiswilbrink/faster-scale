@@ -27,6 +27,12 @@
             <h2>Which choice takes more faith?  Why?</h2>
             <input ng-model="stagesCtrl.commitment.confrontation.rightChoice"
                    ng-change="stagesCtrl.onProblemKeypress()"/>
+            <h2>What is my plan of change for this week?</h2>
+            <input ng-model="stagesCtrl.commitment.plan"
+                   ng-change="stagesCtrl.onProblemKeypress()"/>
+            <h2>What two men have I asked to keep me accountable this week?</h2>
+            <input ng-model="stagesCtrl.commitment.accountabilityPartners"
+                   ng-change="stagesCtrl.onProblemKeypress()"/>
         </li>
     </ul>
     <ul>
