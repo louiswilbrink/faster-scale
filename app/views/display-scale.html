@@ -12,6 +12,36 @@
         </li>
     </ul>
     <ul>
+        <li>
+            <h1>Problem Statement</h1>
+            <p>{{ displayScaleCtrl.commitment.problem }}</p>
+        </li>
+        <li>
+            <h1>Cost if you change</h1>
+            <p>{{ displayScaleCtrl.commitment.choice.costToChange }}</p>
+        </li>
+        <li>
+            <h1>Cost if you do not change</h1>
+            <p>{{ displayScaleCtrl.commitment.choice.costToPreserve }}</p>
+        </li>
+        <li>
+            <h1>What choice is the right thing to do?</h1>
+            <p>{{ displayScaleCtrl.commitment.confrontation.rightChoice }}</p>
+        </li>
+        <li>
+            <h1>What choice takes more faith?</h1>
+            <p>{{ displayScaleCtrl.commitment.confrontation.faithfulChoice }}</p>
+        </li>
+        <li>
+            <h1>Plan for the week</h1>
+            <p>{{ displayScaleCtrl.commitment.plan }}</p>
+        </li>
+        <li>
+            <h1>Accountability partners this week</h1>
+            <p>{{ displayScaleCtrl.commitment.accountabilityPartners }}</p>
+        </li>
+    </ul>
+    <ul>
       <li ng-click="navigateTo('/previous-scales')">Back</li>
       <li ng-click="navigateTo('/home')">Home</li>
     </ul>

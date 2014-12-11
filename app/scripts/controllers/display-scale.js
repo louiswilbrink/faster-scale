@@ -27,9 +27,15 @@ angular.module('fasterScaleApp')
 
             scaleId: $routeParams.scaleId,
 
+            commitment: null,
+
             fasterScaleDefinition: FasterScaleDefinition
         };
 
+        /*
+         * After getting stageId and behaviorsId objects, build a single
+         * array that puts behaviors with their respective stages.
+         */
         function setDisplayScale (stageIds, behaviorIds) {
             $scope.displayScaleCtrl.scale = [];
 
@@ -76,5 +82,10 @@ angular.module('fasterScaleApp')
 
                 User.setDisplayScale($scope.displayScaleCtrl.scaleId);
             }
+        });
+
+        $scope.$on('scaleLoaded', function () {
+            $scope.displayScaleCtrl.commitment = FasterScale.getCommitment();
+            console.log($scope.displayScaleCtrl.commitment);
         });
     }]);
