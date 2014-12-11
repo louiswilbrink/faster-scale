@@ -8,7 +8,20 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('StagesCtrl', function ($scope, FasterScale) {
+  .controller('StagesCtrl', function ($scope, $timeout, FasterScale) {
+
+    var saveAfterDelay = (function () {
+        var DELAY = 500;
+        var timer;
+                
+        return function() {
+            console.log('clearing timer');
+            clearTimeout($timeout.cancel(timer));
+            timer = $timeout(function() {
+                FasterScale.saveProblem();
+            }, DELAY)
+        };
+    })();
 
     $scope.stagesCtrl = {
 
@@ -17,9 +30,13 @@ angular.module('fasterScaleApp')
       stages: FasterScale.getDefinition(),
 
       stagesRef: FasterScale.getStagesRef(),
+     
+      problem: 'mo money',
 
       // Methods.
       
+      onProblemKeypress: saveAfterDelay,
+
       selectStage : function (index) {
         FasterScale.selectStage(index);
       }

@@ -38,7 +38,6 @@ angular.module('fasterScaleApp')
         angular.forEach(behaviors, function (behavior, key) {
             if (behavior.date > latestDate) {
                 latestDate = behavior.date;
-                console.log('new latest date:', latestDate);
             }
         });
 
@@ -141,72 +140,75 @@ angular.module('fasterScaleApp')
 
       selectStage: function (index) {
 
-        selectedStage = index;
+          selectedStage = index;
       }, 
 
       getSelectedStage: function () {
 
-        return selectedStage;
+          return selectedStage;
       },
 
       toggleBehavior: function (id) {
 
-        if (behaviors[id]) {
-          // Toggle behavior OFF.
-          // Delete from behaviors and save.
-          delete behaviors[id];
+          if (behaviors[id]) {
+              // Toggle behavior OFF.
+              // Delete from behaviors and save.
+              delete behaviors[id];
 
-          revertScaleEndDate();
+              revertScaleEndDate();
 
-          // Save the scale with it's new endDate.
-          // Then save the removed behavior
-          // and recalculate stages.
-          scale.$save().then(behaviors.$save.bind(behaviors)).then(calculateStage);
+              // Save the scale with it's new endDate.
+              // Then save the removed behavior
+              // and recalculate stages.
+              scale.$save().then(behaviors.$save.bind(behaviors)).then(calculateStage);
 
-          console.log('removing behavior', id);
-        }
-        else {
-          // Toggle behavior ON.
-          var now = Date.now();
+              console.log('removing behavior', id);
+          }
+          else {
+              // Toggle behavior ON.
+              var now = Date.now();
 
-          // Extend this scale's end date.
-          scale.endDate = now;
+              // Extend this scale's end date.
+              scale.endDate = now;
 
-          // First save the endDate change, then save the child nodes (behavior).
-          // Saving at the same time can undo the intended behavior.
-          scale.$save().then(function () {
+              // First save the endDate change, then save the child nodes (behavior).
+              // Saving at the same time can undo the intended behavior.
+              scale.$save().then(function () {
 
-              // Add behavior to this scale.
-              behaviors[id] = { date: now };
+                  // Add behavior to this scale.
+                  behaviors[id] = { date: now };
 
-              behaviors.$save().then(calculateStage);
+                  behaviors.$save().then(calculateStage);
 
-              console.log('adding behavior', id);
-          });
-        }
+                  console.log('adding behavior', id);
+              });
+          }
 
-        $rootScope.$broadcast('BehaviorsUpdated');
+          $rootScope.$broadcast('BehaviorsUpdated');
       }, 
 
       getBehaviors: function () {
 
-        return behaviors;
+          return behaviors;
       },
 
       getScale: function (id) {
 
-        return id;
+          return id;
       },
 
       getDefinition: function () {
 
-        return FasterScaleDefinition;
+          return FasterScaleDefinition;
       },
 
       getStagesRef: function () {
 
-        return stages;
+          return stages;
       },
 
+      saveProblem: function () {
+         console.log('saving problem..');
+      }
     };
   }]);
