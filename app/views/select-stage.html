@@ -15,6 +15,18 @@
             <h2>What problems/situation do I need to change?</h2>
             <input ng-model="stagesCtrl.commitment.problem"
                    ng-change="stagesCtrl.onProblemKeypress()"/>
+            <h2>What will it cost me if I do change?</h2>
+            <input ng-model="stagesCtrl.commitment.choice.costToChange"
+                   ng-change="stagesCtrl.onProblemKeypress()"/>
+            <h2>What will it cost me if I do not change?</h2>
+            <input ng-model="stagesCtrl.commitment.choice.costToPreserve"
+                   ng-change="stagesCtrl.onProblemKeypress()"/>
+            <h2>Which of these is the right thing to do</h2>
+            <input ng-model="stagesCtrl.commitment.confrontation.faithfulChoice"
+                   ng-change="stagesCtrl.onProblemKeypress()"/>
+            <h2>Which choice takes more faith?  Why?</h2>
+            <input ng-model="stagesCtrl.commitment.confrontation.rightChoice"
+                   ng-change="stagesCtrl.onProblemKeypress()"/>
         </li>
     </ul>
     <ul>

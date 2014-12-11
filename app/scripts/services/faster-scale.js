@@ -227,7 +227,7 @@ angular.module('fasterScaleApp')
       },
 
       saveCommitment: function () {
-         console.log('saving commitment..');
+          commitment.$save();
       }
     };
   }]);
