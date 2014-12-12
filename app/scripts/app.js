@@ -11,11 +11,13 @@
 angular
   .module('fasterScaleApp', [
     'ngAnimate',
+    'ngMaterial',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ngAria',
     'firebase'
   ])
   .config(function ($routeProvider) {
