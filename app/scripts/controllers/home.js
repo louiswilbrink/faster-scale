@@ -8,7 +8,7 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('HomeCtrl', ['$scope', 'FasterScale', 'User', function ($scope, FasterScale, User) {
+  .controller('HomeCtrl', ['$scope', 'FasterScale', 'User', '$mdSidenav', function ($scope, FasterScale, User, $mdSidenav) {
 
       $scope.homeCtrl = {
 
@@ -17,6 +17,12 @@ angular.module('fasterScaleApp')
           viewPreviousScales: function () {
 
               console.log('viewPreviousScales');
+          },
+          toggleRight: function () {
+              $mdSidenav('right').toggle();
+          },
+          close: function () {
+              $mdSidenav('right').close();
           }
       };
   }]);

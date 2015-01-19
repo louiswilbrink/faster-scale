@@ -1,15 +1,22 @@
-<div ng-controller="HomeCtrl">
-  <h1>FASTER</h1>
-  <ul>
-    <li ng-click="navigateTo('/select-stage')">Current Scale</li>
-  </ul>
-  <ul>
-    <li ng-click="homeCtrl.addScale()">Add Scale</li>
-  </ul>
-  <ul>
-    <li ng-click="navigateTo('/previous-scales')">View Previous Scales</li>
-  </ul>
-  <ul>
-    <li ng-click="logout()">Logout</li>
-  </ul>
+<div class="home-page" ng-controller="HomeCtrl">
+    <h1>FASTER</h1>
+    <md-list>
+        <md-item ng-click="navigateTo('/select-stage')">Current Scale</md-item>
+        <md-item ng-click="homeCtrl.addScale()">Add Scale</md-item>
+        <md-item ng-click="navigateTo('/previous-scales')">View Previous Scales</md-item>
+        <md-item ng-click="logout()">Logout</md-item>
+    </md-list>
+    <md-button ng-click="homeCtrl.toggleRight()" class="md-primary">
+        Toggle right
+    </md-button>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+        <md-toolbar class="md-theme-light">
+            <h1 class="md-toolbar-tools">Sidenav Right</h1>
+        </md-toolbar>
+        <md-content class="md-padding">
+            <md-button ng-click="homeCtrl.close()" class="md-primary">
+                Close Sidenav Right
+            </md-button>
+        </md-content>
+    </md-sidenav>
 </div>

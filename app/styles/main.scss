@@ -33,3 +33,12 @@ p {
     }
   }
 }
+
+.home-page {
+    md-list {
+        md-item {
+            display: block;
+            text-align: center;
+        }
+    }
+}
