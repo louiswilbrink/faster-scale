@@ -19,10 +19,10 @@ angular.module('fasterScaleApp')
               console.log('viewPreviousScales');
           },
           toggleRight: function () {
-              $mdSidenav('right').toggle();
+              $mdSidenav('left').toggle();
           },
           close: function () {
-              $mdSidenav('right').close();
+              $mdSidenav('left').close();
           }
       };
   }]);

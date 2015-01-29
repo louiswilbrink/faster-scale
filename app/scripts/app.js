@@ -34,6 +34,10 @@ angular
         templateUrl: 'views/home.html',
         controller: 'MainCtrl'
       })
+      .when('/home2', {
+        templateUrl: 'views/home2.html',
+        controller: 'MainCtrl'
+      })
       .when('/previous-scales', {
         templateUrl: 'views/previous-scales.html',
         controller: 'MainCtrl'
