@@ -34,11 +34,27 @@ p {
   }
 }
 
-.home-page {
-    md-list {
-        md-item {
-            display: block;
-            text-align: center;
+/* HOME PAGE */
+
+.home-page { 
+    md-sidenav {
+        .fs-menu-items {
+            button {
+                width: 100%;
+                padding: 16px;
+            }
         }
     }
+    .fs-menu-btn {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        line-height: 50px;
+    }
+}
+
+/* Extending angular-material.css */
+
+.md-button.md-default-theme.md-accent {
+    color: rgb(255,64,129);
 }
