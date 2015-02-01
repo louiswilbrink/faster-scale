@@ -31,7 +31,7 @@ angular.module('fasterScaleApp')
     };
 
     var saveAfterDelay = (function () {
-        var DELAY = 500;
+        var DELAY = 1500;
         var timer;
                 
         return function() {

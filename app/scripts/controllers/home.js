@@ -11,13 +11,14 @@ angular.module('fasterScaleApp')
   .controller('HomeCtrl', function ($scope, $timeout, FasterScale, User, $location, $mdSidenav) {
 
     var saveAfterDelay = (function () {
-        var DELAY = 500;
+        var DELAY = 1500;
         var timer;
                 
         return function() {
             clearTimeout($timeout.cancel(timer));
             timer = $timeout(function() {
                 FasterScale.saveCommitment();
+                console.log('saving..');
             }, DELAY)
         };
     })();
