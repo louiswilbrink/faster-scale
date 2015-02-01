@@ -1,41 +1,72 @@
-<div ng-controller="StagesCtrl">
-    <div class="instruction text-center">
-        <h1>Select a stage</h1>
-    </div>
-    <ul class="list-group">
-        <li class="list-group-item" 
-            ng-repeat="stage in stagesCtrl.stages" 
+<div class="stage-partial" ng-controller="StagesCtrl" layout="column">
+    <md-content>
+        <md-button ng-repeat="stage in stagesCtrl.stageDefinitions"
             ng-click="stagesCtrl.selectStage($index); navigateTo('/select-behaviors');" 
-            ng-class="{ 'active': stagesCtrl.stagesRef[stage.id] }">
-            <p>{{ stage.name }}</p>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <h2>What problems/situation do I need to change?</h2>
-            <input ng-model="stagesCtrl.commitment.problem"
-                   ng-change="stagesCtrl.onProblemKeypress()"/>
-            <h2>What will it cost me if I do change?</h2>
-            <input ng-model="stagesCtrl.commitment.choice.costToChange"
-                   ng-change="stagesCtrl.onProblemKeypress()"/>
-            <h2>What will it cost me if I do not change?</h2>
-            <input ng-model="stagesCtrl.commitment.choice.costToPreserve"
-                   ng-change="stagesCtrl.onProblemKeypress()"/>
-            <h2>Which of these is the right thing to do</h2>
-            <input ng-model="stagesCtrl.commitment.confrontation.faithfulChoice"
-                   ng-change="stagesCtrl.onProblemKeypress()"/>
-            <h2>Which choice takes more faith?  Why?</h2>
-            <input ng-model="stagesCtrl.commitment.confrontation.rightChoice"
-                   ng-change="stagesCtrl.onProblemKeypress()"/>
-            <h2>What is my plan of change for this week?</h2>
-            <input ng-model="stagesCtrl.commitment.plan"
-                   ng-change="stagesCtrl.onProblemKeypress()"/>
-            <h2>What two men have I asked to keep me accountable this week?</h2>
-            <input ng-model="stagesCtrl.commitment.accountabilityPartners"
-                   ng-change="stagesCtrl.onProblemKeypress()"/>
-        </li>
-    </ul>
-    <ul>
-        <li ng-click="navigateTo('/home')">Back home</li>
-    </ul>
+            ng-class="{ 'md-primary md-hue-1': !stagesCtrl.stages[stage.id], 'md-accent': stagesCtrl.stages[stage.id] }">
+            {{ stage.name }}
+        </md-button>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>What problem or situation do I need to change?</label>
+            <textarea ng-model="stagesCtrl.commitment.problem"
+                auto-fill-sync
+                ng-change="stagesCtrl.onProblemKeypress()">
+            </textarea>
+        </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>What will it cost me if I do change?</label>
+            <textarea ng-model="stagesCtrl.commitment.choice.costToChange"
+                auto-fill-sync
+                ng-change="stagesCtrl.onProblemKeypress()">
+            </textarea>
+        </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>What will it cost me if I do *not* change</label>
+            <textarea ng-model="stagesCtrl.commitment.choice.costToPreserve"
+                auto-fill-sync
+                ng-change="stagesCtrl.onProblemKeypress()">
+            </textarea>
+        </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>Which choice takes more faith?  Why?</label>
+            <textarea ng-model="stagesCtrl.commitment.confrontation.faithfulChoice"
+                auto-fill-sync
+                ng-change="stagesCtrl.onProblemKeypress()">
+            </textarea>
+        </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>Which of these is the right thing to do?</label>
+            <textarea ng-model="stagesCtrl.commitment.confrontation.rightChoice"
+                auto-fill-sync
+                ng-change="stagesCtrl.onProblemKeypress()">
+            </textarea>
+        </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>What is my plan this week?</label>
+            <textarea ng-model="stagesCtrl.commitment.plan"
+                auto-fill-sync
+                ng-change="stagesCtrl.onProblemKeypress()">
+            </textarea>
+        </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>What two men have I asked to keep me accountable this week?</label>
+            <textarea ng-model="stagesCtrl.commitment.accountabilityPartners"
+                auto-fill-sync
+                ng-change="stagesCtrl.onProblemKeypress()">
+            </textarea>
+        </md-input-container>
+    </md-content>
 </div>

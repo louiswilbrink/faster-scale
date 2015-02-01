@@ -18,6 +18,7 @@ angular.module('fasterScaleApp')
             clearTimeout($timeout.cancel(timer));
             timer = $timeout(function() {
                 FasterScale.saveCommitment();
+                console.log('saving...');
             }, DELAY)
         };
     })();
@@ -26,9 +27,9 @@ angular.module('fasterScaleApp')
 
       // Model.
 
-      stages: FasterScale.getDefinition(),
+      stageDefinitions: FasterScale.getDefinition(),
 
-      stagesRef: FasterScale.getStagesRef(),
+      stages: FasterScale.getStagesRef(),
 
       commitment: FasterScale.getCommitment(),
      
@@ -41,15 +42,16 @@ angular.module('fasterScaleApp')
       }
     };
 
+
     // Event-handlers.
 
     $scope.$on('stagesUpdated', function () {
-        $scope.stagesCtrl.stagesRef = FasterScale.getStagesRef();
+        $scope.stagesCtrl.stages = FasterScale.getStagesRef();
     });
 
     $scope.$on('scaleLoaded', function () {
-        $scope.stagesCtrl.stages = FasterScale.getDefinition();
-        $scope.stagesCtrl.stagesRef = FasterScale.getStagesRef();
+        $scope.stagesCtrl.stageDefinitions = FasterScale.getDefinition();
+        $scope.stagesCtrl.stages = FasterScale.getStagesRef();
         $scope.stagesCtrl.commitment = FasterScale.getCommitment();
     });
   });

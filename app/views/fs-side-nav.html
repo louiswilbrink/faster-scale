@@ -1,0 +1,13 @@
+<md-sidenav class="fs-side-nav md-sidenav-left md-whiteframe-z2" md-component-id="left">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Menu</h1>
+    </md-toolbar>
+    <md-content class="fs-menu-items">
+        <md-button ng-repeat="item in menuItems"
+            ng-click="navigateTo(item.path)"
+            ng-class="{ 'md-primary md-hue-1': !item.isSelected, 'md-accent': item.isSelected }">
+            {{ item.text }}
+        </md-button>
+        <md-button ng-click="homeCtrl.close()" class="md-primary">Close</md-button>
+    </md-content>
+</md-sidenav>

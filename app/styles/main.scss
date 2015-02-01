@@ -34,22 +34,36 @@ p {
   }
 }
 
+.fs-side-nav {
+    .fs-menu-items {
+        button {
+            width: 100%;
+            padding: 16px;
+        }
+    }
+}
+
 /* HOME PAGE */
 
 .home-page { 
-    md-sidenav {
-        .fs-menu-items {
-            button {
-                width: 100%;
-                padding: 16px;
-            }
-        }
-    }
     .fs-menu-btn {
         position: absolute;
         right: 10px;
         bottom: 10px;
         line-height: 50px;
+    }
+}
+
+.stage-partial {
+    >md-content {
+        >button {
+            width: 100%;
+            padding: 16px;
+        }
+        >md-input-container {
+            width: 100%;
+            padding: 16px;
+        }
     }
 }
 

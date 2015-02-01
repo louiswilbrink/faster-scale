@@ -4,14 +4,22 @@
             <h1>FASTER</h1>
         </div>
     </md-content>
-    <md-content>
-        <div class="row">
+    <md-content class="md-padding" layout="row" layout-sm="column">
             <p>{{ loginCtrl.status }}</p>
-            <md-text-float label="Email" ng-model="loginCtrl.email" auto-fill-sync></md-text-float>
-            <md-text-float label="Password" ng-model="loginCtrl.password" auto-fill-sync></md-text-float>
+            <md-input-container flex>
+                <label>Email</label>
+                <input ng-model="loginCtrl.email" auto-fill-sync>
+            </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Password</label>
+                <input ng-model="loginCtrl.password" auto-fill-sync>
+            </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
             <md-button class="md-raised md-primary" ng-click="loginCtrl.signIn()">Sign in</md-button>
             <md-button ng-click="navigateTo('/forgot-password')">Forgot Password?</md-button>
             <md-button ng-click="navigateTo('/create-user')">Not a member? Sign up today.</md-button>
-        </div>
     </md-content>
 </div>
