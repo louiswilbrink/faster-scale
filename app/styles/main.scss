@@ -46,11 +46,25 @@ p {
 /* HOME PAGE */
 
 .home-page { 
+    >h1 {
+        text-align: center;
+    }
     .fs-menu-btn {
         position: absolute;
         right: 10px;
         bottom: 10px;
         line-height: 50px;
+    }
+    >md-content {
+        >button {
+            width: 100%;
+            padding: 16px;
+            white-space: normal;
+        }
+        >md-input-container {
+            width: 100%;
+            padding: 16px;
+        }
     }
 }
 

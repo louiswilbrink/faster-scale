@@ -232,7 +232,6 @@ angular.module('fasterScaleApp')
       },
 
       getCommitment: function () {
-          console.log('getting commitment:', commitment);
           return commitment;
       },
 

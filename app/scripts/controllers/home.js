@@ -8,18 +8,57 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('HomeCtrl', ['$scope', 'FasterScale', 'User', '$mdSidenav', function ($scope, FasterScale, User, $mdSidenav) {
+  .controller('HomeCtrl', function ($scope, $timeout, FasterScale, User, $location, $mdSidenav) {
 
-      $scope.homeCtrl = {
+    var saveAfterDelay = (function () {
+        var DELAY = 500;
+        var timer;
+                
+        return function() {
+            clearTimeout($timeout.cancel(timer));
+            timer = $timeout(function() {
+                FasterScale.saveCommitment();
+            }, DELAY)
+        };
+    })();
 
-          addScale: User.addScale,
+    $scope.homeCtrl = {
 
-          viewPreviousScales: function () {
+        addScale: User.addScale,
 
-              console.log('viewPreviousScales');
-          },
-          toggleMenu: function () {
-              $mdSidenav('left').toggle();
-          }
-      };
-  }]);
+        viewPreviousScales: function () {
+
+            console.log('viewPreviousScales');
+        },
+        toggleMenu: function () {
+            $mdSidenav('left').toggle();
+        },
+
+        stageDefinitions: FasterScale.getDefinition(),
+
+        stages: FasterScale.getStagesRef(),
+
+        commitment: FasterScale.getCommitment(),
+       
+        // Methods.
+        
+        onCommitmentKeypress: saveAfterDelay,
+
+        selectStage : function (stageName) {
+            $location.path('/stage/' + stageName + '/behaviors');
+        }
+    };
+
+    // Event-handlers.
+
+    $scope.$on('homeUpdated', function () {
+        $scope.homeCtrl.stages = FasterScale.getStagesRef();
+    });
+
+    $scope.$on('scaleLoaded', function () {
+        $scope.homeCtrl.stageDefinitions = FasterScale.getDefinition();
+        $scope.homeCtrl.stages = FasterScale.getStagesRef();
+        $scope.homeCtrl.commitment = FasterScale.getCommitment();
+    });
+});
+
