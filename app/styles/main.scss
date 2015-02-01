@@ -59,6 +59,23 @@ p {
         >button {
             width: 100%;
             padding: 16px;
+            white-space: normal;
+        }
+        >md-input-container {
+            width: 100%;
+            padding: 16px;
+        }
+    }
+}
+
+/* SELECT-BEHAVIOR */
+
+.behaviors-partial {
+    >md-content {
+        >button {
+            width: 100%;
+            padding: 16px;
+            white-space: normal;
         }
         >md-input-container {
             width: 100%;

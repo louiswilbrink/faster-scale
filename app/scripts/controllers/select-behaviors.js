@@ -8,7 +8,20 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('BehaviorsCtrl', function ($scope, FasterScale, FasterScaleDefinition) {
+  .controller('BehaviorsCtrl', function ($scope, FasterScale, FasterScaleDefinition, $timeout) {
+
+    var saveAfterDelay = (function () {
+        var DELAY = 500;
+        var timer;
+                
+        return function() {
+            clearTimeout($timeout.cancel(timer));
+            timer = $timeout(function() {
+                //FasterScale.saveBehaviorAnswers();
+                console.log('saving...');
+            }, DELAY)
+        };
+    })();
 
     $scope.behaviorsCtrl = {
 
@@ -21,7 +34,10 @@ angular.module('fasterScaleApp')
       toggleBehavior: function (id) {
         
         FasterScale.toggleBehavior(id);
-      }
+      },
+
+      onProblemKeypress: saveAfterDelay,
+
     };
 
     // Event-handlers.

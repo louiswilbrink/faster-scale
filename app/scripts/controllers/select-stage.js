@@ -18,7 +18,6 @@ angular.module('fasterScaleApp')
             clearTimeout($timeout.cancel(timer));
             timer = $timeout(function() {
                 FasterScale.saveCommitment();
-                console.log('saving...');
             }, DELAY)
         };
     })();

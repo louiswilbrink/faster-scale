@@ -1,11 +1,39 @@
-<div ng-controller="BehaviorsCtrl">
-  <div class="instruction text-center">
-    <h1>Select behaviors</h1>
-  </div>
-  <ul class="list-group">
-    <li class="list-group-item" ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions" ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" ng-class="{ 'blue' : behaviorsCtrl.behaviors[behaviorDefinition.id] }">{{ behaviorDefinition.description }}</li>
-  </ul>
-  <ul>
-    <li ng-click="navigateTo('/select-stage')">Back to stages</li>
-  </ul>
+<div class="behaviors-partial" ng-controller="BehaviorsCtrl" layout="column">
+    <div class="instruction text-center">
+      <h1>Select behaviors</h1>
+    </div>
+    <md-content>
+        <md-button ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions"
+            ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
+            ng-class="{ 'md-primary md-hue-1': !behaviorsCtrl.behaviors[behaviorDefinition.id], 'md-accent': behaviorsCtrl.behaviors[behaviorDefinition.id] }">
+            {{ behaviorDefinition.description }}
+        </md-button>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>How does this affect you? (i.e how do I act and feel?)</label>
+            <textarea ng-model="affectYou"
+                auto-fill-sync
+                ng-change="behaviorsCtrl.onProblemKeypress()">
+            </textarea>
+        </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>How does it affect the important people in my life?</label>
+            <textarea ng-model="affectOthers"
+                auto-fill-sync
+                ng-change="behaviorsCtrl.onProblemKeypress()">
+            </textarea>
+        </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-input-container>
+            <label>Why do I do this? (i.e. what is the benefit for me?)</label>
+            <textarea ng-model="reason"
+                auto-fill-sync
+                ng-change="behaviorsCtrl.onProblemKeypress()">
+            </textarea>
+        </md-input-container>
+    </md-content>
 </div>
