@@ -12,10 +12,10 @@ angular.module('fasterScaleApp')
 
     var fasterScale = FasterScaleDefinition,
         baseUrl = 'fasterscale.firebaseio.com',
-        selectedStage = 0,
         scales,
         stages,
         behaviors,
+        behaviorAnswers,
         commitment,
         scale,
         id,
@@ -87,7 +87,7 @@ angular.module('fasterScaleApp')
             '/users/' + User.getId() + 
             '/scales/' + scaleId)).$asObject();
 
-        scale.$loaded().then(function () {
+        return scale.$loaded().then(function () {
             //console.log('scale loaded', scale);
         });
     }
@@ -99,7 +99,7 @@ angular.module('fasterScaleApp')
             '/scales/' + scaleId + 
             '/stages')).$asObject();
 
-        stages.$loaded().then(function () {
+        return stages.$loaded().then(function () {
             //console.log('stages loaded', stages);
         });
     }
@@ -111,11 +111,23 @@ angular.module('fasterScaleApp')
             '/scales/' + scaleId + 
             '/behaviors')).$asObject();
 
-        behaviors.$loaded().then(function () {
+        return behaviors.$loaded().then(function () {
             //console.log('behaviors loaded', behaviors);
         });
 
         behaviors.$watch(calculateStage);
+    }
+
+    function loadBehaviorAnswers (scaleId) {
+
+        behaviorAnswers = $firebase(new Firebase(Constant.baseUrl + 
+            '/users/' + User.getId() + 
+            '/scales/' + scaleId + 
+            '/behaviorAnswers')).$asObject();
+
+        return behaviorAnswers.$loaded().then(function () {
+            //console.log('behaviorAnswers loaded', behaviorAnswers);
+        });
     }
 
     function loadCommitment (scaleId) {
@@ -124,7 +136,7 @@ angular.module('fasterScaleApp')
             '/scales/' + scaleId +
             '/commitment')).$asObject();
 
-        commitment.$loaded().then(function () {
+        return commitment.$loaded().then(function () {
             //console.log('commitment loaded', commitment);
         });
     }
@@ -132,36 +144,33 @@ angular.module('fasterScaleApp')
     // Event handlers.
     
     $rootScope.$on('scaleAdded', function (event, scaleId) {
-        loadScale(scaleId);
-        loadStages(scaleId);
-        loadBehaviors(scaleId);
-        loadCommitment(scaleId);
-
-        $rootScope.$broadcast('scaleLoaded');
+        // TODO: get the promises working sanely.  Right now it's crazy nested.
+        loadScale(scaleId)
+           .then(loadStages(scaleId)
+            .then(loadBehaviors(scaleId)
+            .then(loadBehaviorAnswers(scaleId)
+            .then(loadCommitment(scaleId)
+            .then(function () {
+                $rootScope.$broadcast('scaleLoaded');
+            })))));
     });
 
     $rootScope.$on('currentScaleIdChanged', function (event, scaleId) {
-        loadScale(scaleId);
-        loadStages(scaleId);
-        loadBehaviors(scaleId);
-        loadCommitment(scaleId);
-
-        $rootScope.$broadcast('scaleLoaded');
+      
+        // TODO: get the promises working sanely.  Right now it's crazy nested.
+        loadScale(scaleId)
+           .then(loadStages(scaleId)
+            .then(loadBehaviors(scaleId)
+            .then(loadBehaviorAnswers(scaleId)
+            .then(loadCommitment(scaleId)
+            .then(function () {
+                $rootScope.$broadcast('scaleLoaded');
+            })))));
     });
 
     // API
 
     return {
-
-      selectStage: function (index) {
-
-          selectedStage = index;
-      }, 
-
-      getSelectedStage: function () {
-
-          return selectedStage;
-      },
 
       toggleBehavior: function (id) {
 
@@ -223,11 +232,25 @@ angular.module('fasterScaleApp')
       },
 
       getCommitment: function () {
+          console.log('getting commitment:', commitment);
           return commitment;
       },
 
       saveCommitment: function () {
+
+          // If app hasn't initialized yet, don't try saving.
+          if (!commitment) { return; }
           commitment.$save();
+      },
+
+      saveBehaviorAnswers: function () {
+          if (!behaviorAnswers) { return; }
+          behaviorAnswers.$save();
+      },
+
+      getBehaviorAnswers: function (stage) {
+
+          return behaviorAnswers[stage];
       }
     };
   }]);

@@ -1,9 +1,9 @@
 <div class="stage-partial" ng-controller="StagesCtrl" layout="column">
     <md-content>
         <md-button ng-repeat="stage in stagesCtrl.stageDefinitions"
-            ng-click="stagesCtrl.selectStage($index); navigateTo('/select-behaviors');" 
+            ng-click="stagesCtrl.selectStage(stage.name)" 
             ng-class="{ 'md-primary md-hue-1': !stagesCtrl.stages[stage.id], 'md-accent': stagesCtrl.stages[stage.id] }">
-            {{ stage.name }}
+            {{ stage.name | removeDashes}}
         </md-button>
     </md-content>
     <md-content class="md-padding" layout="row" layout-sm="column">
@@ -11,7 +11,7 @@
             <label>What problem or situation do I need to change?</label>
             <textarea ng-model="stagesCtrl.commitment.problem"
                 auto-fill-sync
-                ng-change="stagesCtrl.onProblemKeypress()">
+                ng-change="stagesCtrl.onCommitmentKeypress()">
             </textarea>
         </md-input-container>
     </md-content>
@@ -20,7 +20,7 @@
             <label>What will it cost me if I do change?</label>
             <textarea ng-model="stagesCtrl.commitment.choice.costToChange"
                 auto-fill-sync
-                ng-change="stagesCtrl.onProblemKeypress()">
+                ng-change="stagesCtrl.onCommitmentKeypress()">
             </textarea>
         </md-input-container>
     </md-content>
@@ -29,7 +29,7 @@
             <label>What will it cost me if I do *not* change</label>
             <textarea ng-model="stagesCtrl.commitment.choice.costToPreserve"
                 auto-fill-sync
-                ng-change="stagesCtrl.onProblemKeypress()">
+                ng-change="stagesCtrl.onCommitmentKeypress()">
             </textarea>
         </md-input-container>
     </md-content>
@@ -38,7 +38,7 @@
             <label>Which choice takes more faith?  Why?</label>
             <textarea ng-model="stagesCtrl.commitment.confrontation.faithfulChoice"
                 auto-fill-sync
-                ng-change="stagesCtrl.onProblemKeypress()">
+                ng-change="stagesCtrl.onCommitmentKeypress()">
             </textarea>
         </md-input-container>
     </md-content>
@@ -47,7 +47,7 @@
             <label>Which of these is the right thing to do?</label>
             <textarea ng-model="stagesCtrl.commitment.confrontation.rightChoice"
                 auto-fill-sync
-                ng-change="stagesCtrl.onProblemKeypress()">
+                ng-change="stagesCtrl.onCommitmentKeypress()">
             </textarea>
         </md-input-container>
     </md-content>
@@ -56,7 +56,7 @@
             <label>What is my plan this week?</label>
             <textarea ng-model="stagesCtrl.commitment.plan"
                 auto-fill-sync
-                ng-change="stagesCtrl.onProblemKeypress()">
+                ng-change="stagesCtrl.onCommitmentKeypress()">
             </textarea>
         </md-input-container>
     </md-content>
@@ -65,7 +65,7 @@
             <label>What two men have I asked to keep me accountable this week?</label>
             <textarea ng-model="stagesCtrl.commitment.accountabilityPartners"
                 auto-fill-sync
-                ng-change="stagesCtrl.onProblemKeypress()">
+                ng-change="stagesCtrl.onCommitmentKeypress()">
             </textarea>
         </md-input-container>
     </md-content>

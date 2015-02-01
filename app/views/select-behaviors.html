@@ -1,7 +1,5 @@
 <div class="behaviors-partial" ng-controller="BehaviorsCtrl" layout="column">
-    <div class="instruction text-center">
-      <h1>Select behaviors</h1>
-    </div>
+    <h1>{{ behaviorsCtrl.stage | removeDashes}}</h1>
     <md-content>
         <md-button ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions"
             ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
@@ -12,27 +10,27 @@
     <md-content class="md-padding" layout="row" layout-sm="column">
         <md-input-container>
             <label>How does this affect you? (i.e how do I act and feel?)</label>
-            <textarea ng-model="affectYou"
+            <textarea ng-model="behaviorsCtrl.answers.personalEffect"
                 auto-fill-sync
-                ng-change="behaviorsCtrl.onProblemKeypress()">
+                ng-change="behaviorsCtrl.onAnswerKeypress()">
             </textarea>
         </md-input-container>
     </md-content>
     <md-content class="md-padding" layout="row" layout-sm="column">
         <md-input-container>
             <label>How does it affect the important people in my life?</label>
-            <textarea ng-model="affectOthers"
+            <textarea ng-model="behaviorsCtrl.answers.externalEffect"
                 auto-fill-sync
-                ng-change="behaviorsCtrl.onProblemKeypress()">
+                ng-change="behaviorsCtrl.onAnswerKeypress()">
             </textarea>
         </md-input-container>
     </md-content>
     <md-content class="md-padding" layout="row" layout-sm="column">
         <md-input-container>
             <label>Why do I do this? (i.e. what is the benefit for me?)</label>
-            <textarea ng-model="reason"
+            <textarea ng-model="behaviorsCtrl.answers.reason"
                 auto-fill-sync
-                ng-change="behaviorsCtrl.onProblemKeypress()">
+                ng-change="behaviorsCtrl.onAnswerKeypress()">
             </textarea>
         </md-input-container>
     </md-content>

@@ -8,7 +8,27 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('BehaviorsCtrl', function ($scope, FasterScale, FasterScaleDefinition, $timeout) {
+  .controller('BehaviorsCtrl', function ($scope, FasterScale, FasterScaleDefinition, $timeout, $routeParams, $location) {
+
+    var getBehaviorDefinitions = function (stage) {
+
+        var behaviorDefinitions;
+
+        // Match the stage defined in the route to the full stage definition, then return the stage definition's full behavior list.
+        angular.forEach(FasterScaleDefinition, function (stageDefinition) {
+            if (stageDefinition.name.toLowerCase() === stage) {
+                behaviorDefinitions = stageDefinition.behaviors;
+            }
+        });
+
+        if (behaviorDefinitions) {
+            return behaviorDefinitions;
+        }
+        else {
+            $location.path('/home');
+            throw 'Route does not specify a stage to look up (' + $scope.behaviorsCtrl.stage + ')';
+        }
+    };
 
     var saveAfterDelay = (function () {
         var DELAY = 500;
@@ -17,7 +37,7 @@ angular.module('fasterScaleApp')
         return function() {
             clearTimeout($timeout.cancel(timer));
             timer = $timeout(function() {
-                //FasterScale.saveBehaviorAnswers();
+                FasterScale.saveBehaviorAnswers();
                 console.log('saving...');
             }, DELAY)
         };
@@ -25,10 +45,14 @@ angular.module('fasterScaleApp')
 
     $scope.behaviorsCtrl = {
 
-      behaviorDefinitions: FasterScaleDefinition[FasterScale.getSelectedStage()].behaviors,
+      stage: $routeParams.stage,
 
-      behaviors: FasterScale.getBehaviors(),
-      
+      behaviorDefinitions: getBehaviorDefinitions($routeParams.stage),
+
+      behaviors: null,
+
+      answers: null,
+
       // Methods.
 
       toggleBehavior: function (id) {
@@ -36,7 +60,7 @@ angular.module('fasterScaleApp')
         FasterScale.toggleBehavior(id);
       },
 
-      onProblemKeypress: saveAfterDelay,
+      onAnswerKeypress: saveAfterDelay,
 
     };
 
@@ -49,5 +73,6 @@ angular.module('fasterScaleApp')
 
     $scope.$on('scaleLoaded', function () {
         $scope.behaviorsCtrl.behaviors = FasterScale.getBehaviors();
+        $scope.behaviorsCtrl.answers = FasterScale.getBehaviorAnswers($scope.behaviorsCtrl.stage);
     });
   });

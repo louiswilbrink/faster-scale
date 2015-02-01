@@ -71,6 +71,10 @@ p {
 /* SELECT-BEHAVIOR */
 
 .behaviors-partial {
+    >h1 {
+        text-align: center;
+        text-transform: capitalize;
+    }
     >md-content {
         >button {
             width: 100%;

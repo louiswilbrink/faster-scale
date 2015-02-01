@@ -7,30 +7,41 @@
  * # sideNav
  */
 angular.module('fasterScaleApp')
-  .directive('fsSideNav', function ($mdSidenav) {
+  .directive('fsSideNav', function ($mdSidenav, $location, User) {
     return {
       templateUrl: 'views/fs-side-nav.html',
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
           scope.menuItems = [{
               text: 'Current Scale',
-              path: '/home',
+              onClick: function () {
+                  // Go to home page where the user can interact with the current scale.
+                  $location.path('/home');
+                  
+                  // Close the side-nav.
+                  $mdSidenav('left').close();
+              },
               isSelected: true
           },
           {
               text: 'New Scale',
-              path: 'www.google.com',
+              onClick: User.addScale,
               isSelected: false
           },
           {
               text: 'Previous Scales',
-              path: 'www.google.com',
+              onClick: function () {
+                  console.log('onClick');
+              },
+              isSelected: false
+          },
+          {
+              text: 'Close',
+              onClick: function () {
+                  $mdSidenav('left').close();
+              },
               isSelected: false
           }];
-
-          scope.close = function () {
-                $mdSidenav('left').close();
-          };
       }
     };
   });

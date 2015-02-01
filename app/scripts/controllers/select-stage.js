@@ -8,7 +8,7 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('StagesCtrl', function ($scope, $timeout, FasterScale) {
+  .controller('StagesCtrl', function ($scope, $timeout, FasterScale, $location) {
 
     var saveAfterDelay = (function () {
         var DELAY = 500;
@@ -24,21 +24,21 @@ angular.module('fasterScaleApp')
 
     $scope.stagesCtrl = {
 
-      // Model.
+        // Model.
 
-      stageDefinitions: FasterScale.getDefinition(),
+        stageDefinitions: FasterScale.getDefinition(),
 
-      stages: FasterScale.getStagesRef(),
+        stages: FasterScale.getStagesRef(),
 
-      commitment: FasterScale.getCommitment(),
-     
-      // Methods.
-      
-      onProblemKeypress: saveAfterDelay,
+        commitment: FasterScale.getCommitment(),
+       
+        // Methods.
+        
+        onCommitmentKeypress: saveAfterDelay,
 
-      selectStage : function (index) {
-        FasterScale.selectStage(index);
-      }
+        selectStage : function (stageName) {
+            $location.path('/stage/' + stageName + '/behaviors');
+        }
     };
 
 

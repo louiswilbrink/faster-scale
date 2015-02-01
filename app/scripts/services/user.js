@@ -84,7 +84,7 @@ angular.module('fasterScaleApp')
 
             $rootScope.$broadcast('userLoaded');
 
-            console.log('userLoaded', id, email, scales);
+            //console.log('userLoaded', id, email, scales);
           });
         });
 
@@ -95,7 +95,7 @@ angular.module('fasterScaleApp')
 
     function getDisplayScale() { return displayScale; }
 
-    function  addScale () {
+    function addScale () {
 
         console.log('Adding scale');
 
@@ -110,6 +110,15 @@ angular.module('fasterScaleApp')
             endDate: Date.now(),
             // Add 'isCurrent' designation to new scale.
             isCurrent: true,
+            behaviorAnswers: {
+                restoration: { changeDate: Date.now() },
+                forgettingPriorities: { changeDate: Date.now() },
+                anxiety: { changeDate: Date.now() },
+                speedingUp: { changeDate: Date.now() },
+                tickedOff: { changeDate: Date.now() },
+                exhausted: { changeDate: Date.now() },
+                relapse: { changeDate: Date.now() },
+            },
             commitment: {
                 problem: '',
                 choice: {
