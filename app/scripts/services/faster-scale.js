@@ -250,7 +250,7 @@ angular.module('fasterScaleApp')
           }
 
           behaviorAnswers.$save().then(function (ref) {
-              console.log('behaviorsAnswers saved to firebase', behaviorAnswers);
+              //console.log('behaviorsAnswers saved to firebase', behaviorAnswers);
           }, function (error) {
               console.log('error saving behaviorsAnswers to firebase', error);
           });

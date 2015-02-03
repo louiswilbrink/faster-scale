@@ -111,13 +111,13 @@ angular.module('fasterScaleApp')
             // Add 'isCurrent' designation to new scale.
             isCurrent: true,
             behaviorAnswers: {
-                restoration: { changeDate: Date.now() },
-                forgettingPriorities: { changeDate: Date.now() },
-                anxiety: { changeDate: Date.now() },
-                speedingUp: { changeDate: Date.now() },
-                tickedOff: { changeDate: Date.now() },
-                exhausted: { changeDate: Date.now() },
-                relapse: { changeDate: Date.now() },
+                'restoration': { changeDate: Date.now() },
+                'forgetting-priorities': { changeDate: Date.now() },
+                'anxiety': { changeDate: Date.now() },
+                'speeding-up': { changeDate: Date.now() },
+                'ticked-off': { changeDate: Date.now() },
+                'exhausted': { changeDate: Date.now() },
+                'relapse': { changeDate: Date.now() },
             },
             commitment: {
                 problem: '',
