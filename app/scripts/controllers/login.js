@@ -10,6 +10,8 @@
 angular.module('fasterScaleApp')
   .controller('LoginCtrl', ['$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
 
+    console.log(Authentication);
+
     $scope.loginCtrl = {
 
         // Model.
@@ -28,7 +30,8 @@ angular.module('fasterScaleApp')
             password: $scope.loginCtrl.password.toLowerCase(),
             rememberMe: false
         }).then(function () {
-            $scope.navigateTo('/home');
+            console.log('okay, heading home!');
+            //$scope.navigateTo('/home');
         });
     };
 

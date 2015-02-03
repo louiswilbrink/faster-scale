@@ -42,10 +42,6 @@ angular
         templateUrl: 'views/previous-scales.html',
         controller: 'MainCtrl'
       })
-      //.when('/select-stage', {
-        //templateUrl: 'views/select-stage.html',
-        //controller: 'MainCtrl'
-      //})
       .when('/stage/:stage/behaviors', {
         templateUrl: 'views/select-behaviors.html',
         controller: 'MainCtrl'
