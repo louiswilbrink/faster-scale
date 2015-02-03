@@ -244,7 +244,9 @@ angular.module('fasterScaleApp')
 
       saveBehaviorAnswers: function () {
           if (!behaviorAnswers) { return; }
-          behaviorAnswers.$save();
+          behaviorAnswers.$save().then(function () {
+              console.log('finishing saving behaviorAnswers');
+          });
       },
 
       getBehaviorAnswers: function (stage) {

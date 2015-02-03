@@ -49,12 +49,6 @@ p {
     >h1 {
         text-align: center;
     }
-    .fs-menu-btn {
-        position: absolute;
-        right: 10px;
-        bottom: 10px;
-        line-height: 50px;
-    }
     >md-content {
         >button {
             width: 100%;
@@ -65,6 +59,12 @@ p {
             width: 100%;
             padding: 16px;
         }
+    }
+    >menu-button {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        line-height: 50px;
     }
 }
 
@@ -99,6 +99,12 @@ p {
             width: 100%;
             padding: 16px;
         }
+    }
+    >menu-button {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        line-height: 50px;
     }
 }
 
