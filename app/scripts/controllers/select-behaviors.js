@@ -10,6 +10,8 @@
 angular.module('fasterScaleApp')
   .controller('BehaviorsCtrl', function ($scope, FasterScale, FasterScaleDefinition, $timeout, $routeParams, $location) {
 
+    console.log('running BehaviorsCtrl');
+
     var getBehaviorDefinitions = function (stage) {
 
         var behaviorDefinitions;
@@ -37,8 +39,8 @@ angular.module('fasterScaleApp')
         return function() {
             clearTimeout($timeout.cancel(timer));
             timer = $timeout(function() {
+                console.log('saveAfterDelay:', $scope.behaviorsCtrl.answers);
                 FasterScale.saveBehaviorAnswers();
-                console.log('saving...');
             }, DELAY)
         };
     })();
@@ -49,9 +51,9 @@ angular.module('fasterScaleApp')
 
       behaviorDefinitions: getBehaviorDefinitions($routeParams.stage),
 
-      behaviors: null,
+      behaviors: FasterScale.getBehaviors(),
 
-      answers: null,
+      answers: FasterScale.getBehaviorAnswers(),
 
       // Methods.
 
@@ -73,6 +75,9 @@ angular.module('fasterScaleApp')
 
     $scope.$on('scaleLoaded', function () {
         $scope.behaviorsCtrl.behaviors = FasterScale.getBehaviors();
-        $scope.behaviorsCtrl.answers = FasterScale.getBehaviorAnswers($scope.behaviorsCtrl.stage);
+        $scope.behaviorsCtrl.answers = FasterScale.getBehaviorAnswers();
+
+        console.log('stage:', $scope.behaviorsCtrl.stage);
+        console.log('answers:', $scope.behaviorsCtrl.answers[$scope.behaviorsCtrl.stage]);
     });
-  });
+});

@@ -11,7 +11,7 @@
         <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container>
                 <label>How does this affect you? (i.e how do I act and feel?)</label>
-                <textarea ng-model="behaviorsCtrl.answers.personalEffect"
+                <textarea ng-model="behaviorsCtrl.answers[behaviorsCtrl.stage].personalEffect"
                     auto-fill-sync
                     ng-change="behaviorsCtrl.onAnswerKeypress()">
                 </textarea>
@@ -20,7 +20,7 @@
         <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container>
                 <label>How does it affect the important people in my life?</label>
-                <textarea ng-model="behaviorsCtrl.answers.externalEffect"
+                <textarea ng-model="behaviorsCtrl.answers[behaviorsCtrl.stage].externalEffect"
                     auto-fill-sync
                     ng-change="behaviorsCtrl.onAnswerKeypress()">
                 </textarea>
@@ -29,7 +29,7 @@
         <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container>
                 <label>Why do I do this? (i.e. what is the benefit for me?)</label>
-                <textarea ng-model="behaviorsCtrl.answers.reason"
+                <textarea ng-model="behaviorsCtrl.answers[behaviorsCtrl.stage].reason"
                     auto-fill-sync
                     ng-change="behaviorsCtrl.onAnswerKeypress()">
                 </textarea>

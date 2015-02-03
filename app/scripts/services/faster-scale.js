@@ -126,7 +126,7 @@ angular.module('fasterScaleApp')
             '/behaviorAnswers')).$asObject();
 
         return behaviorAnswers.$loaded().then(function () {
-            //console.log('behaviorAnswers loaded', behaviorAnswers);
+            console.log('behaviorAnswers loaded', behaviorAnswers);
         });
     }
 
@@ -243,15 +243,24 @@ angular.module('fasterScaleApp')
       },
 
       saveBehaviorAnswers: function () {
-          if (!behaviorAnswers) { return; }
-          behaviorAnswers.$save().then(function () {
-              console.log('finishing saving behaviorAnswers');
+
+          if (!behaviorAnswers) { 
+            console.log('behaviorAnswers not yet synced');
+            return; 
+          }
+
+          behaviorAnswers.$save().then(function (ref) {
+              console.log('behaviorsAnswers saved to firebase', behaviorAnswers);
+          }, function (error) {
+              console.log('error saving behaviorsAnswers to firebase', error);
           });
       },
 
-      getBehaviorAnswers: function (stage) {
+      getBehaviorAnswers: function () {
 
-          return behaviorAnswers[stage];
+          console.log('getBehaviorAnswers', behaviorAnswers);
+
+          return behaviorAnswers;
       }
     };
   }]);
