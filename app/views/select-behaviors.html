@@ -4,7 +4,9 @@
         <md-content>
             <md-button ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions"
                 ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
-                ng-class="{ 'md-primary md-hue-1': !behaviorsCtrl.behaviors[behaviorDefinition.id], 'md-accent': behaviorsCtrl.behaviors[behaviorDefinition.id] }">
+                ng-class="{ 'md-primary md-hue-1': !behaviorsCtrl.behaviors[behaviorDefinition.id], 
+                    'md-accent': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined,
+                    'md-circle-accent':  behaviorsCtrl.behaviors[behaviorDefinition.id].isCircled }">
                 {{ behaviorDefinition.description }}
             </md-button>
         </md-content>

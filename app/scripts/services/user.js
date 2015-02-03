@@ -110,6 +110,11 @@ angular.module('fasterScaleApp')
             endDate: Date.now(),
             // Add 'isCurrent' designation to new scale.
             isCurrent: true,
+            // TODO: actually update the change date :(
+            behaviors: {
+                changeDate: Date.now()
+            },
+            // TODO: actually update the change date :(
             behaviorAnswers: {
                 'restoration': { changeDate: Date.now() },
                 'forgetting-priorities': { changeDate: Date.now() },

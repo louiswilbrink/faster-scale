@@ -141,6 +141,20 @@ angular.module('fasterScaleApp')
         });
     }
 
+    /**
+     * Iterates through the list of behaviors and downgrades any "circled"
+     *     behaviors to "underlined".
+     */
+    function downgradeCircledBehaviors () {
+
+        angular.forEach(behaviors, function (value, key) {
+            if(value.isCircled) {
+                value.isCircled = false;
+                value.isUnderlined = true;
+            }
+        });
+    }
+
     // Event handlers.
     
     $rootScope.$on('scaleAdded', function (event, scaleId) {
@@ -172,21 +186,41 @@ angular.module('fasterScaleApp')
 
     return {
 
+      /* NOTE: This is a three state toggle implementation.
+       *       The three stages are underlined, circled, and off.
+       */
       toggleBehavior: function (id) {
 
+          // If the behavior is already part of the list, check if it's in the underlined or circled state.
           if (behaviors[id]) {
-              // Toggle behavior OFF.
-              // Delete from behaviors and save.
-              delete behaviors[id];
 
-              revertScaleEndDate();
+              // Check if this behavior has been "underlined" already (toggled once).
+              // If so, upgrade it to "circled".
+              if (behaviors[id].isUnderlined === true) {
+                  // If any other behavior was previously "circled", downgrade it to "underlined"
+                  downgradeCircledBehaviors();
 
-              // Save the scale with it's new endDate.
-              // Then save the removed behavior
-              // and recalculate stages.
-              scale.$save().then(behaviors.$save.bind(behaviors)).then(calculateStage);
+                  behaviors[id].isUnderlined = false;
+                  behaviors[id].isCircled = true;
 
-              console.log('removing behavior', id);
+                  console.log('circling behavior:', id);
+              }
+              // If this behavior has already been "circled", delete the behavior.
+              else if (behaviors[id].isCircled === true) {
+                  
+                  // Toggle behavior OFF.
+                  // Delete from behaviors and save.
+                  delete behaviors[id];
+
+                  revertScaleEndDate();
+
+                  // Save the scale with it's new endDate.
+                  // Then save the removed behavior
+                  // and recalculate stages.
+                  scale.$save().then(behaviors.$save.bind(behaviors)).then(calculateStage);
+
+                  console.log('removing behavior', id);
+              }
           }
           else {
               // Toggle behavior ON.
@@ -200,11 +234,15 @@ angular.module('fasterScaleApp')
               scale.$save().then(function () {
 
                   // Add behavior to this scale.
-                  behaviors[id] = { date: now };
+                  behaviors[id] = { 
+                    isUnderlined: true,
+                    isCircled: false,
+                    date: now 
+                  };
 
                   behaviors.$save().then(calculateStage);
 
-                  console.log('adding behavior', id);
+                  console.log('underlining behavior:', id);
               });
           }
 
