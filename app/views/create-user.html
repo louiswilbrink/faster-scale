@@ -1,14 +1,24 @@
 <div ng-controller="CreateUserCtrl">
-  <div>
-    <h1>Create New Account</h1>
+    <md-content>
+        <div class="row">
+            <h1>Create New Account</h1>
+        </div>
+    </md-content>
     <p>{{ createUserCtrl.status.text }}</p>
-    <form>
-      <div>
-        <input type="email" ng-model="createUserCtrl.email" placeholder="Email" auto-fill-clear>
-        <input type="password" ng-model="createUserCtrl.password" placeholder="Password" auto-fill-clear>
-        <button type="submit" ng-click="createUserCtrl.signUp()">Sign me up!</button>
-        <a ng-click="navigateTo('/')">No Thanks, take me back</a>
-      </div>
-    </form>
-  </div>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Email</label>
+                <input ng-model="createUserCtrl.email" auto-fill-sync>
+            </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Password</label>
+                <input ng-model="createUserCtrl.password" type="password" auto-fill-sync>
+            </md-input-container>
+    </md-content>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-button class="md-raised md-primary" ng-click="createUserCtrl.createUser()">Create User</md-button>
+            <md-button ng-click="navigateTo('/')">No thanks, take me back</md-button>
+    </md-content>
 </div>

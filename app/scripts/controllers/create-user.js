@@ -24,15 +24,16 @@ angular.module('fasterScaleApp')
 
       // API.
 
-      signUp: function () {
+      createUser: function () {
 
         var _this = this;
 
-        // If email field not empty, create firebase user.
+        // If email field is empty, notify the user.
         if (!$scope.createUserCtrl.email) {
           _this.status.text = 'Please enter an email address';
           $scope.createUserCtrl.email = $scope.createUserCtrl.password = '';
         }
+        // ..otherwise create the new user.
         else {
           Authentication.createUser($scope.createUserCtrl.email, $scope.createUserCtrl.password);
         }

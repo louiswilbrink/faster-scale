@@ -134,7 +134,24 @@ angular.module('fasterScaleApp')
         //});
       //},
 
-      //createUser: function (email, password) {
+      createUser: function (email, password) {
+                  
+        // Create user and log in.  Catch any error in either process.
+        authObj.$createUser({
+            email: email,
+            password: password
+        }).then(function (userData) {
+            console.log('success creating user:', userData);
+
+            return authObj.$authWithPassword({ 
+                email: email,
+                password: password
+            });
+        }).then(function(authData) { 
+            console.log("Logged in as:", authData.uid);
+        }).catch(function(error) {  
+            console.error("Error: ", error);
+        });
 
         //var _this = this;
 
@@ -203,6 +220,6 @@ angular.module('fasterScaleApp')
             //console.error(error);
           //}
         //});
-      //}
+      }
     };
   }]);
