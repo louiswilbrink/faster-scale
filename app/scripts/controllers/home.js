@@ -57,6 +57,10 @@ angular.module('fasterScaleApp')
     };
 
     // Event-handlers.
+    
+    $scope.$on('commitmentSaved', function () {
+        console.log('$on.commitmentSaved');
+    });
 
     $scope.$on('homeUpdated', function () {
         $scope.homeCtrl.stages = FasterScale.getStagesRef();

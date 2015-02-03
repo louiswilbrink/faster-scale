@@ -35,18 +35,6 @@ angular.module('fasterScaleApp')
       $location.path('/');
     });
 
-    /*
-     * Test user experience.
-     *
-    $scope.$on('loginSucceeded', function () {
-
-      console.log('navigating to home page.');
-      $location.path('/home');
-    });
-     *
-     *
-    */
-
     $scope.$on('newUserLoggedIn', function () {
 
       // console.log('navigating to home page.');

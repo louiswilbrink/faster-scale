@@ -277,7 +277,12 @@ angular.module('fasterScaleApp')
 
           // If app hasn't initialized yet, don't try saving.
           if (!commitment) { return; }
-          commitment.$save();
+          commitment.$save().then(function (ref) {
+              console.log('commitment saved to firebase', commitment);
+              $rootScope.$broadcast('commitmentSaved');
+          }, function (error) {
+              console.log('error saving commitment to firebase', error);
+          });    
       },
 
       saveBehaviorAnswers: function () {
