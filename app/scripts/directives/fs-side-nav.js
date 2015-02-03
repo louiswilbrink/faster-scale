@@ -7,7 +7,7 @@
  * # sideNav
  */
 angular.module('fasterScaleApp')
-  .directive('fsSideNav', function ($mdSidenav, $location, $timeout, User) {
+  .directive('fsSideNav', function ($mdSidenav, $location, $timeout, User, Authentication) {
     return {
       templateUrl: 'views/fs-side-nav.html',
       restrict: 'E',
@@ -38,6 +38,13 @@ angular.module('fasterScaleApp')
               text: 'Previous Scales',
               onClick: function () {
                   console.log('onClick');
+              },
+              isSelected: false
+          },
+          {
+              text: 'Logout',
+              onClick: function () {
+                  Authentication.logout();
               },
               isSelected: false
           },
