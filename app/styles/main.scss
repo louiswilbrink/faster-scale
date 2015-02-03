@@ -46,18 +46,26 @@ p {
 /* HOME PAGE */
 
 .home-page { 
-    >h1 {
-        text-align: center;
-    }
-    >md-content {
-        >button {
-            width: 100%;
-            padding: 16px;
-            white-space: normal;
+    >.content {
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        overflow-y: scroll;
+        >h1 {
+            text-align: center;
         }
-        >md-input-container {
-            width: 100%;
-            padding: 16px;
+        >md-content {
+            >button {
+                width: 100%;
+                padding: 16px;
+                white-space: normal;
+            }
+            >md-input-container {
+                width: 100%;
+                padding: 16px;
+            }
         }
     }
     >menu-button {
@@ -68,36 +76,30 @@ p {
     }
 }
 
-.stage-partial {
-    >md-content {
-        >button {
-            width: 100%;
-            padding: 16px;
-            white-space: normal;
-        }
-        >md-input-container {
-            width: 100%;
-            padding: 16px;
-        }
-    }
-}
-
 /* SELECT-BEHAVIOR */
 
 .behaviors-partial {
-    >h1 {
-        text-align: center;
-        text-transform: capitalize;
-    }
-    >md-content {
-        >button {
-            width: 100%;
-            padding: 16px;
-            white-space: normal;
+    >.content {
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        overflow-y: scroll;
+        >h1 {
+            text-align: center;
+            text-transform: capitalize;
         }
-        >md-input-container {
-            width: 100%;
-            padding: 16px;
+        >md-content {
+            >button {
+                width: 100%;
+                padding: 16px;
+                white-space: normal;
+            }
+            >md-input-container {
+                width: 100%;
+                padding: 16px;
+            }
         }
     }
     >menu-button {

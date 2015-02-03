@@ -1,75 +1,77 @@
 <div class="home-page" ng-controller="HomeCtrl" layout="column">
-    <h1>FASTER</h1>
-    <md-content>
-        <md-button ng-repeat="stage in homeCtrl.stageDefinitions"
-            ng-click="homeCtrl.selectStage(stage.name)" 
-            ng-class="{ 'md-primary md-hue-1': !homeCtrl.stages[stage.id], 'md-accent': homeCtrl.stages[stage.id] }">
-            {{ stage.name | removeDashes}}
-        </md-button>
-    </md-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>What problem or situation do I need to change?</label>
-            <textarea ng-model="homeCtrl.commitment.problem"
-                auto-fill-sync
-                ng-change="homeCtrl.onCommitmentKeypress()">
-            </textarea>
-        </md-input-container>
-    </md-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>What will it cost me if I do change?</label>
-            <textarea ng-model="homeCtrl.commitment.choice.costToChange"
-                auto-fill-sync
-                ng-change="homeCtrl.onCommitmentKeypress()">
-            </textarea>
-        </md-input-container>
-    </md-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>What will it cost me if I do *not* change</label>
-            <textarea ng-model="homeCtrl.commitment.choice.costToPreserve"
-                auto-fill-sync
-                ng-change="homeCtrl.onCommitmentKeypress()">
-            </textarea>
-        </md-input-container>
-    </md-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>Which choice takes more faith?  Why?</label>
-            <textarea ng-model="homeCtrl.commitment.confrontation.faithfulChoice"
-                auto-fill-sync
-                ng-change="homeCtrl.onCommitmentKeypress()">
-            </textarea>
-        </md-input-container>
-    </md-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>Which of these is the right thing to do?</label>
-            <textarea ng-model="homeCtrl.commitment.confrontation.rightChoice"
-                auto-fill-sync
-                ng-change="homeCtrl.onCommitmentKeypress()">
-            </textarea>
-        </md-input-container>
-    </md-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>What is my plan this week?</label>
-            <textarea ng-model="homeCtrl.commitment.plan"
-                auto-fill-sync
-                ng-change="homeCtrl.onCommitmentKeypress()">
-            </textarea>
-        </md-input-container>
-    </md-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>What two men have I asked to keep me accountable this week?</label>
-            <textarea ng-model="homeCtrl.commitment.accountabilityPartners"
-                auto-fill-sync
-                ng-change="homeCtrl.onCommitmentKeypress()">
-            </textarea>
-        </md-input-container>
-    </md-content>
+    <div class="content">
+        <h1>FASTER</h1>
+        <md-content>
+            <md-button ng-repeat="stage in homeCtrl.stageDefinitions"
+                ng-click="homeCtrl.selectStage(stage.name)" 
+                ng-class="{ 'md-primary md-hue-1': !homeCtrl.stages[stage.id], 'md-accent': homeCtrl.stages[stage.id] }">
+                {{ stage.name | removeDashes}}
+            </md-button>
+        </md-content>
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>What problem or situation do I need to change?</label>
+                <textarea ng-model="homeCtrl.commitment.problem"
+                    auto-fill-sync
+                    ng-change="homeCtrl.onCommitmentKeypress()">
+                </textarea>
+            </md-input-container>
+        </md-content>
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>What will it cost me if I do change?</label>
+                <textarea ng-model="homeCtrl.commitment.choice.costToChange"
+                    auto-fill-sync
+                    ng-change="homeCtrl.onCommitmentKeypress()">
+                </textarea>
+            </md-input-container>
+        </md-content>
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>What will it cost me if I do *not* change</label>
+                <textarea ng-model="homeCtrl.commitment.choice.costToPreserve"
+                    auto-fill-sync
+                    ng-change="homeCtrl.onCommitmentKeypress()">
+                </textarea>
+            </md-input-container>
+        </md-content>
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>Which choice takes more faith?  Why?</label>
+                <textarea ng-model="homeCtrl.commitment.confrontation.faithfulChoice"
+                    auto-fill-sync
+                    ng-change="homeCtrl.onCommitmentKeypress()">
+                </textarea>
+            </md-input-container>
+        </md-content>
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>Which of these is the right thing to do?</label>
+                <textarea ng-model="homeCtrl.commitment.confrontation.rightChoice"
+                    auto-fill-sync
+                    ng-change="homeCtrl.onCommitmentKeypress()">
+                </textarea>
+            </md-input-container>
+        </md-content>
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>What is my plan this week?</label>
+                <textarea ng-model="homeCtrl.commitment.plan"
+                    auto-fill-sync
+                    ng-change="homeCtrl.onCommitmentKeypress()">
+                </textarea>
+            </md-input-container>
+        </md-content>
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>What two men have I asked to keep me accountable this week?</label>
+                <textarea ng-model="homeCtrl.commitment.accountabilityPartners"
+                    auto-fill-sync
+                    ng-change="homeCtrl.onCommitmentKeypress()">
+                </textarea>
+            </md-input-container>
+        </md-content>
+    </div>
     <menu-button></menu-button>
     <fs-side-nav></fs-side-nav>
 </div>

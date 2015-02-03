@@ -1,39 +1,41 @@
 <div class="behaviors-partial" ng-controller="BehaviorsCtrl" layout="column">
-    <h1>{{ behaviorsCtrl.stage | removeDashes}}</h1>
-    <md-content>
-        <md-button ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions"
-            ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
-            ng-class="{ 'md-primary md-hue-1': !behaviorsCtrl.behaviors[behaviorDefinition.id], 'md-accent': behaviorsCtrl.behaviors[behaviorDefinition.id] }">
-            {{ behaviorDefinition.description }}
-        </md-button>
-    </md-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>How does this affect you? (i.e how do I act and feel?)</label>
-            <textarea ng-model="behaviorsCtrl.answers.personalEffect"
-                auto-fill-sync
-                ng-change="behaviorsCtrl.onAnswerKeypress()">
-            </textarea>
-        </md-input-container>
-    </md-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>How does it affect the important people in my life?</label>
-            <textarea ng-model="behaviorsCtrl.answers.externalEffect"
-                auto-fill-sync
-                ng-change="behaviorsCtrl.onAnswerKeypress()">
-            </textarea>
-        </md-input-container>
-    </md-content>
-    <md-content class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>Why do I do this? (i.e. what is the benefit for me?)</label>
-            <textarea ng-model="behaviorsCtrl.answers.reason"
-                auto-fill-sync
-                ng-change="behaviorsCtrl.onAnswerKeypress()">
-            </textarea>
-        </md-input-container>
-    </md-content>
+    <div class="content">
+        <h1>{{ behaviorsCtrl.stage | removeDashes}}</h1>
+        <md-content>
+            <md-button ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions"
+                ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
+                ng-class="{ 'md-primary md-hue-1': !behaviorsCtrl.behaviors[behaviorDefinition.id], 'md-accent': behaviorsCtrl.behaviors[behaviorDefinition.id] }">
+                {{ behaviorDefinition.description }}
+            </md-button>
+        </md-content>
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>How does this affect you? (i.e how do I act and feel?)</label>
+                <textarea ng-model="behaviorsCtrl.answers.personalEffect"
+                    auto-fill-sync
+                    ng-change="behaviorsCtrl.onAnswerKeypress()">
+                </textarea>
+            </md-input-container>
+        </md-content>
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>How does it affect the important people in my life?</label>
+                <textarea ng-model="behaviorsCtrl.answers.externalEffect"
+                    auto-fill-sync
+                    ng-change="behaviorsCtrl.onAnswerKeypress()">
+                </textarea>
+            </md-input-container>
+        </md-content>
+        <md-content class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>Why do I do this? (i.e. what is the benefit for me?)</label>
+                <textarea ng-model="behaviorsCtrl.answers.reason"
+                    auto-fill-sync
+                    ng-change="behaviorsCtrl.onAnswerKeypress()">
+                </textarea>
+            </md-input-container>
+        </md-content>
+    </div>
     <menu-button></menu-button>
     <fs-side-nav></fs-side-nav>
 </div>
