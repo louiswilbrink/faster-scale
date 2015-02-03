@@ -7,7 +7,7 @@
  * # sideNav
  */
 angular.module('fasterScaleApp')
-  .directive('fsSideNav', function ($mdSidenav, $location, User) {
+  .directive('fsSideNav', function ($mdSidenav, $location, $timeout, User) {
     return {
       templateUrl: 'views/fs-side-nav.html',
       restrict: 'E',
@@ -25,7 +25,13 @@ angular.module('fasterScaleApp')
           },
           {
               text: 'New Scale',
-              onClick: User.addScale,
+              onClick: function () {
+                $mdSidenav('left').close();
+                User.addScale();
+                $timeout(function () {
+                    $location.path('/home');
+                }, 700);
+              },
               isSelected: false
           },
           {
