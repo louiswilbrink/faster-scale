@@ -22,7 +22,6 @@ angular.module('fasterScaleApp')
 
     var ref = new Firebase(Constant.baseUrl);
     var authObj = $firebaseAuth(ref);
-    var itsalright = false;
 
     //var user = {};
 
@@ -138,24 +137,21 @@ angular.module('fasterScaleApp')
 
       createUser: function (email, password) {
 
-        authObj.$createUser({
-            email: email,
-            password: password
-        }).then(function(userData) {
-            itsalright = true;
-            console.log("User " + userData.uid + " created successfully!");
+          authObj.$createUser({
+              email: email,
+              password: password
+          }).then(function(userData) {
+              console.log("User " + userData.uid + " created successfully!");
 
               return authObj.$authWithPassword({
                     email: email,
                     password: password
                   });
-        }).then(function(authData) {
-            console.log("Logged in as:", authData.uid);
-        }).catch(function(error) {
-            if (!itsalright) {
-                console.error("Error: ", error);
-            }
-        });
+          }).then(function(authData) {
+              console.log("Logged in as:", authData.uid);
+          }).catch(function(error) {
+              console.error("Error: ", error);
+          });
 
         //var _this = this;
 
