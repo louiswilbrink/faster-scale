@@ -11,6 +11,7 @@
 angular
   .module('fasterScaleApp', [
     'ngAnimate',
+    'ngAria',
     'ngMaterial',
     'ngCookies',
     'ngResource',

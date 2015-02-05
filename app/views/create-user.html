@@ -1,4 +1,4 @@
-<div ng-controller="CreateUserCtrl">
+<div class="create-user" ng-controller="CreateUserCtrl">
     <md-content>
         <div class="row">
             <h1>Create New Account</h1>
@@ -17,6 +17,8 @@
                 <input ng-model="createUserCtrl.password" type="password" auto-fill-sync>
             </md-input-container>
     </md-content>
-    <md-button class="md-raised md-primary" ng-click="createUserCtrl.createUser()">Create User</md-button>
-    <md-button ng-click="navigateTo('/')">No thanks, take me back</md-button>
+    <md-content class="md-padding" layout="row" layout-sm="column">
+        <md-button class="md-raised md-primary" ng-click="createUserCtrl.createUser($event)">Create User</md-button>
+        <md-button ng-click="navigateTo('/')">No thanks, take me back</md-button>
+    </md-content>
 </div>

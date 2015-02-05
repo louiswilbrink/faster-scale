@@ -24,7 +24,14 @@ angular.module('fasterScaleApp')
 
     // Methods.
       
-    $scope.loginCtrl.signIn = function () {
+    $scope.loginCtrl.signIn = function ($event) {
+
+        // ignore keypress events that are captured by ng-aria.  
+        //     They will be captured by the ng-click directive 
+        //     built into angular.  This avoids the function 
+        //     firing twice.
+        if ($event.type === 'keypress') { return; }
+
         Authentication.login({
             email: $scope.loginCtrl.email.toLowerCase(),
             password: $scope.loginCtrl.password.toLowerCase(),

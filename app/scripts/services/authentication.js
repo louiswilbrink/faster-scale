@@ -11,11 +11,13 @@ angular.module('fasterScaleApp')
   .service('Authentication', ['$rootScope', 
       'Constant', 
       '$log', 
+      '$firebase', 
       '$firebaseAuth', 
       '$q', 
       '$timeout', function Authentication($rootScope, 
       Constant, 
       $log, 
+      $firebase,
       $firebaseAuth, 
       $q, 
       $timeout) {
@@ -144,13 +146,34 @@ angular.module('fasterScaleApp')
               console.log("User " + userData.uid + " created successfully!");
 
               return authObj.$authWithPassword({
-                    email: email,
-                    password: password
-                  });
+                  email: email,
+                  password: password
+              });
           }).then(function(authData) {
-              console.log("Logged in as:", authData.uid);
+
+              console.log('post authObj.$authWithPassword:', authData);
+
+              var users = $firebase(new Firebase(Constant.baseUrl + '/users')).$asArray();
+
+              // Add user to database and log them in.
+              return users.$add({
+                  //email: password.email,
+                  //id: authData.id,
+                  uid: authData.uid
+              });
+          }).then(function(userRef) {
+              console.log('post user.$add', userRef);
+
+              var userSync = $firebase(userRef);
+              return userSync.$set({
+                  email: 'testemail@email.com'
+              });
+          }).then(function(userRef) {
+              // TODO: add key to simpleLogin map.
+              console.log('key', userRef.key());
           }).catch(function(error) {
               console.error("Error: ", error);
+              $rootScope.$broadcast('createUserError', error);
           });
 
         //var _this = this;

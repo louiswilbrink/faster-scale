@@ -24,7 +24,13 @@ angular.module('fasterScaleApp')
 
       // API.
 
-      createUser: function () {
+      createUser: function ($event) {
+
+        // ignore keypress events that are captured by ng-aria.  
+        //     They will be captured by the ng-click directive 
+        //     built into angular.  This avoids the function 
+        //     firing twice.
+        if ($event.type === 'keypress') { return; }
 
         var _this = this;
 
@@ -40,10 +46,9 @@ angular.module('fasterScaleApp')
       }
     };
 
-    $scope.$on('CreateUserError', function (event, error) {
+    $scope.$on('createUserError', function (event, error) {
 
-      $scope.$apply(function () {
-
+        console.log('$on.createUserError:', error);
         // TODO: Add 'EMAIL_TAKEN' to constant service.
         if (error.code === 'EMAIL_TAKEN') {
 
@@ -57,6 +62,5 @@ angular.module('fasterScaleApp')
 
           $scope.createUserCtrl.status.text = error.code;
         }
-      });
     });
-  }]);
+}]);
