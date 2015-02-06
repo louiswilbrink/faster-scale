@@ -26,11 +26,15 @@ angular.module('fasterScaleApp')
 
     var ref = new Firebase(Constant.baseUrl);
     var authObj = $firebaseAuth(ref);
+
+    var isNascent = false;
     
     authObj.$onAuth(function(authData) {
         if (authData) {
             console.log("$onAuth - Logged in as:", authData.uid);
-            $rootScope.$broadcast('loginSucceeded', authData);
+            if (!isNascent) {  // If a user has just been created, hold off on broadcasting.
+                $rootScope.$broadcast('loginSucceeded', authData.uid);
+            }
         } else {
             if ($location.path() !== '/') {
                 $location.path('/');
@@ -163,6 +167,9 @@ angular.module('fasterScaleApp')
               email: email,
               password: password
           }).then(function(userData) { // log in.
+             
+              isNascent = true;
+
               return authObj.$authWithPassword({
                   email: email,
                   password: password
@@ -229,6 +236,9 @@ angular.module('fasterScaleApp')
               idHash[uid] = key;
 
               simpleLoginRef.$update(idHash);
+          }).then(function() { // launch post-login processes with valid user data in firebase.
+              isNascent = false;  // reset flag -- this user is now 'born'.
+              $rootScope.$broadcast('loginSucceeded', uid);
           }).then(function() { // navigate to /home after all credentials are saved.
               $location.path('/home');
           }).catch(function(error) { // Catch any errors from these promises.

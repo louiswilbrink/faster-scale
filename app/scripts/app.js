@@ -25,7 +25,7 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
         resolve: {
-            authenticated : ['Authentication', 'User', '$location', function (Authentication, $location) {
+            authenticated : ['Authentication', 'User', '$location', function (Authentication, User, $location) {
                 return Authentication.authObj().$waitForAuth()
                     .then(function (authState) {
                         if (authState) {
@@ -48,7 +48,7 @@ angular
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl',
         resolve: {
-            authenticated : ['Authentication', 'User', '$location', function (Authentication, $location) {
+            authenticated : ['Authentication', 'User', '$location', function (Authentication, User, $location) {
                 return Authentication.authObj().$waitForAuth()
                     .then(function (authState) {
                         if (authState) {
@@ -71,7 +71,7 @@ angular
         templateUrl: 'views/select-behaviors.html',
         controller: 'BehaviorsCtrl',
         resolve: {
-            authenticated : ['Authentication', 'User', '$location', function (Authentication, $location) {
+            authenticated : ['Authentication', 'User', '$location', function (Authentication, User, $location) {
                 return Authentication.authObj().$waitForAuth()
                     .then(function (authState) {
                         if (authState) {

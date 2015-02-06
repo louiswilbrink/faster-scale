@@ -64,24 +64,19 @@ angular.module('fasterScaleApp')
         });
     }
 
-    function loadUser (authData) {
+    function loadUser (uid) {
 
         // Look up userId in simpleLogin lookup table.
-        $firebase(new Firebase(Constant.baseUrl + '/simpleLogin/' + authData.uid)).$asObject().$loaded().then(function (userKey) {
+        $firebase(new Firebase(Constant.baseUrl + '/simpleLogin/' + uid)).$asObject().$loaded().then(function (userKey) {
 
 
           $firebase(new Firebase(Constant.baseUrl + '/users/' + userKey.$value)).$asObject().$loaded().then(function (userData) {
 
-            console.log('userData', userData);
-
             id = userData.$id;
-            console.log('$id', id);
 
             scales = $firebase(new Firebase(Constant.baseUrl + '/users/' + id + '/scales')).$asArray();
-            console.log('scales', scales);
 
             scales.$loaded().then(function () {
-                console.log(scales);
                 setCurrentScaleId();
                 $rootScope.$broadcast('scalesLoaded');
             });
@@ -168,10 +163,10 @@ angular.module('fasterScaleApp')
         return id;
     }
 
-    $rootScope.$on('loginSucceeded', function (event, authData) {
+    $rootScope.$on('loginSucceeded', function (event, uid) {
 
-        console.log('$on.loginSucceeded:', authData);
-        loadUser(authData);
+        console.log('$on.loginSucceeded:', uid);
+        loadUser(uid);
     });
 
     User = {
