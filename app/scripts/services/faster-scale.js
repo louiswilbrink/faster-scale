@@ -203,6 +203,14 @@ angular.module('fasterScaleApp')
                   behaviors[id].isUnderlined = false;
                   behaviors[id].isCircled = true;
 
+                  // Extend this scale's end date.
+                  scale.endDate = Date.now();
+
+                  // Save the scale with it's new endDate.
+                  // Then save the newly circled behavior
+                  // and recalculate stages.
+                  scale.$save().then(behaviors.$save.bind(behaviors)).then(calculateStage);
+
                   console.log('circling behavior:', id);
               }
               // If this behavior has already been "circled", delete the behavior.
@@ -212,7 +220,11 @@ angular.module('fasterScaleApp')
                   // Delete from behaviors and save.
                   delete behaviors[id];
 
-                  revertScaleEndDate();
+                  // Extend this scale's end date.
+                  scale.endDate = Date.now();
+
+                  // Not sure this is a necessary feature.
+                  //revertScaleEndDate();
 
                   // Save the scale with it's new endDate.
                   // Then save the removed behavior
