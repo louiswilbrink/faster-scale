@@ -48,7 +48,6 @@ angular.module('fasterScaleApp')
 
     $scope.$on('createUserError', function (event, error) {
 
-        console.log('$on.createUserError:', error);
         // TODO: Add 'EMAIL_TAKEN' to constant service.
         if (error.code === 'EMAIL_TAKEN') {
 

@@ -139,38 +139,54 @@ angular.module('fasterScaleApp')
 
       createUser: function (email, password) {
 
+          var uid, key;
+
+          // Create a user.
           authObj.$createUser({
               email: email,
               password: password
-          }).then(function(userData) {
-              console.log("User " + userData.uid + " created successfully!");
+          }).then(function(userData) { // log in.
+              console.log('post.$createUser:', userData);
+              //console.log("User " + userData.uid + " created successfully!");
 
               return authObj.$authWithPassword({
                   email: email,
                   password: password
               });
-          }).then(function(authData) {
+          }).then(function(authData) { // Add a new user to users collection.
 
               console.log('post authObj.$authWithPassword:', authData);
+
+              // Save uid to add to simpleLogin map.
+              uid = authData.uid;
 
               var users = $firebase(new Firebase(Constant.baseUrl + '/users')).$asArray();
 
               // Add user to database and log them in.
               return users.$add({
-                  //email: password.email,
-                  //id: authData.id,
+                  email: authData.password.email,
                   uid: authData.uid
               });
-          }).then(function(userRef) {
+          }).then(function(userRef) { // Set user info up: email, id, scales.
               console.log('post user.$add', userRef);
+              console.log('userRef.key():', userRef.key());
+
+              key = userRef.key();
 
               var userSync = $firebase(userRef);
-              return userSync.$set({
-                  email: 'testemail@email.com'
+
+              return userSync.$update({
+                  key: userRef.key()
               });
           }).then(function(userRef) {
-              // TODO: add key to simpleLogin map.
-              console.log('key', userRef.key());
+
+              // map uid and key to simpleLogin table.
+              var simpleLoginRef = $firebase(new Firebase(Constant.baseUrl + '/simpleLogin'));
+
+              var idHash = {};
+              idHash[uid] = key;
+
+              simpleLoginRef.$update(idHash);
           }).catch(function(error) {
               console.error("Error: ", error);
               $rootScope.$broadcast('createUserError', error);
