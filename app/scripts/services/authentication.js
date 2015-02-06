@@ -187,8 +187,6 @@ angular.module('fasterScaleApp')
               });
           }).then(function(userRef) { // Add the initial scale.
 
-              debugger;
-
               key = userRef.key();
 
               var scales = $firebase(new Firebase(Constant.baseUrl + '/users/' + key + '/scales')).$asArray();
@@ -227,7 +225,6 @@ angular.module('fasterScaleApp')
                   }
               });
           }).then(function(userRef) { // add user key information to user.
-              debugger;
 
               var user = $firebase(new Firebase(Constant.baseUrl + '/users/' + key));
 
