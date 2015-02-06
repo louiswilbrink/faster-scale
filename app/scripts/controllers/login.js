@@ -8,7 +8,7 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('LoginCtrl', ['$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
+  .controller('LoginCtrl', ['$scope', '$location', 'Authentication', 'authenticated', function ($scope, $location, Authentication, authenticated) {
 
     $scope.loginCtrl = {
 
@@ -39,8 +39,13 @@ angular.module('fasterScaleApp')
         });
     };
 
-    $scope.loginCtrl.onForgetPasswordClicked = function () {
+    $scope.loginCtrl.onForgotPasswordClicked = function () {
         $location.path('/forget-password');
+    };
+
+    $scope.loginCtrl.onCreateUserClicked = function () {
+        console.log('onCreateUserClicked()');
+        $location.path('/create-user');
     };
 
     // Event Handlers

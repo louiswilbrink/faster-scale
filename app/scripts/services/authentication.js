@@ -29,7 +29,8 @@ angular.module('fasterScaleApp')
     
     authObj.$onAuth(function(authData) {
         if (authData) {
-            console.log("Logged in as:", authData.uid);
+            console.log("$onAuth - Logged in as:", authData.uid);
+            $rootScope.$broadcast('loginSucceeded', authData);
         } else {
             if ($location.path() !== '/') {
                 $location.path('/');
@@ -177,17 +178,37 @@ angular.module('fasterScaleApp')
                   email: authData.password.email,
                   uid: authData.uid,
                   scales: {
-                      startDate: Date.now(),
-                      endDate: Date.now(),
-                      isCurrent: true,
-                      behaviors: {
-                          'behaviorId': {
-                            date: Date.now()
-                          }
-                      },
-                      stages: {
-                          'stageId': {
-                            date: Date.now()
+                      firstScale: {
+                          startDate: Date.now(),
+                          endDate: Date.now(),
+                          // Add 'isCurrent' designation to new scale.
+                          isCurrent: true,
+                          // TODO: actually update the change date :(
+                          behaviors: {
+                              changeDate: Date.now()
+                          },
+                          // TODO: actually update the change date :(
+                          behaviorAnswers: {
+                              'restoration': { changeDate: Date.now() },
+                              'forgetting-priorities': { changeDate: Date.now() },
+                              'anxiety': { changeDate: Date.now() },
+                              'speeding-up': { changeDate: Date.now() },
+                              'ticked-off': { changeDate: Date.now() },
+                              'exhausted': { changeDate: Date.now() },
+                              'relapse': { changeDate: Date.now() },
+                          },
+                          commitment: {
+                              problem: '',
+                              choice: {
+                                  costToChange: '',
+                                  costToPreserve: ''
+                              },
+                              confrontation: {
+                                  faithfulChoice: '',
+                                  rightChoice: ''
+                              },
+                              plan: '',
+                              accountabilityPartners: ''
                           }
                       }
                   }

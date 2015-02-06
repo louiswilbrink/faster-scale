@@ -23,7 +23,22 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginCtrl',
+        resolve: {
+            authenticated : ['Authentication', 'User', '$location', function (Authentication, $location) {
+                return Authentication.authObj().$waitForAuth()
+                    .then(function (authState) {
+                        if (authState) {
+                            console.log('authentication accepted:', authState.password.email);
+                            $location.path('/home');
+                        }
+                        else {
+                            console.log('authentication rejected');
+                            $location.path('/');
+                        }
+                    });
+            }]
+        }
       })
       .when('/create-user', {
         templateUrl: 'views/create-user.html',
@@ -33,8 +48,18 @@ angular
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl',
         resolve: {
-            authenticated : ['Authentication', function (Authentication) {
-                return Authentication.authObj().$waitForAuth();
+            authenticated : ['Authentication', 'User', '$location', function (Authentication, $location) {
+                return Authentication.authObj().$waitForAuth()
+                    .then(function (authState) {
+                        if (authState) {
+                            console.log('authentication accepted:', authState.password.email);
+                        }
+                        else {
+                            console.log('authentication rejected');
+                            // Go back to login screen.
+                            $location.path('/');
+                        }
+                    });
             }]
         }
       })
@@ -44,7 +69,22 @@ angular
       })
       .when('/stage/:stage/behaviors', {
         templateUrl: 'views/select-behaviors.html',
-        controller: 'BehaviorsCtrl'
+        controller: 'BehaviorsCtrl',
+        resolve: {
+            authenticated : ['Authentication', 'User', '$location', function (Authentication, $location) {
+                return Authentication.authObj().$waitForAuth()
+                    .then(function (authState) {
+                        if (authState) {
+                            console.log('/stage/:stage/behaviors - authentication accepted:', authState.password.email);
+                        }
+                        else {
+                            console.log('authentication rejected');
+                            // Go back to login screen.
+                            $location.path('/');
+                        }
+                    });
+            }]
+        }
       })
       .when('/display-scale/:scaleId', {
         templateUrl: 'views/display-scale.html',

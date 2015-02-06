@@ -10,12 +10,6 @@
 angular.module('fasterScaleApp')
   .controller('BehaviorsCtrl', function ($scope, FasterScale, FasterScaleDefinition, $timeout, $routeParams, $location, User) {
 
-    // Check if the user is signed in.  If not, navigate to login page.
-    if (!User.getId()) {
-        console.log('** you are not logged in **');
-        $location.path('/');   // Back to login page.
-    }
-
     var getBehaviorDefinitions = function (stage) {
 
         var behaviorDefinitions;
