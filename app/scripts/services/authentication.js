@@ -183,50 +183,56 @@ angular.module('fasterScaleApp')
               // Add user to database; include skeleton schema.
               return users.$add({
                   email: authData.password.email,
-                  uid: authData.uid,
-                  scales: {
-                      firstScale: {
-                          startDate: Date.now(),
-                          endDate: Date.now(),
-                          // Add 'isCurrent' designation to new scale.
-                          isCurrent: true,
-                          // TODO: actually update the change date :(
-                          behaviors: {
-                              changeDate: Date.now()
-                          },
-                          // TODO: actually update the change date :(
-                          behaviorAnswers: {
-                              'restoration': { changeDate: Date.now() },
-                              'forgetting-priorities': { changeDate: Date.now() },
-                              'anxiety': { changeDate: Date.now() },
-                              'speeding-up': { changeDate: Date.now() },
-                              'ticked-off': { changeDate: Date.now() },
-                              'exhausted': { changeDate: Date.now() },
-                              'relapse': { changeDate: Date.now() },
-                          },
-                          commitment: {
-                              problem: '',
-                              choice: {
-                                  costToChange: '',
-                                  costToPreserve: ''
-                              },
-                              confrontation: {
-                                  faithfulChoice: '',
-                                  rightChoice: ''
-                              },
-                              plan: '',
-                              accountabilityPartners: ''
-                          }
-                      }
+                  uid: authData.uid
+              });
+          }).then(function(userRef) { // Add the initial scale.
+
+              debugger;
+
+              key = userRef.key();
+
+              var scales = $firebase(new Firebase(Constant.baseUrl + '/users/' + key + '/scales')).$asArray();
+
+              return scales.$add({
+                  startDate: Date.now(),
+                  endDate: Date.now(),
+                  // Add 'isCurrent' designation to new scale.
+                  isCurrent: true,
+                  // TODO: actually update the change date :(
+                  behaviors: {
+                      changeDate: Date.now()
+                  },
+                  // TODO: actually update the change date :(
+                  behaviorAnswers: {
+                      'restoration': { changeDate: Date.now() },
+                      'forgetting-priorities': { changeDate: Date.now() },
+                      'anxiety': { changeDate: Date.now() },
+                      'speeding-up': { changeDate: Date.now() },
+                      'ticked-off': { changeDate: Date.now() },
+                      'exhausted': { changeDate: Date.now() },
+                      'relapse': { changeDate: Date.now() },
+                  },
+                  commitment: {
+                      problem: '',
+                      choice: {
+                          costToChange: '',
+                          costToPreserve: ''
+                      },
+                      confrontation: {
+                          faithfulChoice: '',
+                          rightChoice: ''
+                      },
+                      plan: '',
+                      accountabilityPartners: ''
                   }
               });
           }).then(function(userRef) { // add user key information to user.
-              key = userRef.key();
+              debugger;
 
-              var userSync = $firebase(userRef);
+              var user = $firebase(new Firebase(Constant.baseUrl + '/users/' + key));
 
-              return userSync.$update({
-                  key: userRef.key()
+              return user.$update({
+                  key: key
               });
           }).then(function(userRef) { // save the uid and key to simpleLogin table for quick lookup.
 
