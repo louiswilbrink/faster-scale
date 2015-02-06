@@ -23,35 +23,36 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',
-        controller: 'MainCtrl'
+        controller: 'LoginCtrl'
       })
       .when('/create-user', {
         templateUrl: 'views/create-user.html',
-        controller: 'MainCtrl'
+        controller: 'CreateUserCtrl'
       })
       .when('/home', {
         templateUrl: 'views/home.html',
-        controller: 'MainCtrl'
-      })
-      .when('/home2', {
-        templateUrl: 'views/home2.html',
-        controller: 'MainCtrl'
+        controller: 'HomeCtrl',
+        resolve: {
+            authenticated : ['Authentication', function (Authentication) {
+                return Authentication.authObj().$waitForAuth();
+            }]
+        }
       })
       .when('/previous-scales', {
         templateUrl: 'views/previous-scales.html',
-        controller: 'MainCtrl'
+        controller: 'PreviousScalesCtrl'
       })
       .when('/stage/:stage/behaviors', {
         templateUrl: 'views/select-behaviors.html',
-        controller: 'MainCtrl'
+        controller: 'BehaviorsCtrl'
       })
       .when('/display-scale/:scaleId', {
         templateUrl: 'views/display-scale.html',
-        controller: 'MainCtrl'
+        controller: 'DisplayScaleCtrl'
       })
       .when('/forgot-password', {
         templateUrl: 'views/forgot-password.html',
-        controller: 'MainCtrl'
+        controller: 'ForgotPasswordCtrl'
       })
       .otherwise({
         redirectTo: '/'

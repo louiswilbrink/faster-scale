@@ -10,12 +10,6 @@
 angular.module('fasterScaleApp')
   .controller('HomeCtrl', function ($scope, $timeout, FasterScale, User, $location, $mdSidenav) {
 
-    // Check if the user is signed in.  If not, navigate to login page.
-    if (!User.getId()) {
-        console.log('** you are not logged in **');
-        $location.path('/');   // Back to login page.
-    }
-
     var saveAfterDelay = (function () {
         var DELAY = 1500;
         var timer;

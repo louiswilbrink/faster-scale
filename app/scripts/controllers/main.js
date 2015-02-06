@@ -8,7 +8,21 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('MainCtrl', ['$scope', '$location', '$log', 'Authentication', '$timeout', 'User', function ($scope, $location, $log, Authentication, $timeout, User) {
+  .controller('MainCtrl', ['$scope', 
+      '$location', 
+      '$log', 
+      'Authentication', 
+      '$timeout', 
+      'User',
+      'authenticated', function ($scope, 
+      $location, 
+      $log, 
+      Authentication, 
+      $timeout, 
+      User,
+      authenticated) {
+
+    console.log('authenticated:', authenticated);
 
     $scope.navigateTo = function (path) {
 
@@ -40,4 +54,4 @@ angular.module('fasterScaleApp')
       // console.log('navigating to home page.');
       $location.path('/home');
     });
-  }]);
+}]);

@@ -14,16 +14,28 @@ angular.module('fasterScaleApp')
       '$firebase', 
       '$firebaseAuth', 
       '$q', 
+      '$location', 
       '$timeout', function Authentication($rootScope, 
       Constant, 
       $log, 
       $firebase,
       $firebaseAuth, 
       $q, 
+      $location,
       $timeout) {
 
     var ref = new Firebase(Constant.baseUrl);
     var authObj = $firebaseAuth(ref);
+    
+    authObj.$onAuth(function(authData) {
+        if (authData) {
+            console.log("Logged in as:", authData.uid);
+        } else {
+            if ($location.path() !== '/') {
+                $location.path('/');
+            }
+        }
+    });
 
     //var user = {};
 
@@ -76,9 +88,13 @@ angular.module('fasterScaleApp')
 
       ref: function () { return ref; },
 
+      authObj: function () { return authObj; },
+
       //user: function () { return user; },
 
-      //logout: function () { auth.logout(); },
+      logout: function () { 
+          return authObj.$unauth();
+      },
 
       login: function (credentials) {
 
@@ -86,7 +102,7 @@ angular.module('fasterScaleApp')
             email: credentials.email,
             password: credentials.password
         }).then(function (authData) {
-            console.log('logged in as:', authData.uid);
+            //console.log('logged in as:', authData.uid);
         }, function (error) {
             console.log('Authentication Error:', error);
         });
@@ -146,31 +162,37 @@ angular.module('fasterScaleApp')
               email: email,
               password: password
           }).then(function(userData) { // log in.
-              console.log('post.$createUser:', userData);
-              //console.log("User " + userData.uid + " created successfully!");
-
               return authObj.$authWithPassword({
                   email: email,
                   password: password
               });
           }).then(function(authData) { // Add a new user to users collection.
-
-              console.log('post authObj.$authWithPassword:', authData);
-
               // Save uid to add to simpleLogin map.
               uid = authData.uid;
 
               var users = $firebase(new Firebase(Constant.baseUrl + '/users')).$asArray();
 
-              // Add user to database and log them in.
+              // Add user to database; include skeleton schema.
               return users.$add({
                   email: authData.password.email,
-                  uid: authData.uid
+                  uid: authData.uid,
+                  scales: {
+                      startDate: Date.now(),
+                      endDate: Date.now(),
+                      isCurrent: true,
+                      behaviors: {
+                          'behaviorId': {
+                            date: Date.now()
+                          }
+                      },
+                      stages: {
+                          'stageId': {
+                            date: Date.now()
+                          }
+                      }
+                  }
               });
-          }).then(function(userRef) { // Set user info up: email, id, scales.
-              console.log('post user.$add', userRef);
-              console.log('userRef.key():', userRef.key());
-
+          }).then(function(userRef) { // add user key information to user.
               key = userRef.key();
 
               var userSync = $firebase(userRef);
@@ -178,87 +200,20 @@ angular.module('fasterScaleApp')
               return userSync.$update({
                   key: userRef.key()
               });
-          }).then(function(userRef) {
+          }).then(function(userRef) { // save the uid and key to simpleLogin table for quick lookup.
 
-              // map uid and key to simpleLogin table.
               var simpleLoginRef = $firebase(new Firebase(Constant.baseUrl + '/simpleLogin'));
 
               var idHash = {};
               idHash[uid] = key;
 
               simpleLoginRef.$update(idHash);
-          }).catch(function(error) {
+          }).then(function() { // navigate to /home after all credentials are saved.
+              $location.path('/home');
+          }).catch(function(error) { // Catch any errors from these promises.
               console.error("Error: ", error);
               $rootScope.$broadcast('createUserError', error);
           });
-
-        //var _this = this;
-
-        //auth.createUser(email, password, function(error, newUser) {
-          //if (!error) {
-
-            //var users = $firebase(new Firebase(Constant.baseUrl + '/users')).$asArray();
-
-            //// Add user to database and log them in.
-            //users.$add({
-              //email: newUser.email,
-              //id: newUser.id,
-              //uid: newUser.uid
-            //}).then(function (ref) {
-
-              //// Add simpleLoginUserId/firebaseUserKey to simpleLoginRef.
-              //var id = ref.name();
-
-              //// Load simpleLogin table.  Add the new simpleLoginId and userId link.
-              //var simpleLogin = $firebase(new Firebase(Constant.baseUrl + '/simpleLogin')).$asObject();
-              //simpleLogin.$loaded().then(function () {
-
-                //// Add the new simpleLoginId and userId link.
-                //simpleLogin[newUser.id] = ref.name();
-                
-                //// Save, then log in.
-                //simpleLogin.$save().then(function () {
-                  //// Log in newly created user.
-                  //_this.login({
-                    //email: email,
-                    //password: password,
-                    //rememberMe: false
-                  //});
-                //});
-              //});
-
-              //// Save this key in the user object.
-              //user.$id = id;
-
-              //// Add first scale.
-              //var scales = $firebase(new Firebase(Constant.baseUrl + '/users/' + user.$id + '/scales')).$asArray();
-
-              //scales.$loaded().then(function () {
-              
-                //scales.$add({
-                  //startDate: Date.now(),
-                  //endDate: Date.now(),
-                  //isCurrent: true,
-                  //behaviors: {
-                    //'behaviorId': {
-                      //date: Date.now()
-                    //}
-                  //},
-                  //stages: {
-                    //'stageId': {
-                      //date: Date.now()
-                    //}
-                  //}
-                //});
-              //});
-            //});
-
-            //console.log('New user created', newUser.email);
-          //}
-          //else {
-            //console.error(error);
-          //}
-        //});
       }
     };
   }]);
