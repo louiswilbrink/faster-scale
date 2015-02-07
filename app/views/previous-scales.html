@@ -1,4 +1,4 @@
-<div class="previous-scales-partial">
+<div class="previous-scales-page">
     <h1>Previous Scales</h1>
     <ul>
       <li ng-repeat="(index, scale) in previousScalesCtrl.scales" 
@@ -9,7 +9,6 @@
           <p>{{ scale.endDate | date : 'medium' }}</p>
       </li>
     </ul>
-    <ul>
-        <li ng-click="navigateTo('/home')">Back home</li>
-    </ul>
+    <menu-button></menu-button>
+    <fs-side-nav></fs-side-nav>
 </div>

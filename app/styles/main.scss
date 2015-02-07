@@ -127,6 +127,18 @@ p {
     }
 }
 
+/* PREVIOUS SCALES PAGE */
+
+.previous-scales-page { 
+    >menu-button {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        line-height: 50px;
+    }
+}
+
+
 /* Extending angular-material.css */
 
 .md-button.md-default-theme.md-accent {
