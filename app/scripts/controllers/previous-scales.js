@@ -8,13 +8,23 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('PreviousScalesCtrl', function ($scope, FasterScale, User) {
+  .controller('PreviousScalesCtrl', ['$scope',
+      '$location',
+      'FasterScale',
+      'User',
+      function ($scope, 
+      $location,
+      FasterScale, 
+      User) {
 
       $scope.previousScalesCtrl = {
 
           scales : User.getScales(),
 
-          setDisplayScale: User.setDisplayScale,
+          displayScale: function (scaleId) {
+              User.setDisplayScale(scaleId);
+              $location.path('/display-scale/' + scaleId);
+          },
 
           deleteScale: function (event, scaleIndex) { 
             event.stopPropagation();
@@ -25,4 +35,4 @@ angular.module('fasterScaleApp')
       $scope.$on('scalesLoaded', function () {
           $scope.previousScalesCtrl.scales = User.getScales();
       });
-  });
+  }]);
