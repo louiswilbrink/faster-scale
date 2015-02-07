@@ -65,7 +65,21 @@ angular
       })
       .when('/previous-scales', {
         templateUrl: 'views/previous-scales.html',
-        controller: 'PreviousScalesCtrl'
+        controller: 'PreviousScalesCtrl',
+        resolve: {
+            authenticated : ['Authentication', 'User', '$location', function (Authentication, User, $location) {
+                return Authentication.authObj().$waitForAuth()
+                    .then(function (authState) {
+                        if (authState) {
+                            console.log('authentication accepted:', authState.password.email);
+                        }
+                        else {
+                            console.log('authentication rejected');
+                            $location.path('/');
+                        }
+                    });
+            }]
+        }
       })
       .when('/stage/:stage/behaviors', {
         templateUrl: 'views/select-behaviors.html',

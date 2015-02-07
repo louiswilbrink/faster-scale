@@ -37,7 +37,7 @@ angular.module('fasterScaleApp')
           {
               text: 'Previous Scales',
               onClick: function () {
-                  console.log('onClick');
+                  $location.path('/previous-scales');
               },
               isSelected: false
           },
