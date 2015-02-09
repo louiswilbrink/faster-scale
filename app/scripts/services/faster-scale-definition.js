@@ -206,6 +206,22 @@ angular.module('fasterScaleApp')
         {
           id: 'S001',
           description: 'Trying to outrun the anxiety which is usually the first sign of depression'
+        },
+        {
+          id: 'S002',
+          description: 'Super busy and always in a hurry'
+        },
+        {
+          id: 'S003',
+          description: 'Finding good reason to justify the work'
+        },
+        {
+          id: 'S004',
+          description: 'workaholic'
+        },
+        {
+          id: 'S005',
+          description: 'can\'t relax'
         }
       ]
     },
