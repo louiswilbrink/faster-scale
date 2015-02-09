@@ -60,6 +60,7 @@ angular.module('fasterScaleApp')
             + scaleId)).$asObject();
         
         displayScale.$loaded().then(function () {
+            //console.log('displayScale loaded:', displayScale);
             $rootScope.$broadcast('displayScaleLoaded');
         });
     }
@@ -164,8 +165,6 @@ angular.module('fasterScaleApp')
     }
 
     $rootScope.$on('loginSucceeded', function (event, uid) {
-
-        console.log('$on.loginSucceeded:', uid);
         loadUser(uid);
     });
 

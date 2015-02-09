@@ -147,6 +147,25 @@ p {
     }
 }
 
+/* PREVIOUS SCALES PAGE */
+
+.display-scale-page { 
+    text-align: center;
+    >menu-button {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        line-height: 50px;
+    }
+    /*>md-content {*/
+        /*>button {*/
+            /*display: block;*/
+            /*width: 100%;*/
+            /*padding: 16px;*/
+            /*white-space: normal;*/
+        /*}*/
+    /*}*/
+}
 
 /* Extending angular-material.css */
 

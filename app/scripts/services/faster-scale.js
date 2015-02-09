@@ -141,6 +141,12 @@ angular.module('fasterScaleApp')
         });
     }
 
+    function getPrefix (behaviorId) {
+
+        // Strip out id numerals.
+        return behaviorId.replace(/[0-9]/g, '');
+    }
+
     /**
      * Iterates through the list of behaviors and downgrades any "circled"
      *     behaviors to "underlined".
@@ -316,16 +322,21 @@ angular.module('fasterScaleApp')
           }).then(function () {
               scale.endDate = Date.now();
               scale.$save().then(function () {
-                  console.log('scale saved with new endDate');
+                  console.log('scale saved');
               }, function (error) {
                   console.log('error during scale save:', error);
               });
           });
       },
 
-      getBehaviorAnswers: function () {
+      getBehaviorAnswers: function (stage) {
 
+          if (stage) {
+              return behaviorAnswers[stage];
+          }
           return behaviorAnswers;
-      }
+      },
+
+      getPrefix: getPrefix
     };
   }]);

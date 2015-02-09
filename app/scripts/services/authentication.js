@@ -31,7 +31,6 @@ angular.module('fasterScaleApp')
     
     authObj.$onAuth(function(authData) {
         if (authData) {
-            console.log("$onAuth - Logged in as:", authData.uid);
             if (!isNascent) {  // If a user has just been created, hold off on broadcasting.
                 $rootScope.$broadcast('loginSucceeded', authData.uid);
             }

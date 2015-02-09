@@ -1,6 +1,46 @@
-<div>
+<div class="display-scale-page">
     <h1>Display Scale</h1>
-    <p>Date Range:</p>
+    <h3>Date Range:</h3>
+    <p>feb 1 to feb 2</p>
+    <md-content>
+        <md-list>
+            <md-item ng-repeat="stage in displayScaleCtrl.scale">
+                <md-item-content>
+                    <h2>{{ stage.stageId }}</h2>
+                    <div class="md-tile-content">
+                        <h3>{{ stage.majorBehaviorId | fullBehavior }}</h3>
+                        <h4>
+                          <span ng-repeat="behaviorId in stage.minorBehaviorIds">{{ behaviorId | fullBehavior }}, </span>
+                        </h4>
+                        <p>
+                        {{item.notes}}
+                        </p>
+                        <md-content class="md-padding" layout="row" layout-sm="column">
+                            <md-input-container>
+                                <label>How does this affect you? (i.e. how do I act and feel?)</label>
+                                <textarea ng-model="stage.behaviorAnswers.personalEffect" auto-fill-sync disabled> 
+                                </textarea>
+                            </md-input-container>
+                        </md-content>
+                        <md-content class="md-padding" layout="row" layout-sm="column">
+                            <md-input-container>
+                            <label>How does it affect the important people in my life?</label>
+                                <textarea ng-model="stage.behaviorAnswers.externalEffect" auto-fill-sync disabled> 
+                                </textarea>
+                            </md-input-container>
+                        </md-content>
+                        <md-content class="md-padding" layout="row" layout-sm="column">
+                            <md-input-container>
+                            <label>Why do I do this? (i.e. what is the benefit for me?)</label>
+                                <textarea ng-model="stage.behaviorAnswers.reason" auto-fill-sync disabled> 
+                                </textarea>
+                            </md-input-container>
+                        </md-content>
+                    </div>
+                </md-item-content>
+            </md-item>
+        </md-list>
+    </md-content>
     <ul ng-repeat="stage in displayScaleCtrl.scale">
         <li>
             <p>{{ stage.stageId }} : {{ stage.stageId | fullStage }}</p>
@@ -41,8 +81,6 @@
             <p>{{ displayScaleCtrl.commitment.accountabilityPartners }}</p>
         </li>
     </ul>
-    <ul>
-      <li ng-click="navigateTo('/previous-scales')">Back</li>
-      <li ng-click="navigateTo('/home')">Home</li>
-    </ul>
+    <menu-button></menu-button>
+    <fs-side-nav></fs-side-nav>
 </div>

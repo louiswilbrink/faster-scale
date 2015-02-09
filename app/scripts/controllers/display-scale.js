@@ -13,13 +13,15 @@ angular.module('fasterScaleApp')
         '$routeParams',
         'FasterScale', 
         'User', 
-        'FasterScaleDefinition', 
+        'FasterScaleDefinition',
+        'StageMap',
     function (
         $scope, 
         $routeParams,
         FasterScale, 
         User, 
-        FasterScaleDefinition) {
+        FasterScaleDefinition,
+        StageMap) {
 
         $scope.displayScaleCtrl = {
           
@@ -29,6 +31,8 @@ angular.module('fasterScaleApp')
 
             commitment: null,
 
+            behaviorAnswers: null,
+
             fasterScaleDefinition: FasterScaleDefinition
         };
 
@@ -36,7 +40,7 @@ angular.module('fasterScaleApp')
          * After getting stageId and behaviorsId objects, build a single
          * array that puts behaviors with their respective stages.
          */
-        function setDisplayScale (stageIds, behaviorIds) {
+        function populateDisplayScale (stageIds, behaviorIds, behaviorAnswers) {
             $scope.displayScaleCtrl.scale = [];
 
             if (stageIds) {
@@ -46,19 +50,37 @@ angular.module('fasterScaleApp')
 
                         $scope.displayScaleCtrl.scale.push({
                             stageId: stage.id,
-                            behaviorIds: []
+                            minorBehaviorIds: [],
+                            behaviorAnswers: null,
+                            majorBehaviorId: null
                         });
+
+                        var currentStageIndex = $scope.displayScaleCtrl.scale.length - 1;
 
                         if (behaviorIds) {
                             angular.forEach(stage.behaviors, function (behavior) {
                                 if (behavior.id in behaviorIds) {
-                                    $scope.displayScaleCtrl.scale[$scope.displayScaleCtrl.scale.length - 1].behaviorIds.push(behavior.id);
+                                    if (behaviorIds[behavior.id].isCircled) {
+                                        $scope.displayScaleCtrl.scale[currentStageIndex].majorBehaviorId = behavior.id;
+                                    }
+
+                                    if (behaviorIds[behavior.id].isUnderlined) {
+                                        $scope.displayScaleCtrl.scale[currentStageIndex].minorBehaviorIds.push(behavior.id);
+                                    }
+
+                                    // Add behavior answers for this stage's major behavior.
+                                    // This will only run once per stage.
+                                    if (!$scope.displayScaleCtrl.scale[currentStageIndex].behaviorAnswers) {
+                                        var fullStageName = StageMap[FasterScale.getPrefix(behavior.id)];
+                                        $scope.displayScaleCtrl.scale[currentStageIndex].behaviorAnswers = behaviorAnswers[fullStageName];
+                                    }
                                 }
                             });
                         }
                     }
                 });
             }
+            console.log('scale:', $scope.displayScaleCtrl.scale);
         };
 
         $scope.$on('displayScaleLoaded', function () {
@@ -67,8 +89,9 @@ angular.module('fasterScaleApp')
 
             var stageIds = displayScale.stages;
             var behaviorIds = displayScale.behaviors;
+            var behaviorAnswers = displayScale.behaviorAnswers;
 
-            setDisplayScale(stageIds, behaviorIds);
+            populateDisplayScale(stageIds, behaviorIds, behaviorAnswers);
         });
 
         /*
@@ -89,6 +112,6 @@ angular.module('fasterScaleApp')
          */
         $scope.$on('scaleLoaded', function () {
             $scope.displayScaleCtrl.commitment = FasterScale.getCommitment();
-            console.log($scope.displayScaleCtrl.commitment);
+            $scope.displayScaleCtrl.behaviorAnswers = FasterScale.getBehaviorAnswers();
         });
     }]);

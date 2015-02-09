@@ -89,7 +89,7 @@ angular
                 return Authentication.authObj().$waitForAuth()
                     .then(function (authState) {
                         if (authState) {
-                            console.log('/stage/:stage/behaviors - authentication accepted:', authState.password.email);
+                            //console.log('/stage/:stage/behaviors - authentication accepted:', authState.password.email);
                         }
                         else {
                             console.log('authentication rejected');
@@ -102,7 +102,22 @@ angular
       })
       .when('/display-scale/:scaleId', {
         templateUrl: 'views/display-scale.html',
-        controller: 'DisplayScaleCtrl'
+        controller: 'DisplayScaleCtrl',
+        resolve: {
+            authenticated : ['Authentication', 'User', '$location', function (Authentication, User, $location) {
+                return Authentication.authObj().$waitForAuth()
+                    .then(function (authState) {
+                        if (authState) {
+                            console.log('/display-scale/:scaleId - authentication accepted:', authState.password.email);
+                        }
+                        else {
+                            console.log('authentication rejected');
+                            // Go back to login screen.
+                            $location.path('/');
+                        }
+                    });
+            }]
+        }
       })
       .when('/forgot-password', {
         templateUrl: 'views/forgot-password.html',
