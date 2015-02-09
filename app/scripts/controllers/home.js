@@ -18,7 +18,7 @@ angular.module('fasterScaleApp')
             clearTimeout($timeout.cancel(timer));
             timer = $timeout(function() {
                 FasterScale.saveCommitment();
-                console.log('saving..');
+                //console.log('saving..');
             }, DELAY)
         };
     })();
@@ -53,7 +53,7 @@ angular.module('fasterScaleApp')
     // Event-handlers.
     
     $scope.$on('commitmentSaved', function () {
-        console.log('$on.commitmentSaved');
+        console.log('$on.commitmentSaved (toast)');
     });
 
     $scope.$on('homeUpdated', function () {

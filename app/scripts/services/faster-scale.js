@@ -303,7 +303,7 @@ angular.module('fasterScaleApp')
           }).then(function () {
               scale.endDate = Date.now();
               scale.$save().then(function () {
-                  console.log('scale saved with new endDate');
+                  console.log('scale saved');
               }, function (error) {
                   console.log('error during scale save:', error);
               });
