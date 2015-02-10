@@ -5,7 +5,7 @@
     <md-content class="fs-menu-items">
         <md-button ng-repeat="item in menuItems"
             ng-click="item.onClick()"
-            ng-class="{ 'md-primary md-hue-1': !item.isSelected, 'md-accent': item.isSelected }">
+            ng-class="{ 'md-primary md-hue-1': true, 'md-accent': false }">
             {{ item.text }}
         </md-button>
     </md-content>

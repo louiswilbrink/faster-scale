@@ -1,11 +1,7 @@
 <div class="login-menu" layout="column">
-    <md-content>
-        <div class="row">
-            <h1>FASTER</h1>
-        </div>
-    </md-content>
+    <h1>FASTER</h1>
+    <div class="login-status">status: {{ loginCtrl.status }}</div>
     <md-content class="md-padding" layout="row" layout-sm="column">
-            <p>{{ loginCtrl.status }}</p>
             <md-input-container flex>
                 <label>Email</label>
                 <input ng-model="loginCtrl.email" auto-fill-sync>
@@ -19,7 +15,7 @@
     </md-content>
     <md-content class="md-padding" layout="row" layout-sm="column">
             <md-button class="md-raised md-primary" ng-click="loginCtrl.signIn($event)">Sign in</md-button>
-            <md-button ng-click="loginCtrl.onForgotPasswordClicked()">Forgot Password?</md-button>
-            <md-button ng-click="loginCtrl.onCreateUserClicked()">Not a member? Sign up today.</md-button>
+            <!--<md-button ng-click="loginCtrl.onForgotPasswordClicked()">Forgot Password?</md-button>-->
+            <md-button ng-click="loginCtrl.onCreateUserClicked()">Sign up</md-button>
     </md-content>
 </div>

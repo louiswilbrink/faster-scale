@@ -28,6 +28,9 @@ p {
 }
 
 .login-menu {
+  >h1 {
+      text-align: center;
+  }
   md-content {
     section {
     }
@@ -145,6 +148,12 @@ p {
             white-space: normal;
         }
     }
+    >back-button {
+        position: absolute;
+        right: 10px;
+        bottom: 80px;
+        line-height: 50px;
+    }
 }
 
 /* DISPLAY SCALES PAGE */
@@ -157,14 +166,34 @@ p {
         right: 0px;
         left: 0px;
         overflow-y: scroll;
-        h1, h3, h4, p {
+        h1, h2, h4, p, .minor-behaviors {
             text-align: center;
+        }
+        .major-behaviors {
+            color: rgba(0,0,0,0.54);
+        }
+        .minor-behaviors {
+            color: rgba(0,0,0,0.26);
+            font-size: 12px;
+            margin: 0.83em 0;
+        }
+        .date-range {
+            color: rgba(0,0,0,0.54);
+            font-size: 16px;
+            margin: 0.83em 0;
+            padding: 0 16px;
         }
     }
     >menu-button {
         position: absolute;
         right: 10px;
         bottom: 10px;
+        line-height: 50px;
+    }
+    >back-button {
+        position: absolute;
+        right: 10px;
+        bottom: 80px;
         line-height: 50px;
     }
 }

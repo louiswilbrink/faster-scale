@@ -91,6 +91,11 @@ angular.module('fasterScaleApp')
             var behaviorIds = displayScale.behaviors;
             var behaviorAnswers = displayScale.behaviorAnswers;
 
+            $scope.displayScaleCtrl.dateRange = {
+                startDate: displayScale.startDate,
+                endDate: displayScale.endDate
+            };
+
             populateDisplayScale(stageIds, behaviorIds, behaviorAnswers);
         });
 

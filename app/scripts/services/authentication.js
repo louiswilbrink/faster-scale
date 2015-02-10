@@ -109,6 +109,10 @@ angular.module('fasterScaleApp')
             //console.log('logged in as:', authData.uid);
         }, function (error) {
             console.log('Authentication Error:', error);
+
+            if (error.code && error.code === "INVALID_USER") {
+                $rootScope.$broadcast('loginFailed');
+            }
         });
       },
       

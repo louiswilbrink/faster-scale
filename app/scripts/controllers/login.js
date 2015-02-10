@@ -8,7 +8,13 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('LoginCtrl', ['$scope', '$location', 'Authentication', 'authenticated', function ($scope, $location, Authentication, authenticated) {
+  .controller('LoginCtrl', ['$scope', 
+      '$location', 
+      'Authentication', 
+      'authenticated', function ($scope, 
+      $location, 
+      Authentication, 
+      authenticated) {
 
     $scope.loginCtrl = {
 
@@ -51,8 +57,7 @@ angular.module('fasterScaleApp')
     // Event Handlers
 
     $scope.$on('loginFailed', function () {
-        $scope.$apply(function () {
-            $scope.loginCtrl.status = 'uh oh.  That user doesn\'t seem to exist';
-        });
+        console.log('$on.loginFailed');
+        $scope.loginCtrl.status = 'uh oh.  That user doesn\'t seem to exist';
     });
-  }]);
+}]);
