@@ -222,6 +222,70 @@ angular.module('fasterScaleApp')
         {
           id: 'S005',
           description: 'can\'t relax'
+        },
+        {
+          id: 'S006',
+          description: 'avoiding slowing down'
+        },
+        {
+          id: 'S007',
+          description: 'feeling driven'
+        },
+        {
+          id: 'S008',
+          description: 'can\'t turn off thoughts'
+        },
+        {
+          id: 'S009',
+          description: 'skipping meals'
+        },
+        {
+          id: 'S010',
+          description: 'binge eating (usually at night)'
+        },
+        {
+          id: 'S011',
+          description: 'overspending'
+        },
+        {
+          id: 'S012',
+          description: 'can\'t identify own feelings/needs'
+        },
+        {
+          id: 'S013',
+          description: 'repetitive negative thoughts'
+        },
+        {
+          id: 'S014',
+          description: 'irritable'
+        },
+        {
+          id: 'S015',
+          description: 'dramatic mood swings'
+        },
+        {
+          id: 'S016',
+          description: 'too much caffeine'
+        },
+        {
+          id: 'S017',
+          description: 'over exercising'
+        },
+        {
+          id: 'S018',
+          description: 'nervousness'
+        },
+        {
+          id: 'S019',
+          description: 'difficulty being alone and/or with people'
+        },
+        {
+          id: 'S020',
+          description: 'difficulty listening to others'
+        },
+        {
+          id: 'S021',
+          description: 'making excuses for having to "do it all"'
         }
       ]
     },
@@ -231,7 +295,99 @@ angular.module('fasterScaleApp')
       behaviors: [
         {
           id: 'T001',
-          description: 'Getting adrenaline high on anger and aggression'
+          description: 'getting adrenaline high on anger and aggression'
+        },
+        {
+          id: 'T002',
+          description: 'procrastination causing crisis in money, work, and relationships'
+        },
+        {
+          id: 'T003',
+          description: 'increased sarcasm'
+        },
+        {
+          id: 'T004',
+          description: 'black and white (all or nothing) thinking'
+        },
+        {
+          id: 'T005',
+          description: 'feeling alone'
+        },
+        {
+          id: 'T006',
+          description: 'nobody understands'
+        },
+        {
+          id: 'T007',
+          description: 'overreacting'
+        },
+        {
+          id: 'T008',
+          description: 'road rage'
+        },
+        {
+          id: 'T009',
+          description: 'constant resentment'
+        },
+        {
+          id: 'T010',
+          description: 'pushing others away'
+        },
+        {
+          id: 'T011',
+          description: 'increasing isolation'
+        },
+        {
+          id: 'T012',
+          description: 'blaming'
+        },
+        {
+          id: 'T013',
+          description: 'arguing'
+        },
+        {
+          id: 'T014',
+          description: 'irrational thinking'
+        },
+        {
+          id: 'T015',
+          description: 'can\'t take criticism'
+        },
+        {
+          id: 'T016',
+          description: 'defensive'
+        },
+        {
+          id: 'T017',
+          description: 'people avoiding you'
+        },
+        {
+          id: 'T018',
+          description: 'needing to be right'
+        },
+        {
+          id: 'T019',
+          description: 'digestive problems'
+        },
+        {
+          id: 'T020',
+          description: 'headaches'
+        },
+        {
+          id: 'T021',
+          description: 'obsessive (stuck) thoughts'
+        },
+        {
+          id: 'T022',
+          description: 'can\'t forgive'
+        },
+        {
+          id: 'T023',
+          description: 'feeling superior'
+        },
+        {
+          id: 'T024',
+          description: 'using intimidation'
         }
       ]
     },
