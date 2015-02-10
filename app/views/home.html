@@ -8,11 +8,21 @@
             </div>
         </md-toolbar>
         <md-content>
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <span class="md-flex">Stages</span>
+                </div>
+            </md-toolbar>
             <md-button ng-repeat="stage in homeCtrl.stageDefinitions"
                 ng-click="homeCtrl.selectStage(stage.name)" 
                 ng-class="{ 'md-primary md-hue-1': !homeCtrl.stages[stage.id], 'md-accent': homeCtrl.stages[stage.id] }">
                 {{ stage.name | removeDashes}}
             </md-button>
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <span class="md-flex">Commitment to Change</span>
+                </div>
+            </md-toolbar>
             <md-input-container>
                 <label>What problem or situation do I need to change?</label>
                 <textarea ng-model="homeCtrl.commitment.problem"
