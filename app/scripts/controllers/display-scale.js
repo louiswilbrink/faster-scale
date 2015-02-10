@@ -36,6 +36,28 @@ angular.module('fasterScaleApp')
             fasterScaleDefinition: FasterScaleDefinition
         };
 
+        var setScale = function () {
+
+            var displayScale = User.getDisplayScale();
+
+            var stageIds = displayScale.stages;
+            var behaviorIds = displayScale.behaviors;
+            var behaviorAnswers = displayScale.behaviorAnswers;
+
+            $scope.displayScaleCtrl.dateRange = {
+                startDate: displayScale.startDate,
+                endDate: displayScale.endDate
+            };
+
+            populateDisplayScale(stageIds, behaviorIds, behaviorAnswers);
+        };
+
+        // If this page has already been loaded, but navigated away and then returned, trigger the necessary events to populate the scale.
+        if (User.getDisplayScale()) {
+            console.log('back and forth');
+            setScale();
+        }
+
         /*
          * After getting stageId and behaviorsId objects, build a single
          * array that puts behaviors with their respective stages.
@@ -85,18 +107,8 @@ angular.module('fasterScaleApp')
 
         $scope.$on('displayScaleLoaded', function () {
 
-            var displayScale = User.getDisplayScale();
-
-            var stageIds = displayScale.stages;
-            var behaviorIds = displayScale.behaviors;
-            var behaviorAnswers = displayScale.behaviorAnswers;
-
-            $scope.displayScaleCtrl.dateRange = {
-                startDate: displayScale.startDate,
-                endDate: displayScale.endDate
-            };
-
-            populateDisplayScale(stageIds, behaviorIds, behaviorAnswers);
+            console.log('$on.displayScaleLoaded');
+            setScale();
         });
 
         /*
