@@ -1,14 +1,18 @@
-<div class="home-page" layout="column">
-    <div class="content">
-        <h1>FASTER</h1>
+<div class="home-page">
+    <div class="content" layout="column" layout-fill>
+        <md-toolbar md-scroll-shrink>
+            <div class="md-toolbar-tools">
+                <h3>
+                    <span>FASTER Scale</span>
+                </h3>
+            </div>
+        </md-toolbar>
         <md-content>
             <md-button ng-repeat="stage in homeCtrl.stageDefinitions"
                 ng-click="homeCtrl.selectStage(stage.name)" 
                 ng-class="{ 'md-primary md-hue-1': !homeCtrl.stages[stage.id], 'md-accent': homeCtrl.stages[stage.id] }">
                 {{ stage.name | removeDashes}}
             </md-button>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container>
                 <label>What problem or situation do I need to change?</label>
                 <textarea ng-model="homeCtrl.commitment.problem"
@@ -16,8 +20,6 @@
                     ng-change="homeCtrl.onCommitmentKeypress()">
                 </textarea>
             </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container>
                 <label>What will it cost me if I do change?</label>
                 <textarea ng-model="homeCtrl.commitment.choice.costToChange"
@@ -25,8 +27,6 @@
                     ng-change="homeCtrl.onCommitmentKeypress()">
                 </textarea>
             </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container>
                 <label>What will it cost me if I do *not* change</label>
                 <textarea ng-model="homeCtrl.commitment.choice.costToPreserve"
@@ -34,8 +34,6 @@
                     ng-change="homeCtrl.onCommitmentKeypress()">
                 </textarea>
             </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container>
                 <label>Which choice takes more faith?  Why?</label>
                 <textarea ng-model="homeCtrl.commitment.confrontation.faithfulChoice"
@@ -43,8 +41,6 @@
                     ng-change="homeCtrl.onCommitmentKeypress()">
                 </textarea>
             </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container>
                 <label>Which of these is the right thing to do?</label>
                 <textarea ng-model="homeCtrl.commitment.confrontation.rightChoice"
@@ -52,8 +48,6 @@
                     ng-change="homeCtrl.onCommitmentKeypress()">
                 </textarea>
             </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container>
                 <label>What is my plan this week?</label>
                 <textarea ng-model="homeCtrl.commitment.plan"
@@ -61,8 +55,6 @@
                     ng-change="homeCtrl.onCommitmentKeypress()">
                 </textarea>
             </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container>
                 <label>What two men have I asked to keep me accountable this week?</label>
                 <textarea ng-model="homeCtrl.commitment.accountabilityPartners"

@@ -1,94 +1,82 @@
-<div class="display-scale-page" layout="column">
-    <div class="content">
-        <h1>Display Scale</h1>
-        <div class="date-range">Date Range: {{ displayScaleCtrl.dateRange.startDate | date : 'MMMM d'}} to {{ displayScaleCtrl.dateRange.endDate | date : 'MMMM d'}}</div>
-        <div ng-repeat="stage in displayScaleCtrl.scale">
-            <md-toolbar class="md-accent">
-                <div class="md-toolbar-tools">
-                    <span class="md-flex" style="text-transform: capitalize;">{{ stage.stageId | fullStage }}</span>
-                </div>
-            </md-toolbar>
-            <md-content class="md-padding">
+<div class="display-scale-page">
+    <div class="content" layout="column" layout-fill>
+        <md-toolbar md-scroll-shrink>
+            <div class="md-toolbar-tools">
+                <h3>
+                    <span>FASTER Scale</span>
+                </h3>
+                <h3>
+                    <span class="date-range">{{ displayScaleCtrl.dateRange.startDate | date : 'MMMM d'}} to {{ displayScaleCtrl.dateRange.endDate | date : 'MMMM d'}}</span>
+                </h3>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-content ng-repeat="stage in displayScaleCtrl.scale">
+                <md-toolbar class="md-accent">
+                    <div class="md-toolbar-tools">
+                        <span class="md-flex" style="text-transform: capitalize;">{{ stage.stageId | fullStage }}</span>
+                    </div>
+                </md-toolbar>
                 <h2 class="major-behaviors">{{ stage.majorBehaviorId | fullBehavior }}</h2>
                 <div class="minor-behaviors">
                   <span ng-repeat="behaviorId in stage.minorBehaviorIds">{{ behaviorId | fullBehavior }}, </span>
                 </div>
-                <md-content class="md-padding" layout="row" layout-sm="column">
-                    <md-input-container>
-                        <label>How does this affect you? (i.e. how do I act and feel?)</label>
-                        <textarea ng-model="stage.behaviorAnswers.personalEffect" auto-fill-sync disabled> 
-                        </textarea>
-                    </md-input-container>
-                </md-content>
-                <md-content class="md-padding" layout="row" layout-sm="column">
-                    <md-input-container>
-                    <label>How does it affect the important people in my life?</label>
-                        <textarea ng-model="stage.behaviorAnswers.externalEffect" auto-fill-sync disabled> 
-                        </textarea>
-                    </md-input-container>
-                </md-content>
-                <md-content class="md-padding" layout="row" layout-sm="column">
-                    <md-input-container>
-                    <label>Why do I do this? (i.e. what is the benefit for me?)</label>
-                        <textarea ng-model="stage.behaviorAnswers.reason" auto-fill-sync disabled> 
-                        </textarea>
-                    </md-input-container>
-                </md-content>
+                <md-input-container>
+                    <label>How does this affect you? (i.e. how do I act and feel?)</label>
+                    <textarea ng-model="stage.behaviorAnswers.personalEffect" auto-fill-sync disabled> 
+                    </textarea>
+                </md-input-container>
+                <md-input-container>
+                <label>How does it affect the important people in my life?</label>
+                    <textarea ng-model="stage.behaviorAnswers.externalEffect" auto-fill-sync disabled> 
+                    </textarea>
+                </md-input-container>
+                <md-input-container>
+                <label>Why do I do this? (i.e. what is the benefit for me?)</label>
+                    <textarea ng-model="stage.behaviorAnswers.reason" auto-fill-sync disabled> 
+                    </textarea>
+                </md-input-container>
+                <md-toolbar class="md-accent">
+                    <div class="md-toolbar-tools">
+                        <span class="md-flex">Commitment to Change Plan</span>
+                    </div>
+                </md-toolbar>
+                <md-input-container>
+                    <label>What problem/situation do I need to change?</label>
+                    <textarea ng-model="displayScaleCtrl.commitment.problem" auto-fill-sync disabled> 
+                    </textarea>
+                </md-input-container>
+                <md-input-container>
+                    <label>What will it cost me if I do change? (e.g. I move towards trust and intimacy)</label>
+                    <textarea ng-model="displayScaleCtrl.commitment.choice.costToChange" auto-fill-sync disabled> 
+                    </textarea>
+                </md-input-container>
+                <md-input-container>
+                    <label>What will it cost me if I do not change? (e.g. I continue in isolation)</label>
+                    <textarea ng-model="displayScaleCtrl.commitment.choice.costToPreserve" auto-fill-sync disabled> 
+                    </textarea>
+                </md-input-container>
+                <md-input-container>
+                    <label>Which of these is the right thing to do?  Usually the right thing will be the hardest for me to do.</label>
+                    <textarea ng-model="displayScaleCtrl.commitment.confrontation.faithfulChoice" auto-fill-sync disabled> 
+                    </textarea>
+                </md-input-container>
+                <md-input-container>
+                    <label>Which choice takes more faith?  Why does this take more faith?</label>
+                    <textarea ng-model="displayScaleCtrl.commitment.confrontation.rightChoice" auto-fill-sync disabled> 
+                    </textarea>
+                </md-input-container>
+                <md-input-container>
+                    <label>What is my plan of change for this week?  Who?  What?  Where?  Why?  When?</label>
+                    <textarea ng-model="displayScaleCtrl.commitment.plan" auto-fill-sync disabled> 
+                    </textarea>
+                </md-input-container>
+                <md-input-container>
+                    <label>What two men have I asked to keep me accountable?</label>
+                    <textarea ng-model="displayScaleCtrl.commitment.accountabilityPartners" auto-fill-sync disabled> 
+                    </textarea>
+                </md-input-container>
             </md-content>
-        </div>
-        <md-toolbar class="md-accent">
-            <div class="md-toolbar-tools">
-                <span class="md-flex">Commitment to Change Plan</span>
-            </div>
-        </md-toolbar>
-        <md-content class="md-padding" layout="row" layout-sm="column">
-            <md-input-container>
-            <label>What problem/situation do I need to change?</label>
-                <textarea ng-model="displayScaleCtrl.commitment.problem" auto-fill-sync disabled> 
-                </textarea>
-            </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
-            <md-input-container>
-            <label>What will it cost me if I do change? (e.g. I move towards trust and intimacy)</label>
-                <textarea ng-model="displayScaleCtrl.commitment.choice.costToChange" auto-fill-sync disabled> 
-                </textarea>
-            </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
-            <md-input-container>
-            <label>What will it cost me if I do not change? (e.g. I continue in isolation)</label>
-                <textarea ng-model="displayScaleCtrl.commitment.choice.costToPreserve" auto-fill-sync disabled> 
-                </textarea>
-            </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
-            <md-input-container>
-            <label>Which of these is the right thing to do?  Usually the right thing will be the hardest for me to do.</label>
-                <textarea ng-model="displayScaleCtrl.commitment.confrontation.faithfulChoice" auto-fill-sync disabled> 
-                </textarea>
-            </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
-            <md-input-container>
-            <label>Which choice takes more faith?  Why does this take more faith?</label>
-                <textarea ng-model="displayScaleCtrl.commitment.confrontation.rightChoice" auto-fill-sync disabled> 
-                </textarea>
-            </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
-            <md-input-container>
-            <label>What is my plan of change for this week?  Who?  What?  Where?  Why?  When?</label>
-                <textarea ng-model="displayScaleCtrl.commitment.plan" auto-fill-sync disabled> 
-                </textarea>
-            </md-input-container>
-        </md-content>
-        <md-content class="md-padding" layout="row" layout-sm="column">
-            <md-input-container>
-            <label>What two men have I asked to keep me accountable?</label>
-                <textarea ng-model="displayScaleCtrl.commitment.accountabilityPartners" auto-fill-sync disabled> 
-                </textarea>
-            </md-input-container>
         </md-content>
     </div>
     <back-button></back-button>

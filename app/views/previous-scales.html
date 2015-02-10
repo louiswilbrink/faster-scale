@@ -1,10 +1,18 @@
 <div class="previous-scales-page">
-    <h1>Previous Scales</h1>
-    <md-content>
-        <md-button ng-repeat="(index, scale) in previousScalesCtrl.scales" ng-click="previousScalesCtrl.displayScale(scale.$id)">
-          {{ scale.startDate | date : 'MMMM d' }} to {{ scale.endDate | date : 'MMMM d' }}
-        </md-button>
-    </md-content>
+    <div class="content" layout="column" layout-fill>
+        <md-toolbar md-scroll-shrink>
+            <div class="md-toolbar-tools">
+                <h3>
+                    <span>Previous Scales</span>
+                </h3>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-button ng-repeat="(index, scale) in previousScalesCtrl.scales" ng-click="previousScalesCtrl.displayScale(scale.$id)">
+              {{ scale.startDate | date : 'MMMM d' }} to {{ scale.endDate | date : 'MMMM d' }}
+            </md-button>
+        </md-content>
+    </div>
     <back-button></back-button>
     <menu-button></menu-button>
     <fs-side-nav></fs-side-nav>

@@ -137,25 +137,36 @@ p {
 /* PREVIOUS SCALES PAGE */
 
 .previous-scales-page { 
-    text-align: center;
-    >menu-button {
-        position: absolute;
-        right: 10px;
-        bottom: 10px;
-        line-height: 50px;
-    }
-    >md-content {
-        >button {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            white-space: normal;
+    >.content {
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        overflow-y: scroll;
+        >h1 {
+            text-align: center;
+            text-transform: capitalize;
+        }
+        >md-content {
+            >button {
+                display: block;
+                width: 100%;
+                padding: 16px;
+                white-space: normal;
+            }
         }
     }
     >back-button {
         position: absolute;
         right: 10px;
         bottom: 80px;
+        line-height: 50px;
+    }
+    >menu-button {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
         line-height: 50px;
     }
 }
@@ -182,10 +193,15 @@ p {
             margin: 0.83em 0;
         }
         .date-range {
-            color: rgba(0,0,0,0.54);
             font-size: 16px;
             margin: 0.83em 0;
-            padding: 0 16px;
+            padding-left: 16px;
+        }
+        >md-content {
+            md-input-container {
+                width: 100%;
+                padding: 16px;
+            }
         }
     }
     >menu-button {

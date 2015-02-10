@@ -33,7 +33,12 @@ angular.module('fasterScaleApp')
         if (authData) {
             if (!isNascent) {  // If a user has just been created, hold off on broadcasting.
                 $rootScope.$broadcast('loginSucceeded', authData.uid);
-                $location.path('/home');
+
+                // If coming from the login page, navigate to the home page after authentication.
+                // If user is currently on an internal page and successful authenticated, stay on current page.
+                if ($location.path() === '/') {
+                    $location.path('/home');
+                }
             }
         } else {
             if ($location.path() !== '/') {
