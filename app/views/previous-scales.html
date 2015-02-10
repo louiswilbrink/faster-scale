@@ -8,7 +8,7 @@
             </div>
         </md-toolbar>
         <md-content>
-            <md-button ng-repeat="(index, scale) in previousScalesCtrl.scales" ng-click="previousScalesCtrl.displayScale(scale.$id)">
+            <md-button ng-repeat="(index, scale) in previousScalesCtrl.scales" ng-click="previousScalesCtrl.setDisplayScale(scale.$id)">
               {{ scale.startDate | date : 'MMMM d' }} to {{ scale.endDate | date : 'MMMM d' }}
             </md-button>
         </md-content>

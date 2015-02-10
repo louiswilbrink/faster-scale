@@ -21,7 +21,7 @@ angular.module('fasterScaleApp')
 
           scales : User.getScales(),
 
-          displayScale: function (scaleId) {
+          setDisplayScale: function (scaleId) {
               User.setDisplayScale(scaleId);
               $location.path('/display-scale/' + scaleId);
           },

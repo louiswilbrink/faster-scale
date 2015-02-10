@@ -164,6 +164,9 @@ angular.module('fasterScaleApp')
     // Event handlers.
     
     $rootScope.$on('scaleAdded', function (event, scaleId) {
+
+        id = scaleId;
+
         // TODO: get the promises working sanely.  Right now it's crazy nested.
         loadScale(scaleId)
            .then(loadStages(scaleId)
@@ -176,7 +179,9 @@ angular.module('fasterScaleApp')
     });
 
     $rootScope.$on('currentScaleIdChanged', function (event, scaleId) {
-      
+
+        id = scaleId;
+
         // TODO: get the promises working sanely.  Right now it's crazy nested.
         loadScale(scaleId)
            .then(loadStages(scaleId)
@@ -272,7 +277,7 @@ angular.module('fasterScaleApp')
           return behaviors;
       },
 
-      getScale: function (id) {
+      getScaleId: function () {
 
           return id;
       },
