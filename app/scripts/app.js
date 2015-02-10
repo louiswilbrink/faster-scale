@@ -30,11 +30,11 @@ angular
                     .then(function (authState) {
                         if (authState) {
                             console.log('authentication accepted:', authState.password.email);
+                            // If you hit the login screen, but are already, authenticated, go directly to home page.
                             $location.path('/home');
                         }
                         else {
                             console.log('authentication rejected');
-                            $location.path('/');
                         }
                     });
             }]

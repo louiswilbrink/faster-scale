@@ -33,6 +33,7 @@ angular.module('fasterScaleApp')
         if (authData) {
             if (!isNascent) {  // If a user has just been created, hold off on broadcasting.
                 $rootScope.$broadcast('loginSucceeded', authData.uid);
+                $location.path('/home');
             }
         } else {
             if ($location.path() !== '/') {
@@ -90,6 +91,10 @@ angular.module('fasterScaleApp')
 
     return {
 
+      getName: function () { 
+          return { name: 'wilbrink' }; 
+      },
+
       ref: function () { return ref; },
 
       authObj: function () { return authObj; },
@@ -105,11 +110,11 @@ angular.module('fasterScaleApp')
         return authObj.$authWithPassword({
             email: credentials.email,
             password: credentials.password
-        }).then(function (authData) {
-            //console.log('logged in as:', authData.uid);
-        }, function (error) {
+        }).then(function (authData) { // on Successful logins..
+            console.log('logged in as:', authData.uid);
+            // authObj.$onAuth will detect successful login and take the appropriate steps.
+        }, function (error) { // on login error.
             console.log('Authentication Error:', error);
-
             if (error.code && error.code === "INVALID_USER") {
                 $rootScope.$broadcast('loginFailed');
             }
