@@ -8,7 +8,7 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('HomeCtrl', function ($scope, $timeout, FasterScale, User, $location, $mdSidenav) {
+  .controller('HomeCtrl', function ($scope, $timeout, FasterScale, User, $location, $mdSidenav, $mdToast, $animate) {
 
     var saveAfterDelay = (function () {
         var DELAY = 1500;
@@ -18,6 +18,10 @@ angular.module('fasterScaleApp')
             clearTimeout($timeout.cancel(timer));
             timer = $timeout(function() {
                 FasterScale.saveCommitment();
+                $mdToast.show($mdToast.simple()
+                    .content('Save changes')
+                    .position('top right')
+                    .hideDelay(1200))
                 //console.log('saving..');
             }, DELAY)
         };

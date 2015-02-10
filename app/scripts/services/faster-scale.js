@@ -296,14 +296,14 @@ angular.module('fasterScaleApp')
           // If app hasn't initialized yet, don't try saving.
           if (!commitment) { return; }
           commitment.$save().then(function () {
-              console.log('commitment saved to firebase', commitment);
+              //console.log('commitment saved to firebase', commitment);
               $rootScope.$broadcast('commitmentSaved');
           }, function (error) {
               console.log('error saving commitment to firebase', error);
           }).then(function () {
               scale.endDate = Date.now();
               scale.$save().then(function () {
-                  console.log('scale saved');
+                  //console.log('scale saved');
               }, function (error) {
                   console.log('error during scale save:', error);
               });

@@ -29,12 +29,12 @@ angular
                 return Authentication.authObj().$waitForAuth()
                     .then(function (authState) {
                         if (authState) {
-                            console.log('authentication accepted:', authState.password.email);
+                            //console.log('authentication accepted:', authState.password.email);
                             // If you hit the login screen, but are already, authenticated, go directly to home page.
                             $location.path('/home');
                         }
                         else {
-                            console.log('authentication rejected');
+                            //console.log('authentication rejected');
                         }
                     });
             }]
@@ -52,10 +52,10 @@ angular
                 return Authentication.authObj().$waitForAuth()
                     .then(function (authState) {
                         if (authState) {
-                            console.log('authentication accepted:', authState.password.email);
+                            //console.log('authentication accepted:', authState.password.email);
                         }
                         else {
-                            console.log('authentication rejected');
+                            //console.log('authentication rejected');
                             // Go back to login screen.
                             $location.path('/');
                         }
@@ -71,10 +71,10 @@ angular
                 return Authentication.authObj().$waitForAuth()
                     .then(function (authState) {
                         if (authState) {
-                            console.log('authentication accepted:', authState.password.email);
+                            //console.log('authentication accepted:', authState.password.email);
                         }
                         else {
-                            console.log('authentication rejected');
+                            //console.log('authentication rejected');
                             $location.path('/');
                         }
                     });
@@ -92,7 +92,7 @@ angular
                             //console.log('/stage/:stage/behaviors - authentication accepted:', authState.password.email);
                         }
                         else {
-                            console.log('authentication rejected');
+                            //console.log('authentication rejected');
                             // Go back to login screen.
                             $location.path('/');
                         }
@@ -108,10 +108,10 @@ angular
                 return Authentication.authObj().$waitForAuth()
                     .then(function (authState) {
                         if (authState) {
-                            console.log('/display-scale/:scaleId - authentication accepted:', authState.password.email);
+                            //console.log('/display-scale/:scaleId - authentication accepted:', authState.password.email);
                         }
                         else {
-                            console.log('authentication rejected');
+                            //console.log('authentication rejected');
                             // Go back to login screen.
                             $location.path('/');
                         }
