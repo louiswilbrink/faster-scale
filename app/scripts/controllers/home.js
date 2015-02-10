@@ -18,10 +18,6 @@ angular.module('fasterScaleApp')
             clearTimeout($timeout.cancel(timer));
             timer = $timeout(function() {
                 FasterScale.saveCommitment();
-                $mdToast.show($mdToast.simple()
-                    .content('Save changes')
-                    .position('top right')
-                    .hideDelay(1200))
                 //console.log('saving..');
             }, DELAY)
         };
@@ -57,7 +53,10 @@ angular.module('fasterScaleApp')
     // Event-handlers.
     
     $scope.$on('commitmentSaved', function () {
-        console.log('$on.commitmentSaved (toast)');
+        $mdToast.show($mdToast.simple()
+            .content('Changes saved')
+            .position('top right')
+            .hideDelay(1200))
     });
 
     $scope.$on('homeUpdated', function () {

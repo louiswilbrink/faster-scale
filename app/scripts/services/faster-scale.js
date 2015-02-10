@@ -149,12 +149,12 @@ angular.module('fasterScaleApp')
 
     /**
      * Iterates through the list of behaviors and downgrades any "circled"
-     *     behaviors to "underlined".
+     *     behaviors to "underlined" that have the same stage.
      */
-    function downgradeCircledBehaviors () {
+    function downgradeCircledBehaviors (id) {
 
         angular.forEach(behaviors, function (value, key) {
-            if(value.isCircled) {
+            if(value.isCircled && getPrefix(key) === getPrefix(id)) {
                 value.isCircled = false;
                 value.isUnderlined = true;
             }
@@ -204,7 +204,7 @@ angular.module('fasterScaleApp')
               // If so, upgrade it to "circled".
               if (behaviors[id].isUnderlined === true) {
                   // If any other behavior was previously "circled", downgrade it to "underlined"
-                  downgradeCircledBehaviors();
+                  downgradeCircledBehaviors(id);
 
                   behaviors[id].isUnderlined = false;
                   behaviors[id].isCircled = true;
@@ -317,12 +317,13 @@ angular.module('fasterScaleApp')
 
           behaviorAnswers.$save().then(function (ref) {
               //console.log('behaviorsAnswers saved to firebase', behaviorAnswers);
+              $rootScope.$broadcast('behaviorAnswersSaved');
           }, function (error) {
               console.log('error saving behaviorsAnswers to firebase', error);
           }).then(function () {
               scale.endDate = Date.now();
               scale.$save().then(function () {
-                  console.log('scale saved');
+                  //console.log('scale saved');
               }, function (error) {
                   console.log('error during scale save:', error);
               });

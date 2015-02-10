@@ -8,7 +8,21 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('BehaviorsCtrl', function ($scope, FasterScale, FasterScaleDefinition, $timeout, $routeParams, $location, User) {
+  .controller('BehaviorsCtrl', ['$scope',
+      'FasterScale',
+      'FasterScaleDefinition',
+      '$timeout', 
+      '$routeParams',
+      '$location', 
+      '$mdToast',
+      'User', function ($scope, 
+      FasterScale, 
+      FasterScaleDefinition, 
+      $timeout, 
+      $routeParams, 
+      $location, 
+      $mdToast,
+      User) {
 
     var getBehaviorDefinitions = function (stage) {
 
@@ -66,6 +80,13 @@ angular.module('fasterScaleApp')
 
     // Event-handlers.
     
+    $scope.$on('behaviorAnswersSaved', function () {
+        $mdToast.show($mdToast.simple()
+            .content('Changes saved')
+            .position('top right')
+            .hideDelay(1200))
+    });
+
     // Update when behavior has been toggled on the database.
     $scope.$on('BehaviorsUpdated', function () {
         $scope.behaviorsCtrl.behaviors = FasterScale.getBehaviors();
@@ -75,4 +96,4 @@ angular.module('fasterScaleApp')
         $scope.behaviorsCtrl.behaviors = FasterScale.getBehaviors();
         $scope.behaviorsCtrl.answers = FasterScale.getBehaviorAnswers();
     });
-});
+}]);
