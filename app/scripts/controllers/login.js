@@ -1,5 +1,18 @@
 'use strict';
 
+angular.module('fasterScaleApp')
+    .controller('LouisCtrl', function ($scope) {
+
+        $scope.louisCtrl = {
+          last: 'wilbrink'
+        }
+
+        $scope.$on('loginFailed', function () {
+            console.log('$on.loginFailed');
+            $scope.louisCtrl.last = 'wilbrador';
+        });
+    });
+
 /**
  * @ngdoc function
  * @name fasterScaleApp.controller:LoginCtrl

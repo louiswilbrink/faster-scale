@@ -1,5 +1,6 @@
-<div class="login-menu" layout="column">
+<div class="login-menu" layout="column" ng-controller="LouisCtrl">
     <h1>FASTER</h1>
+    <p>{{ louisCtrl.last }}</p>
     <div class="login-status">status: {{ loginCtrl.status }}</div>
     <md-content class="md-padding" layout="row" layout-sm="column">
             <md-input-container flex>
