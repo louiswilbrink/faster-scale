@@ -25,6 +25,10 @@ angular.module('fasterScaleApp')
       };
 
       // Methods.
+      
+      $scope.loginCtrl.onInputFocus = function () {
+          $scope.loginCtrl.status = '';
+      };
         
       $scope.loginCtrl.signIn = function ($event) {
 
@@ -52,7 +56,12 @@ angular.module('fasterScaleApp')
 
       // Event Handlers
 
-      $scope.$on('loginFailed', function () {
-          $scope.loginCtrl.status = 'uh oh.  That user doesn\'t seem to exist';
+      $scope.$on('loginFailed', function (event, code) {
+          if (code === 'INVALID_USER') {
+              $scope.loginCtrl.status = 'uh oh.  That user doesn\'t seem to exist';
+          }
+          if (code === 'INVALID_EMAIL') {
+              $scope.loginCtrl.status = 'that isn\'t an email address';
+          }
       });
 }]);

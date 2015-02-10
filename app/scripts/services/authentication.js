@@ -116,12 +116,11 @@ angular.module('fasterScaleApp')
             email: credentials.email,
             password: credentials.password
         }).then(function (authData) { // on Successful logins..
-            console.log('logged in as:', authData.uid);
+            //console.log('logged in as:', authData.uid);
             // authObj.$onAuth will detect successful login and take the appropriate steps.
         }, function (error) { // on login error.
-            console.log('Authentication Error:', error);
-            if (error.code && error.code === "INVALID_USER") {
-                $rootScope.$broadcast('loginFailed');
+            if (error && error.code) {
+                $rootScope.$broadcast('loginFailed', error.code);
             }
         });
       },

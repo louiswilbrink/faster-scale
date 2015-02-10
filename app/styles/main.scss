@@ -27,17 +27,13 @@ p {
   color: blue;
 }
 
+/* LOGIN PAGE */
+
 .login-menu {
-  >h1 {
-      text-align: center;
-  }
   >.login-status {
       text-align: center;
       color: red;
-  }
-  md-content {
-    section {
-    }
+      padding: 16px;
   }
 }
 
