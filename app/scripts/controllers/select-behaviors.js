@@ -45,7 +45,7 @@ angular.module('fasterScaleApp')
     };
 
     var saveAfterDelay = (function () {
-        var DELAY = 1500;
+        var DELAY = 1200;
         var timer;
                 
         return function() {
@@ -74,7 +74,7 @@ angular.module('fasterScaleApp')
         FasterScale.toggleBehavior(id);
       },
 
-      onAnswerKeypress: saveAfterDelay,
+      onInputBlur: saveAfterDelay,
 
     };
 

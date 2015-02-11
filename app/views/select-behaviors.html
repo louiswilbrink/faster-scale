@@ -13,7 +13,8 @@
                     <span class="md-flex">Behaviors</span>
                 </div>
             </md-toolbar>
-            <md-button ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions"
+            <md-button style="background-color: white" 
+                ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions"
                 ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
                 ng-class="{ 'md-primary md-hue-1': !behaviorsCtrl.behaviors[behaviorDefinition.id], 
                     'md-accent': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined,
@@ -29,21 +30,21 @@
                 <label>How does this affect you? (i.e how do I act and feel?)</label>
                 <textarea ng-model="behaviorsCtrl.answers[behaviorsCtrl.stage].personalEffect"
                     auto-fill-sync
-                    ng-change="behaviorsCtrl.onAnswerKeypress()">
+                    ng-blur="behaviorsCtrl.onInputBlur()">
                 </textarea>
             </md-input-container>
             <md-input-container>
                 <label>How does it affect the important people in my life?</label>
                 <textarea ng-model="behaviorsCtrl.answers[behaviorsCtrl.stage].externalEffect"
                     auto-fill-sync
-                    ng-change="behaviorsCtrl.onAnswerKeypress()">
+                    ng-blur="behaviorsCtrl.onInputBlur()">
                 </textarea>
             </md-input-container>
             <md-input-container>
                 <label>Why do I do this? (i.e. what is the benefit for me?)</label>
                 <textarea ng-model="behaviorsCtrl.answers[behaviorsCtrl.stage].reason"
                     auto-fill-sync
-                    ng-change="behaviorsCtrl.onAnswerKeypress()">
+                    ng-blur="behaviorsCtrl.onInputBlur()">
                 </textarea>
             </md-input-container>
         </md-content>

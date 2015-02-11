@@ -226,3 +226,10 @@ p {
 .md-button.md-default-theme.md-circle-accent {
     color: rgb(35, 211, 51);
 }
+
+/* OVERRIDES of angular-material.css */
+
+/*.md-button.md-default-theme:not([disabled]):hover, */
+/*.md-button.md-default-theme:not([disabled]):focus {*/
+    /*background-color: rgba(255, 255, 255, 1);*/
+/*}*/

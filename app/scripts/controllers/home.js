@@ -11,7 +11,7 @@ angular.module('fasterScaleApp')
   .controller('HomeCtrl', function ($scope, $timeout, FasterScale, User, $location, $mdSidenav, $mdToast, $animate) {
 
     var saveAfterDelay = (function () {
-        var DELAY = 1500;
+        var DELAY = 1200;
         var timer;
                 
         return function() {
@@ -43,7 +43,7 @@ angular.module('fasterScaleApp')
        
         // Methods.
         
-        onCommitmentKeypress: saveAfterDelay,
+        onInputBlur: saveAfterDelay,
 
         selectStage : function (stageName) {
             $location.path('/stage/' + stageName + '/behaviors');
