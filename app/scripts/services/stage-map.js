@@ -10,10 +10,10 @@
 angular.module('fasterScaleApp')
     .constant('StageMap', {
         'REST': 'restoration',
-        'F': 'forgetting priorities',
+        'F': 'forgetting-priorities',
         'A': 'anxiety',
-        'S': 'speeding up',
-        'T': 'ticked off',
+        'S': 'speeding-up',
+        'T': 'ticked-off',
         'E': 'exhausted',
         'R': 'relapse'
     });

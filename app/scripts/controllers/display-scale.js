@@ -54,7 +54,6 @@ angular.module('fasterScaleApp')
 
         // If this page has already been loaded, but navigated away and then returned, trigger the necessary events to populate the scale.
         if (User.getDisplayScale()) {
-            console.log('back and forth');
             setScale();
         }
 
@@ -102,12 +101,9 @@ angular.module('fasterScaleApp')
                     }
                 });
             }
-            console.log('scale:', $scope.displayScaleCtrl.scale);
         };
 
         $scope.$on('displayScaleLoaded', function () {
-
-            console.log('$on.displayScaleLoaded');
             setScale();
         });
 
