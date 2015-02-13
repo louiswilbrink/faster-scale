@@ -49,6 +49,8 @@ angular.module('fasterScaleApp')
                 endDate: displayScale.endDate
             };
 
+            $scope.displayScaleCtrl.commitment = displayScale.commitment;
+
             populateDisplayScale(stageIds, behaviorIds, behaviorAnswers);
         };
 
@@ -123,8 +125,8 @@ angular.module('fasterScaleApp')
         /*
          * Wait for the scale properties to be loaded, then populate.
          */
-        $scope.$on('scaleLoaded', function () {
-            $scope.displayScaleCtrl.commitment = FasterScale.getCommitment();
-            $scope.displayScaleCtrl.behaviorAnswers = FasterScale.getBehaviorAnswers();
-        });
+        //$scope.$on('scaleLoaded', function () {
+            //$scope.displayScaleCtrl.commitment = FasterScale.getCommitment();
+            //$scope.displayScaleCtrl.behaviorAnswers = FasterScale.getBehaviorAnswers();
+        //});
     }]);
