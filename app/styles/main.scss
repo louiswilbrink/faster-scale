@@ -237,3 +237,13 @@ p {
 md-input-container.md-default-theme .md-input[disabled] {
     color: black;
 }
+
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label {
+    color: rgb(63,81,181);
+    font-size: 20px;
+}
+
+md-input-container.md-default-theme label, md-input-container.md-default-theme .md-placeholder {
+    color: rgb(63,81,181);
+    font-size: 20px;
+}
