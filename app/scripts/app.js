@@ -22,6 +22,15 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
+        templateUrl: 'views/landing.html',
+        controller: 'LandingCtrl',
+        resolve: {
+            authenticated: ['Authentication', function (Authentication) {
+                // Authentication service needs to initialize on first page, otherwise it causes unwanted redirects upon initialization.
+            }]
+        }
+      })
+      .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
         resolve: {

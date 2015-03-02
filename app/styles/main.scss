@@ -2,6 +2,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // bower:scss
 // endbower
 
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
+
+html {
+    font-family: 'Roboto';
+}
+
 p {
   font-size: 1.5em;
   line-height: 1.5em;
@@ -42,6 +48,26 @@ p {
         button {
             width: 100%;
             padding: 16px;
+        }
+    }
+}
+
+/* LANDING PAGE */
+
+.landing-page {
+    md-toolbar {
+        height: 600px;
+        h1 {
+            font-weight: Normal;
+            font-size: 68px;
+            margin: 0px;
+        }
+        h2 {
+            font-weight: Normal;
+        }
+        .landing-buttons > button {
+            margin-left: 10px;
+            margin-right: 10px;
         }
     }
 }

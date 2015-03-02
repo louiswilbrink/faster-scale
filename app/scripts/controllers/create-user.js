@@ -8,7 +8,7 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('CreateUserCtrl', ['$scope', '$location', 'Authentication', function ($scope, $location, Authentication) {
+  .controller('CreateUserCtrl', ['$scope', 'Authentication', function ($scope, Authentication) {
 
     $scope.createUserCtrl = {
 
