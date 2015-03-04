@@ -1,8 +1,11 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$row-height: 644px;
 // bower:scss
 // endbower
 
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
+
+@import url(http://fonts.googleapis.com/css?family=PT+Mono);
 
 html {
     font-family: 'Roboto';
@@ -56,7 +59,7 @@ p {
 
 .landing-page {
     md-toolbar {
-        height: 600px;
+        height: $row-height;
         h1 {
             font-weight: Normal;
             font-size: 68px;
@@ -68,6 +71,32 @@ p {
         .landing-buttons > button {
             margin-left: 10px;
             margin-right: 10px;
+        }
+        .beta {
+            color: white;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+    }
+    .core-beliefs {
+        height: $row-height;
+        position: relative;
+        .message {
+            padding: 100px;
+            background-color: rgb(255,64,129);
+            color: #FFFFFF;
+            font-family: 'PT Mono', Ariel, serif;
+            font-weight: 400;
+            font-size: 24px;
+            text-align: justify;
+            .emphasis {
+                color: #000000;
+            }
+        }
+        .pic {
+            background-image: url(https://s3-us-west-2.amazonaws.com/faster-scale/stairs_966x644.jpg);
+            background-position-x: 100%;
         }
     }
 }
