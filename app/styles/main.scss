@@ -1,9 +1,16 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 $row-height: 644px;
+
+$break-smallest: 320px;
+$break-small: 600px;
+$break-medium: 960px;
+$break-large: 1200px;
+$break-largest: 1201px;
+
 // bower:scss
 // endbower
 
-@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:100,200,400,700|Roboto:100,200,400,700,700italic,400italic);
 
 @import url(http://fonts.googleapis.com/css?family=PT+Mono);
 
@@ -64,9 +71,11 @@ p {
             font-weight: Normal;
             font-size: 68px;
             margin: 0px;
+            text-align: center;
         }
         h2 {
             font-weight: Normal;
+            text-align: center;
         }
         .landing-buttons > button {
             margin-left: 10px;
@@ -79,24 +88,76 @@ p {
             left: 10px;
         }
     }
+    .key-points {
+        height: $row-height;
+        padding: 50px;
+        text-align: center;
+        color: rgb(97, 97, 97);
+            @media screen and (max-width: $break-small) {
+                padding: 30px;
+            }
+        h2 {
+            font-size: 50px;
+            font-weight: 200;
+            margin-top: 0px;
+            color: rgb(97, 97, 97);
+            @media screen and (max-width: $break-small) {
+                font-size: 40px;
+            }
+            @media screen and (max-width: $break-smallest) {
+                font-size: 32px;
+            }
+        }
+        div {
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 50px;
+            max-width: 700px;
+            @media screen and (max-width: $break-small) {
+                font-size: 20px;
+                text-align: justify;
+            }
+        }
+    }
     .core-beliefs {
         height: $row-height;
         position: relative;
         .message {
             padding: 100px;
-            background-color: rgb(255,64,129);
+            background-color: rgba(45, 40, 40, 1);
             color: #FFFFFF;
             font-family: 'PT Mono', Ariel, serif;
             font-weight: 400;
             font-size: 24px;
             text-align: justify;
+            @media screen and (max-width: $break-large) {
+                padding: 60px;
+            }
+            @media screen and (max-width: $break-small) {
+                font-size: 20px;
+                padding: 30px;
+            }
+            @media screen and (max-width: $break-smallest) {
+                padding: 20px;
+            }
             .emphasis {
-                color: #000000;
+                color: #0DC8FF;
+            }
+            .attribution {
+                font-size: 16px;
+                padding-left: 50%;
+                margin-top: 30px;
+                @media screen and (max-width: $break-small) {
+                    padding-left: 10%;
+                }
             }
         }
         .pic {
             background-image: url(https://s3-us-west-2.amazonaws.com/faster-scale/stairs_966x644.jpg);
             background-position-x: 100%;
+            @media screen and (max-width: $break-small) {
+                background-position-x: 85%;
+            }
         }
     }
 }
