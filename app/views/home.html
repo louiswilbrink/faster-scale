@@ -27,6 +27,7 @@
                 <label>What problem or situation do I need to change?</label>
                 <textarea ng-model="homeCtrl.commitment.problem"
                     auto-fill-sync
+                    ng-focus="homeCtrl.onInputFocus()"
                     ng-blur="homeCtrl.onInputBlur()">
                 </textarea>
             </md-input-container>
@@ -34,6 +35,7 @@
                 <label>What will it cost me if I do change?</label>
                 <textarea ng-model="homeCtrl.commitment.choice.costToChange"
                     auto-fill-sync
+                    ng-focus="homeCtrl.onInputFocus()"
                     ng-blur="homeCtrl.onInputBlur()">
                 </textarea>
             </md-input-container>
@@ -41,6 +43,7 @@
                 <label>What will it cost me if I do *not* change</label>
                 <textarea ng-model="homeCtrl.commitment.choice.costToPreserve"
                     auto-fill-sync
+                    ng-focus="homeCtrl.onInputFocus()"
                     ng-blur="homeCtrl.onInputBlur()">
                 </textarea>
             </md-input-container>
@@ -48,6 +51,7 @@
                 <label>Which choice takes more faith?  Why?</label>
                 <textarea ng-model="homeCtrl.commitment.confrontation.faithfulChoice"
                     auto-fill-sync
+                    ng-focus="homeCtrl.onInputFocus()"
                     ng-blur="homeCtrl.onInputBlur()">
                 </textarea>
             </md-input-container>
@@ -55,6 +59,7 @@
                 <label>Which of these is the right thing to do?</label>
                 <textarea ng-model="homeCtrl.commitment.confrontation.rightChoice"
                     auto-fill-sync
+                    ng-focus="homeCtrl.onInputFocus()"
                     ng-blur="homeCtrl.onInputBlur()">
                 </textarea>
             </md-input-container>
@@ -62,6 +67,7 @@
                 <label>What is my plan this week?</label>
                 <textarea ng-model="homeCtrl.commitment.plan"
                     auto-fill-sync
+                    ng-focus="homeCtrl.onInputFocus()"
                     ng-blur="homeCtrl.onInputBlur()">
                 </textarea>
             </md-input-container>
@@ -69,11 +75,12 @@
                 <label>What two men have I asked to keep me accountable this week?</label>
                 <textarea ng-model="homeCtrl.commitment.accountabilityPartners"
                     auto-fill-sync
+                    ng-focus="homeCtrl.onInputFocus()"
                     ng-blur="homeCtrl.onInputBlur()">
                 </textarea>
             </md-input-container>
         </md-content>
-        <menu-button></menu-button>
+        <menu-button ng-if="true"></menu-button>
         <fs-side-nav></fs-side-nav>
     </div>
 </div>

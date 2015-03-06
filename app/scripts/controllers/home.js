@@ -45,6 +45,10 @@ angular.module('fasterScaleApp')
         
         onInputBlur: saveAfterDelay,
 
+        onInputFocus: function () {
+            console.log('louis');
+        },
+
         selectStage : function (stageName) {
             $location.path('/stage/' + stageName + '/behaviors');
         }

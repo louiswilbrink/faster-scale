@@ -36,7 +36,7 @@ angular.module('fasterScaleApp')
 
                 // If coming from the login page, navigate to the home page after authentication.
                 // If user is currently on an internal page and successful authenticated, stay on current page.
-                if ($location.path() === '/') {
+                if ($location.path() === '/login') {
                     $location.path('/home');
                 }
             }
