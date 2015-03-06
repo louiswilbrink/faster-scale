@@ -191,9 +191,11 @@ p {
             right: 10px;
             bottom: 10px;
             line-height: 50px;
-            /*@media screen and (max-width: $break-small) {*/
-                /*display: none;*/
-            /*}*/
+        }
+        .hide {
+            @media screen and (max-width: $break-small) {
+                bottom: -60px;
+            }
         }
     }
 }

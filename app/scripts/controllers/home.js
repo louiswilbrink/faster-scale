@@ -40,13 +40,18 @@ angular.module('fasterScaleApp')
         stages: FasterScale.getStagesRef(),
 
         commitment: FasterScale.getCommitment(),
+
+        isInputFocused: false,
        
         // Methods.
         
-        onInputBlur: saveAfterDelay,
+        onInputBlur: function () {
+          saveAfterDelay();
+          this.isInputFocused = false;
+        },
 
         onInputFocus: function () {
-            console.log('louis');
+            this.isInputFocused = true;
         },
 
         selectStage : function (stageName) {

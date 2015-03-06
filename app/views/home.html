@@ -80,7 +80,7 @@
                 </textarea>
             </md-input-container>
         </md-content>
-        <menu-button ng-if="true"></menu-button>
+        <menu-button ng-class="{ 'hide' : homeCtrl.isInputFocused }"></menu-button>
         <fs-side-nav></fs-side-nav>
     </div>
 </div>
