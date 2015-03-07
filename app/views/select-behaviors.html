@@ -14,10 +14,10 @@
                 </div>
             </md-toolbar>
             <md-button style="background-color: white" 
+                class="md-primary md-hue-1"
                 ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions"
                 ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
-                ng-class="{ 'md-primary md-hue-1': !behaviorsCtrl.behaviors[behaviorDefinition.id], 
-                    'md-accent': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined,
+                ng-class="{ 'underline': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined,
                     'md-circle-accent':  behaviorsCtrl.behaviors[behaviorDefinition.id].isCircled }">
                 {{ behaviorDefinition.description }}
             </md-button>
