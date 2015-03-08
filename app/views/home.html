@@ -5,6 +5,9 @@
                 <h3>
                     <span>FASTER Scale</span>
                 </h3>
+                <md-button ng-click="homeCtrl.toggleMenu()" class="menu-button">
+                    <md-icon icon="https://s3-us-west-2.amazonaws.com/faster-scale/icons/ic_menu_wht_24dp.png" style="width: 24px; height: 24px;"></md-icon>
+                </md-button>
             </div>
         </md-toolbar>
         <md-content>
@@ -80,7 +83,6 @@
                 </textarea>
             </md-input-container>
         </md-content>
-        <menu-button ng-class="{ 'hide' : homeCtrl.isInputFocused }"></menu-button>
         <fs-side-nav></fs-side-nav>
     </div>
 </div>

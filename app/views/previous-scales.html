@@ -5,6 +5,9 @@
                 <h3>
                     <span>Previous Scales</span>
                 </h3>
+                <md-button ng-click="previousScalesCtrl.toggleMenu()" class="menu-button">
+                    <md-icon icon="https://s3-us-west-2.amazonaws.com/faster-scale/icons/ic_menu_wht_24dp.png" style="width: 24px; height: 24px;"></md-icon>
+                </md-button>
             </div>
         </md-toolbar>
         <md-content>
@@ -12,8 +15,6 @@
               {{ scale.startDate | date : 'MMMM d' }} to {{ scale.endDate | date : 'MMMM d' }}
             </md-button>
         </md-content>
-        <back-button></back-button>
-        <menu-button></menu-button>
         <fs-side-nav></fs-side-nav>
     </div>
 </div>

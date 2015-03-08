@@ -5,6 +5,9 @@
                 <h3>
                   <span class="stage-name">{{ behaviorsCtrl.stage | removeDashes}}</span>
                 </h3>
+                <md-button ng-click="behaviorsCtrl.toggleMenu()" class="menu-button">
+                    <md-icon icon="https://s3-us-west-2.amazonaws.com/faster-scale/icons/ic_menu_wht_24dp.png" style="width: 24px; height: 24px;"></md-icon>
+                </md-button>
             </div>
         </md-toolbar>
         <md-content>
@@ -17,9 +20,11 @@
                 class="md-primary md-hue-1"
                 ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions"
                 ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
-                ng-class="{ 'underline': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined,
-                    'md-circle-accent':  behaviorsCtrl.behaviors[behaviorDefinition.id].isCircled }">
-                {{ behaviorDefinition.description }}
+                ng-class="{ 'underline': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined }">
+                    <div class="behavior-text"
+                        ng-class="{ 'md-circle-accent': behaviorsCtrl.behaviors[behaviorDefinition.id].isCircled }">
+                        {{ behaviorDefinition.description }}
+                    </div>
             </md-button>
             <md-toolbar class="md-accent">
                 <div class="md-toolbar-tools">
@@ -48,8 +53,6 @@
                 </textarea>
             </md-input-container>
         </md-content>
-        <back-button></back-button>
-        <menu-button></menu-button>
         <fs-side-nav></fs-side-nav>
     </div>
 </div>

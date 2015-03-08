@@ -15,6 +15,7 @@ angular.module('fasterScaleApp')
       '$routeParams',
       '$location', 
       '$mdToast',
+      '$mdSidenav',
       'User', function ($scope, 
       FasterScale, 
       FasterScaleDefinition, 
@@ -22,6 +23,7 @@ angular.module('fasterScaleApp')
       $routeParams, 
       $location, 
       $mdToast,
+      $mdSidenav,
       User) {
 
     var getBehaviorDefinitions = function (stage) {
@@ -76,6 +78,9 @@ angular.module('fasterScaleApp')
 
       onInputBlur: saveAfterDelay,
 
+      toggleMenu: function () {
+          $mdSidenav('left').toggle();
+      }
     };
 
     // Event-handlers.

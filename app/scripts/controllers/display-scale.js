@@ -15,13 +15,15 @@ angular.module('fasterScaleApp')
         'User', 
         'FasterScaleDefinition',
         'StageMap',
+        '$mdSidenav',
     function (
         $scope, 
         $routeParams,
         FasterScale, 
         User, 
         FasterScaleDefinition,
-        StageMap) {
+        StageMap,
+        $mdSidenav) {
 
         $scope.displayScaleCtrl = {
           
@@ -33,7 +35,11 @@ angular.module('fasterScaleApp')
 
             behaviorAnswers: null,
 
-            fasterScaleDefinition: FasterScaleDefinition
+            fasterScaleDefinition: FasterScaleDefinition,
+
+            toggleMenu: function () {
+                $mdSidenav('left').toggle();
+            }
         };
 
         var setScale = function () {

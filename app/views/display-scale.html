@@ -3,11 +3,11 @@
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h3>
-                    <span>FASTER Scale</span>
+                    <span>{{ displayScaleCtrl.dateRange.startDate | date : 'MMMM d'}} to {{ displayScaleCtrl.dateRange.endDate | date : 'MMMM d'}}</span>
                 </h3>
-                <h3>
-                    <span class="date-range">{{ displayScaleCtrl.dateRange.startDate | date : 'MMMM d'}} to {{ displayScaleCtrl.dateRange.endDate | date : 'MMMM d'}}</span>
-                </h3>
+                <md-button ng-click="displayScaleCtrl.toggleMenu()" class="menu-button">
+                    <md-icon icon="https://s3-us-west-2.amazonaws.com/faster-scale/icons/ic_menu_wht_24dp.png" style="width: 24px; height: 24px;"></md-icon>
+                </md-button>
             </div>
         </md-toolbar>
         <md-content>
@@ -80,8 +80,6 @@
                 </md-input-container>
             </md-content>
         </md-content>
-        <back-button></back-button>
-        <menu-button></menu-button>
         <fs-side-nav></fs-side-nav>
     </div>
 </div>

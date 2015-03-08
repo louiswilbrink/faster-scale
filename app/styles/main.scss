@@ -175,6 +175,12 @@ p {
         >h1 {
             text-align: center;
         }
+        >md-toolbar >.md-toolbar-tools > .menu-button {
+            margin-left: auto;
+            >md-icon {
+                margin-top: 0px;
+            }
+        }
         >md-content {
             >button {
                 width: 100%;
@@ -217,11 +223,20 @@ p {
             text-align: center;
             text-transform: capitalize;
         }
+        >md-toolbar >.md-toolbar-tools > .menu-button {
+            margin-left: auto;
+            >md-icon {
+                margin-top: 0px;
+            }
+        }
         >md-content {
             >button {
                 width: 100%;
                 padding: 16px;
                 white-space: normal;
+                >.behavior-text {
+                    padding: 10px;
+                }
             }
             >md-input-container {
                 width: 100%;
@@ -268,6 +283,12 @@ p {
             text-align: center;
             text-transform: capitalize;
         }
+        >md-toolbar >.md-toolbar-tools > .menu-button {
+            margin-left: auto;
+            >md-icon {
+                margin-top: 0px;
+            }
+        }
         >md-content {
             >button {
                 display: block;
@@ -303,6 +324,12 @@ p {
         overflow-y: scroll;
         h1, h2, h4, p, .minor-behaviors {
             text-align: center;
+        }
+        >md-toolbar >.md-toolbar-tools > .menu-button {
+            margin-left: auto;
+            >md-icon {
+                margin-top: 0px;
+            }
         }
         .major-behaviors {
             color: rgba(0,0,0,0.54);
@@ -340,16 +367,17 @@ p {
 
 /* Extending angular-material.css */
 
-.md-button.md-default-theme.md-accent {
-    text-decoration: underline;
-}
+/*.md-button.md-default-theme.md-accent {*/
+    /*text-decoration: underline;*/
+/*}*/
 
 .md-button.md-default-theme.md-hue-1.underline {
     text-decoration: underline;
 }
 
-.md-button.md-default-theme.md-circle-accent {
-    font-weight: 700;
+.md-circle-accent {
+    border: 3px solid black;
+    border-radius: 25px;
 }
 
 /* OVERRIDES of angular-material.css */

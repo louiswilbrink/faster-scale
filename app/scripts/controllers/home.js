@@ -8,7 +8,21 @@
  * Controller of the fasterScaleApp
  */
 angular.module('fasterScaleApp')
-  .controller('HomeCtrl', function ($scope, $timeout, FasterScale, User, $location, $mdSidenav, $mdToast, $animate) {
+  .controller('HomeCtrl', ['$scope',
+    '$timeout',
+    'FasterScale',
+    'User',
+    '$location',
+    '$mdSidenav',
+    '$mdToast',
+    '$animate', function ($scope, 
+    $timeout, 
+    FasterScale, 
+    User, 
+    $location, 
+    $mdSidenav, 
+    $mdToast, 
+    $animate) {
 
     var saveAfterDelay = (function () {
         var DELAY = 1200;
@@ -31,6 +45,7 @@ angular.module('fasterScaleApp')
 
             console.log('viewPreviousScales');
         },
+
         toggleMenu: function () {
             $mdSidenav('left').toggle();
         },
@@ -77,5 +92,5 @@ angular.module('fasterScaleApp')
         $scope.homeCtrl.stages = FasterScale.getStagesRef();
         $scope.homeCtrl.commitment = FasterScale.getCommitment();
     });
-});
+}]);
 

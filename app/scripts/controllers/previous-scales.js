@@ -12,10 +12,12 @@ angular.module('fasterScaleApp')
       '$location',
       'FasterScale',
       'User',
+      '$mdSidenav',
       function ($scope, 
       $location,
       FasterScale, 
-      User) {
+      User,
+      $mdSidenav) {
 
       $scope.previousScalesCtrl = {
 
@@ -29,6 +31,10 @@ angular.module('fasterScaleApp')
           deleteScale: function (event, scaleIndex) { 
             event.stopPropagation();
             User.deleteScale(scaleIndex);
+          },
+
+          toggleMenu: function () {
+              $mdSidenav('left').toggle();
           }
       };
 
