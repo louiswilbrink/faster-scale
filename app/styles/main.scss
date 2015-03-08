@@ -62,9 +62,6 @@ p {
     }
 }
 
-.underline {
-}
-
 /* LANDING PAGE */
 
 .landing-page {
@@ -347,8 +344,12 @@ p {
     text-decoration: underline;
 }
 
+.md-button.md-default-theme.md-hue-1.underline {
+    text-decoration: underline;
+}
+
 .md-button.md-default-theme.md-circle-accent {
-    color: rgb(35, 211, 51);
+    font-weight: 700;
 }
 
 /* OVERRIDES of angular-material.css */
