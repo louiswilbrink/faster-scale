@@ -115,7 +115,7 @@ angular.module('fasterScaleApp')
             //console.log('behaviors loaded', behaviors);
         });
 
-        behaviors.$watch(calculateStage);
+        //behaviors.$watch(calculateStage);
     }
 
     function loadBehaviorAnswers (scaleId) {
@@ -202,6 +202,8 @@ angular.module('fasterScaleApp')
        */
       toggleBehavior: function (id) {
 
+          console.log('id', id);
+
           // If the behavior is already part of the list, check if it's in the underlined or circled state.
           if (behaviors[id]) {
 
@@ -220,9 +222,20 @@ angular.module('fasterScaleApp')
                   // Save the scale with it's new endDate.
                   // Then save the newly circled behavior
                   // and recalculate stages.
-                  scale.$save().then(behaviors.$save.bind(behaviors)).then(calculateStage);
-
-                  console.log('circling behavior:', id);
+                  scale.$save()
+                      .then(function () {
+                          console.log('Save Scale: successful!');
+                          console.log('circling behavior:', id);
+                          behaviors.$save()
+                              .then(function () {
+                                  console.log('Save Behavior: successful!');
+                              }, function (error) {
+                                  console.error('Error saving behaviors:', error);
+                              });
+                      }, function (error) {
+                          console.error('Error saving scale:', error);  
+                      })
+                      .then(calculateStage);
               }
               // If this behavior has already been "circled", delete the behavior.
               else if (behaviors[id].isCircled === true) {
@@ -254,7 +267,8 @@ angular.module('fasterScaleApp')
 
               // First save the endDate change, then save the child nodes (behavior).
               // Saving at the same time can undo the intended behavior.
-              scale.$save().then(function () {
+              scale.$save()
+                  .then(function () {
 
                   // Add behavior to this scale.
                   behaviors[id] = { 
@@ -263,14 +277,25 @@ angular.module('fasterScaleApp')
                     date: now 
                   };
 
-                  behaviors.$save().then(calculateStage);
-
-                  console.log('underlining behavior:', id);
-              });
+                  behaviors.$save()
+                      .then(function () {
+                          calculateStage(),
+                          console.log('Behaviors Saved Successfully!');
+                          console.log('underlined behavior');
+                      }, 
+                      function (error) {
+                          console.log('error saving behavior', error);
+                      });
+                  }, 
+                  function (error) { 
+                      console.log('error saving behavior endDate:', error); 
+                  });
           }
 
           $rootScope.$broadcast('BehaviorsUpdated');
       }, 
+
+      behaviors: behaviors,
 
       getBehaviors: function () {
 

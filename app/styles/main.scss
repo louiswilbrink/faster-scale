@@ -230,6 +230,14 @@ p {
             }
         }
         >md-content {
+            >.behavior-buttons >button {
+                width: 100%;
+                padding: 16px;
+                white-space: normal;
+                >.behavior-text {
+                    padding: 10px;
+                }
+            }
             >button {
                 width: 100%;
                 padding: 16px;
@@ -335,7 +343,7 @@ p {
             color: rgba(0,0,0,0.54);
         }
         .minor-behaviors {
-            color: rgba(0,0,0,0.26);
+            color: rgba(117, 117, 117, 1);
             font-size: 12px;
             margin: 0.83em 0;
         }
@@ -376,7 +384,7 @@ p {
 }
 
 .md-circle-accent {
-    border: 3px solid black;
+    border: 3px solid rgb(255,64,129);
     border-radius: 25px;
 }
 

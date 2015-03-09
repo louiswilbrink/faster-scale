@@ -16,16 +16,20 @@
                     <span class="md-flex">Behaviors</span>
                 </div>
             </md-toolbar>
-            <md-button style="background-color: white" 
-                class="md-primary md-hue-1"
-                ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions"
-                ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
-                ng-class="{ 'underline': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined }">
-                    <div class="behavior-text"
-                        ng-class="{ 'md-circle-accent': behaviorsCtrl.behaviors[behaviorDefinition.id].isCircled }">
-                        {{ behaviorDefinition.description }}
-                    </div>
-            </md-button>
+            <div class="behavior-buttons" ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions">
+                <md-button style="background-color: white" 
+                    class="md-primary md-hue-1"
+                    ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
+                    ng-class="{ 'underline': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined }">
+                        <div class="behavior-text"
+                            ng-class="{ 'md-circle-accent': behaviorsCtrl.behaviors[behaviorDefinition.id].isCircled }">
+                            {{ behaviorDefinition.description }}
+                        </div>
+                </md-button>
+                <div>
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
+            </div>
             <md-toolbar class="md-accent">
                 <div class="md-toolbar-tools">
                     <span class="md-flex">Questions</span>
