@@ -17,18 +17,20 @@
                 </div>
             </md-toolbar>
             <div class="behavior-buttons" ng-repeat="behaviorDefinition in behaviorsCtrl.behaviorDefinitions">
-                <md-button style="background-color: white" 
+                <md-button style="background-color: white; height: 95px;" 
                     class="md-primary md-hue-1"
-                    ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id)" 
-                    ng-class="{ 'underline': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined }">
+                    ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id, $index)">
                         <div class="behavior-text"
-                            ng-class="{ 'md-circle-accent': behaviorsCtrl.behaviors[behaviorDefinition.id].isCircled }">
-                            {{ behaviorDefinition.description }}
+                            ng-if="!behaviorDefinition.isSaving"
+                            ng-class="{ 'md-circle-accent': behaviorsCtrl.behaviors[behaviorDefinition.id].isCircled,
+                                'underline': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined }">
+                                {{ behaviorDefinition.description }}
+                        </div>
+                        <div class="saving-text" ng-show="behaviorDefinition.isSaving">
+                            <div>Saving</div>
+                            <md-progress-linear md-mode="indeterminate" class="progress-circular"></md-progress-linear>
                         </div>
                 </md-button>
-                <div>
-                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-                </div>
             </div>
             <md-toolbar class="md-accent">
                 <div class="md-toolbar-tools">

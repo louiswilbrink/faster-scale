@@ -229,6 +229,7 @@ angular.module('fasterScaleApp')
                           behaviors.$save()
                               .then(function () {
                                   console.log('Save Behavior: successful!');
+                                  $rootScope.$broadcast('BehaviorsUpdated');
                               }, function (error) {
                                   console.error('Error saving behaviors:', error);
                               });
@@ -253,9 +254,21 @@ angular.module('fasterScaleApp')
                   // Save the scale with it's new endDate.
                   // Then save the removed behavior
                   // and recalculate stages.
-                  scale.$save().then(behaviors.$save.bind(behaviors)).then(calculateStage);
-
-                  console.log('removing behavior', id);
+                  scale.$save()
+                      .then(function () {
+                          console.log('Save Scale: successful!');
+                          console.log('circling behavior:', id);
+                          behaviors.$save()
+                              .then(function () {
+                                  console.log('Save Behavior: successful!');
+                                  $rootScope.$broadcast('BehaviorsUpdated');
+                              }, function (error) {
+                                  console.error('Error saving behaviors:', error);
+                              })
+                      }, function (error) {
+                          console.error('Error saving scale:', error);  
+                      })
+                      .then(calculateStage);
               }
           }
           else {
@@ -280,9 +293,10 @@ angular.module('fasterScaleApp')
                   behaviors.$save()
                       .then(function () {
                           calculateStage(),
-                          console.log('Behaviors Saved Successfully!');
                           console.log('underlined behavior');
-                      }, 
+                          console.log('Behaviors Saved Successfully!');
+                          $rootScope.$broadcast('BehaviorsUpdated');
+                      },
                       function (error) {
                           console.log('error saving behavior', error);
                       });
@@ -291,8 +305,6 @@ angular.module('fasterScaleApp')
                       console.log('error saving behavior endDate:', error); 
                   });
           }
-
-          $rootScope.$broadcast('BehaviorsUpdated');
       }, 
 
       behaviors: behaviors,

@@ -34,6 +34,10 @@ angular.module('fasterScaleApp')
         angular.forEach(FasterScaleDefinition, function (stageDefinition) {
             if (stageDefinition.name.toLowerCase() === stage) {
                 behaviorDefinitions = stageDefinition.behaviors;
+                // Add save progress flag.
+                angular.forEach(behaviorDefinitions, function (behaviorDefinition) {
+                    behaviorDefinition.isSaving = false;
+                });
             }
         });
 
@@ -71,8 +75,11 @@ angular.module('fasterScaleApp')
 
       // Methods.
 
-      toggleBehavior: function (id) {
-        
+      toggleBehavior: function (id, index) {
+
+        // Toggle save progress flag to show progress circular graphic.
+        this.behaviorDefinitions[index].isSaving = !this.behaviorDefinitions[index].isSaving;
+
         FasterScale.toggleBehavior(id);
       },
 
@@ -94,6 +101,12 @@ angular.module('fasterScaleApp')
 
     // Update when behavior has been toggled on the database.
     $scope.$on('BehaviorsUpdated', function () {
+        
+        // Turn all saving progress circles off.
+        angular.forEach($scope.behaviorsCtrl.behaviorDefinitions, function (behaviorDefinition) {
+            behaviorDefinition.isSaving = false;
+        });
+        
         $scope.behaviorsCtrl.behaviors = FasterScale.getBehaviors();
     });
 
