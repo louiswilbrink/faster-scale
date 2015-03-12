@@ -239,10 +239,30 @@ p {
                     >.behavior-text {
                         padding: 10px;
                     }
-                    >.saving-text {
+                    >.underline {
+                        text-decoration: underline;
+                    }
+                    .circle {
+                        border: 3px solid rgb(255,64,129);
+                        border-radius: 25px;
+                    }
+                    >.saving-container {
                         font-size: 24px;
-                        >.progress-circular {
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        right: 0px;
+                        bottom: 0px;
+                        background-color: white;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        >.saving-contents {
                             width: 100%;
+                            >.progress-linear {
+                                width: 100%;
+                                display: block;
+                            }
                         }
                     }
                 }
@@ -375,19 +395,6 @@ p {
 }
 
 /* Extending angular-material.css */
-
-/*.md-button.md-default-theme.md-accent {*/
-    /*text-decoration: underline;*/
-/*}*/
-
-.md-button.md-default-theme.md-hue-1.underline {
-    text-decoration: underline;
-}
-
-.md-circle-accent {
-    border: 3px solid rgb(255,64,129);
-    border-radius: 25px;
-}
 
 /* OVERRIDES of angular-material.css */
 

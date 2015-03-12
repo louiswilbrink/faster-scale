@@ -21,14 +21,15 @@
                     class="md-primary md-hue-1"
                     ng-click="behaviorsCtrl.toggleBehavior(behaviorDefinition.id, $index)">
                         <div class="behavior-text"
-                            ng-if="!behaviorDefinition.isSaving"
-                            ng-class="{ 'md-circle-accent': behaviorsCtrl.behaviors[behaviorDefinition.id].isCircled,
+                            ng-class="{ 'circle': behaviorsCtrl.behaviors[behaviorDefinition.id].isCircled,
                                 'underline': behaviorsCtrl.behaviors[behaviorDefinition.id].isUnderlined }">
                                 {{ behaviorDefinition.description }}
                         </div>
-                        <div class="saving-text" ng-show="behaviorDefinition.isSaving">
-                            <div>Saving</div>
-                            <md-progress-linear md-mode="indeterminate" class="progress-circular"></md-progress-linear>
+                        <div class="saving-container" ng-show="behaviorDefinition.isSaving">
+                            <div class="saving-contents">
+                                <div>Saving</div>
+                                <md-progress-linear md-mode="indeterminate" class="progress-linear"></md-progress-linear>
+                            </div>
                         </div>
                 </md-button>
             </div>
